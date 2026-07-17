@@ -1,0 +1,392 @@
+/**
+ * ============================================================
+ *  PLP PAGINATION — Lustra Reusable Component Stylesheet
+ *  File:     scss/sections/shop/_plp-pagination.scss
+ *  Purpose:  Luxury visual layouts for product listing pagination.
+ *            Supports traditional pages, Load More track systems,
+ *            and infinite sentinel loaders.
+ *  Spec Ref: 15_SCSS_Architecture, 07_Design_Tokens,
+ *            10_Responsive_Guidelines, 11_Accessibility_Guidelines
+ * ============================================================
+ */
+
+.c-plp-pagination {
+  width: 100%;
+  padding: rem(64) 0;
+  background-color: $color-pure-white;
+  @include flex-center;
+  flex-direction: column;
+  user-select: none;
+
+  @include respond-to(mobile) {
+    padding: rem(40) 0;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: $width-narrow;
+    @include flex-center;
+    flex-direction: column;
+    gap: rem(24);
+
+    @include respond-to(tablet) {
+      max-width: 100%;
+      padding: 0 rem(24);
+    }
+  }
+
+  // 1. Result Summary Text
+  &__summary {
+    font-family: $font-family-body;
+    font-size: rem(13);
+    color: $color-neutral-600;
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: rem(8);
+
+    .u-font-weight-600 {
+      font-weight: 600;
+      color: $color-dark-charcoal;
+    }
+  }
+
+  // 2. Hide / Show panels based on active pagination mode attribute
+  &__traditional,
+  &__load-more,
+  &__sentinel {
+    display: none;
+    width: 100%;
+  }
+
+  // Mode Traditional triggers
+  [data-pagination-mode="traditional"] & {
+    &__traditional {
+      @include flex-center;
+      gap: rem(8);
+    }
+  }
+
+  // Mode Load More triggers
+  [data-pagination-mode="load-more"] & {
+    &__load-more {
+      @include flex-center;
+      flex-direction: column;
+      gap: rem(24);
+    }
+  }
+
+  // Mode Infinite Scroll triggers
+  [data-pagination-mode="infinite-scroll"] & {
+    &__sentinel {
+      @include flex-center;
+    }
+  }
+
+  // 3. Traditional Pagination Elements
+  &__numbers {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(6);
+
+    @include respond-to(mobile) {
+      display: none; // hide numbers list on mobile screen sizes
+    }
+  }
+
+  &__nav-btn,
+  &__num-btn {
+    width: rem(44);
+    height: rem(44);
+    border-radius: $radius-circle;
+    background-color: transparent;
+    border: 1px solid rgba($color-gray-line, 0.8);
+    color: $color-dark-charcoal;
+    font-family: $font-family-body;
+    font-size: rem(13);
+    font-weight: 500;
+    cursor: pointer;
+    @include flex-center;
+    transition: $transition-ease-fast;
+
+    &:hover:not(:disabled) {
+      color: $color-primary-gold;
+      border-color: $color-primary-gold;
+      background-color: $color-cream-tint;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: rgba($color-gray-line, 0.4);
+    }
+  }
+
+  &__num-btn {
+    border-color: transparent;
+
+    &.is-active {
+      background-color: $color-dark-charcoal;
+      border-color: $color-dark-charcoal;
+      color: $color-pure-white;
+      font-weight: 700;
+
+      &:hover {
+        background-color: $color-dark-charcoal;
+        color: $color-pure-white;
+        border-color: $color-dark-charcoal;
+      }
+    }
+  }
+
+  &__ellipsis {
+    width: rem(36);
+    text-align: center;
+    color: $color-neutral-400;
+    font-size: rem(13);
+    letter-spacing: 0.1em;
+  }
+
+  // 4. Load More Progress components
+  &__progress {
+    width: 100%;
+    max-width: rem(300);
+    @include flex-center;
+    flex-direction: column;
+    gap: rem(8);
+  }
+
+  &__progress-text {
+    font-family: $font-family-body;
+    font-size: rem(11);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: $color-neutral-600;
+  }
+
+  &__progress-bar-wrap {
+    width: 100%;
+    height: 3px;
+    background-color: $color-gray-line;
+    border-radius: $radius-pill;
+    overflow: hidden;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, $color-primary-gold 0%, $color-primary-gold-hover 100%);
+    border-radius: $radius-pill;
+    transition: width 0.5s $easing-default;
+    will-change: width;
+  }
+
+  &__load-more-btn {
+    min-width: rem(220);
+    height: rem(52);
+    position: relative;
+
+    &.is-loading {
+      color: transparent !important;
+
+      .c-plp-pagination__btn-spinner {
+        display: block;
+      }
+    }
+  }
+
+  &__btn-spinner {
+    display: none;
+    position: absolute;
+    top: calc(50% - #{rem(9)});
+    left: calc(50% - #{rem(9)});
+    width: rem(18);
+    height: rem(18);
+    border: 2px solid rgba($color-pure-white, 0.3);
+    border-top-color: $color-pure-white;
+    border-radius: 50%;
+    animation: pag-spinner 0.6s linear infinite;
+  }
+
+  // 5. Sentinel loader configurations
+  &__sentinel {
+    padding: rem(24) 0;
+  }
+
+  &__infinite-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(12);
+  }
+
+  &__infinite-indicator {
+    width: rem(20);
+    height: rem(20);
+    border: 2px solid rgba($color-primary-gold, 0.2);
+    border-top-color: $color-primary-gold;
+    border-radius: 50%;
+    animation: pag-spinner 0.6s linear infinite;
+  }
+
+  &__infinite-text {
+    font-family: $font-family-body;
+    font-size: rem(12);
+    font-weight: 500;
+    color: $color-neutral-600;
+    letter-spacing: 0.05em;
+  }
+
+  // 6. Inline Dynamic States (Empty & Error Layout panels)
+  &__state {
+    display: none;
+    width: 100%;
+    text-align: center;
+    @include flex-center;
+    flex-direction: column;
+    padding: rem(40) rem(24);
+    background-color: $color-cream-tint;
+    border: 1px solid rgba($color-gray-line, 0.4);
+    border-radius: $radius-lg;
+
+    &[aria-hidden="false"] {
+      display: flex;
+    }
+
+    &-title {
+      font-family: $font-family-display;
+      font-size: rem(24);
+      color: $color-dark-charcoal;
+      margin: rem(16) 0 rem(8) 0;
+      font-weight: 500;
+
+      &.u-color-ruby {
+        color: $color-warn-red;
+      }
+    }
+
+    &-desc {
+      font-size: rem(13);
+      line-height: 1.6;
+      color: $color-neutral-600;
+      max-width: rem(360);
+      margin: 0 auto rem(24) auto;
+    }
+
+    &-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: rem(12);
+
+      @include respond-to(mobile) {
+        flex-direction: column;
+        width: 100%;
+        
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+
+    &--empty {
+      // Empty specific tweaks
+    }
+
+    &--error {
+      // Error specific tweaks
+    }
+  }
+
+  &__illustration {
+    color: $color-primary-gold;
+  }
+
+  &__support-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: rem(12);
+    color: $color-neutral-600;
+    text-decoration: underline;
+    height: rem(44); // accessibility touch target
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-primary-gold;
+    }
+  }
+}
+
+// 7. Floating Back To Top button widget (spec §13)
+.c-back-to-top {
+  position: fixed;
+  bottom: rem(32);
+  right: rem(32);
+  width: rem(48);
+  height: rem(48);
+  border-radius: $radius-circle;
+  background-color: rgba($color-pure-white, 0.95);
+  border: 1px solid $color-gray-line;
+  color: $color-dark-charcoal;
+  cursor: pointer;
+  z-index: var(--z-index-sticky, 100);
+  box-shadow: $shadow-md;
+  backdrop-filter: blur(4px);
+  @include flex-center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(rem(16));
+  transition: opacity var(--transition-normal, 300ms) var(--ease-premium, cubic-bezier(0.25, 1, 0.5, 1)),
+              transform var(--transition-normal, 300ms) var(--ease-premium, cubic-bezier(0.25, 1, 0.5, 1)),
+              background-color var(--transition-fast, 150ms),
+              color var(--transition-fast, 150ms),
+              border-color var(--transition-fast, 150ms);
+  will-change: transform, opacity;
+
+  svg {
+    color: $color-neutral-600;
+    transition: color 0.15s;
+  }
+
+  &:hover {
+    background-color: $color-dark-charcoal;
+    color: $color-pure-white;
+    border-color: $color-dark-charcoal;
+    transform: translateY(rem(-2));
+
+    svg {
+      color: $color-primary-gold;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  @include respond-to(mobile) {
+    bottom: rem(20);
+    right: rem(20);
+    width: rem(44);
+    height: rem(44);
+  }
+}
+
+// Spinner animation keyframe
+@keyframes pag-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

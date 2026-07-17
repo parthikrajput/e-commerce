@@ -1,0 +1,405 @@
+// Virtual Try-On Section layout styling rules
+.c-tryon {
+  background-color: var(--color-cream-tint);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left column content
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to(tablet) {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+    max-width: 520px;
+  }
+
+  &__benefits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    width: 100%;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      gap: var(--spacing-sm);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Left side benefit card rows
+.c-tryon-benefit {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+
+  @include respond-to(tablet) {
+    text-align: left;
+  }
+
+  &__icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-pure-white);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary-gold);
+    border: 1px solid var(--color-gray-line);
+    flex-shrink: 0;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    margin-bottom: 2px;
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+}
+
+// Right column AR Simulator Device Mockup
+.c-tryon-chrome {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(233, 231, 226, 0.5);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include respond-to(mobile) {
+    padding: var(--spacing-xs);
+  }
+
+  &__viewport {
+    position: relative;
+    padding-top: 110%; // Portrait simulation feed screen
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-dark-charcoal);
+    box-shadow: var(--shadow-inner);
+  }
+
+  &__video-mock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/><path d="M50 0v100M0 50h100" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
+    background-color: #212121;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 2;
+    }
+  }
+
+  // Scanning Axis Line loops
+  &__scanning-axis {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--color-primary-gold);
+    box-shadow: 0 0 8px var(--color-primary-gold);
+    z-index: 3;
+    animation: scanner-loop 3.5s infinite linear;
+  }
+
+  // Camera overlays
+  &__overlay-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    z-index: 4;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+  }
+
+  &__shutter-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-pure-white);
+    opacity: 0;
+    z-index: 20;
+    pointer-events: none;
+
+    &.is-flashing {
+      animation: shutter-flash-animation 0.3s ease-out;
+    }
+  }
+
+  &__radar {
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    background: rgba(26, 26, 26, 0.7);
+    color: var(--color-pure-white);
+    padding: 6px var(--spacing-xs);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__radar-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-primary-gold);
+    animation: signal-glow 1.5s infinite ease-in-out;
+  }
+
+  // Controls slider panels
+  .c-tryon-controls {
+    position: absolute;
+    bottom: var(--spacing-sm);
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(6px);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    &__row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: center;
+    }
+
+    &__label {
+      font-family: var(--font-family-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--color-neutral-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    &__slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 2px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-neutral-600);
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: var(--radius-circle);
+        background-color: var(--color-primary-gold);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+
+  // Chrome bottom actions bar styling
+  &__actions {
+    display: grid;
+    grid-template-columns: auto 1px 1fr;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    padding: 0 var(--spacing-xs);
+
+    &-divider {
+      background-color: var(--color-gray-line);
+      width: 1px;
+      height: 24px;
+    }
+  }
+}
+
+// Side capture button styles
+.c-tryon-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-family: var(--font-family-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-dark-charcoal);
+  cursor: pointer;
+  padding: var(--spacing-xs) 0;
+  transition: color 0.25s ease;
+
+  .c-icon {
+    color: var(--color-primary-gold);
+  }
+
+  &:hover {
+    color: var(--color-primary-gold);
+  }
+}
+
+// Product Selector inside Simulator
+.c-tryon-selector {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--spacing-2xs);
+  scrollbar-width: none; // Hide SCROLL scrollbar metrics on Firefox
+  
+  &::-webkit-scrollbar {
+    display: none; // Safari/Chrome SCROLL overrides
+  }
+
+  &__item {
+    background: none;
+    border: 1px solid var(--color-gray-line);
+    padding: 6px var(--spacing-sm);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-neutral-600);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      border-color: var(--color-primary-gold);
+      color: var(--color-dark-charcoal);
+    }
+
+    &.is-active {
+      background-color: var(--color-dark-charcoal);
+      border-color: var(--color-dark-charcoal);
+      color: var(--color-pure-white);
+    }
+  }
+}
+
+// Experience steps customization
+.c-journey--tryon {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--spacing-sm);
+
+  .c-journey__step {
+    font-size: 0.6875rem;
+  }
+}
+
+@keyframes scanner-loop {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+@keyframes shutter-flash-animation {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lustra Catalog | Fine Jewellery Collections</title>
+  <meta name="description" content="Explore Lustra's premium collection of handcrafted fine rings, necklaces, earrings, and templates. Filter and sort based on style DNA or occasion.">
+  
+  <!-- Styling Dependencies -->
+  <link rel="stylesheet" href="./fonts/font.css">
+  <link rel="stylesheet" href="scss/main.css">
+  
+  <!-- Vendor animations & carousels libraries -->
+  <script src="js/vendors/gsap.min.js" defer></script>
+  <script src="js/vendors/swiper-bundle.min.js" defer></script>
+
+  <!-- DOMContentLoaded Event Interceptor: Fixes race conditions for asynchronously loaded JS pages -->
+  <script>
+    (function() {
+      const originalAddEventListener = document.addEventListener;
+      document.addEventListener = function(type, listener, options) {
+        if (type === 'DOMContentLoaded' && (document.readyState === 'interactive' || document.readyState === 'complete')) {
+          setTimeout(listener, 1);
+        }
+        return originalAddEventListener.call(this, type, listener, options);
+      };
+    })();
+  </script>
+</head>
+<body>
+  <div id="root-wrapper">
+    
+    <!-- Primary Site Header Layout Component -->
+    <load src="./layouts/header.html"></load>
+
+    <!-- Main Content Container with standard landmarks -->
+    <main id="main-content">
+      
+      <!-- shop page listing Hero -->
+      <load src="./sections/shop/plp-hero.html"></load>
+
+      <!-- Advanced filters & sorting toolbar controls -->
+      <load src="./sections/shop/plp-filters.html"></load>
+
+      <!-- Reusable Pagination & Load More component -->
+      <load src="./sections/shop/plp-pagination.html"></load>
+
+      <!-- Recently Viewed Designs section -->
+      <load src="./sections/shop/recently-viewed.html"></load>
+
+      <!-- AI Recommended Designs section -->
+      <load src="./sections/shop/ai-recommendations.html"></load>
+
+      <!-- SEO Content & buying guides section -->
+      <load src="./sections/shop/plp-seo-guide.html"></load>
+
+    </main>
+
+    <!-- Global Directory Site Footer Layout Component -->
+    <load src="./layouts/footer.html"></load>
+
+  </div>
+
+  <!-- Dynamic Fallback Loader Client-side handler to prevent Blank Pages in standard servers -->
+  <script type="module">
+    async function compileLayouts() {
+      const loaders = Array.from(document.querySelectorAll('load'));
+      
+      if (loaders.length > 0) {
+        for (const loader of loaders) {
+          const src = loader.getAttribute('src');
+
+          if (src) {
+            try {
+              const response = await fetch(src);
+              if (response.ok) {
+                const html = await response.text();
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                
+                const parent = loader.parentNode;
+                while (temp.firstChild) {
+                  parent.insertBefore(temp.firstChild, loader);
+                }
+                loader.remove();
+              } else {
+                console.warn(`Dynamic load failed for component: ${src}`);
+              }
+            } catch (err) {
+              console.error(`Error compileLayout partials: ${src}`, err);
+            }
+          }
+        }
+      }
+      
+      // Load app entrance script dynamically only after HTML partials are fully injected
+      const appScript = document.createElement('script');
+      appScript.type = 'module';
+      appScript.src = 'js/app.js';
+      document.body.appendChild(appScript);
+    }
+    
+    // Execute compiler immediately
+    compileLayouts();
+  </script>
+</body>
+</html>

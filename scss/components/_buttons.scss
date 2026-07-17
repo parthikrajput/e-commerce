@@ -1,0 +1,197 @@
+// ============================================================
+//  BUTTON COMPONENT SYSTEM — Lustra Fine Jewellery Platform
+//  Premium button variants with gold hover glow, refined radii
+//  and complete state coverage.
+// ============================================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: $font-family-body;
+  font-size: 0.8125rem;        // 13px — refined, not overpowering
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: $radius-sm;   // 8px — refined luxury, not capsule pill
+  transition: $transition-ease-default;
+  border: 1.5px solid transparent;
+  padding: 15px 32px;
+  white-space: nowrap;
+  will-change: transform;
+
+  // Tablet sizing
+  @include respond-to(tablet) {
+    padding: 12px 24px;
+  }
+
+  // Focus ring for accessibility (WCAG 2.2 AA)
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  // ── Primary: Charcoal → Gold on hover ─────────────────────
+  &--primary {
+    background-color: $color-dark-charcoal;
+    color: $color-pure-white;
+    border-color: $color-dark-charcoal;
+
+    &:hover {
+      background-color: $color-primary-gold;
+      border-color: $color-primary-gold;
+      color: $color-dark-charcoal;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold-glow);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  }
+
+  // ── Secondary: Gold solid ──────────────────────────────────
+  &--secondary {
+    background-color: $color-primary-gold;
+    color: $color-dark-charcoal;
+    border-color: $color-primary-gold;
+
+    &:hover {
+      background-color: $color-primary-gold-hover;
+      border-color: $color-primary-gold-hover;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold-glow);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  }
+
+  // ── Outline: Transparent with charcoal border ──────────────
+  &--outline {
+    background-color: transparent;
+    color: $color-dark-charcoal;
+    border-color: $color-dark-charcoal;
+
+    &:hover {
+      background-color: $color-dark-charcoal;
+      color: $color-pure-white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    // Light variant for dark backgrounds
+    &.btn--light {
+      color: $color-pure-white;
+      border-color: rgba(255, 255, 255, 0.5);
+
+      &:hover {
+        background-color: $color-pure-white;
+        color: $color-dark-charcoal;
+        border-color: $color-pure-white;
+      }
+    }
+  }
+
+  // ── Ghost: For dark section backgrounds ────────────────────
+  &--ghost {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: $color-pure-white;
+    border-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background-color: $color-pure-white;
+      color: $color-dark-charcoal;
+      border-color: $color-pure-white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // ── Gold Outline: For premium accent moments ───────────────
+  &--gold-outline {
+    background-color: transparent;
+    color: $color-primary-gold;
+    border-color: $color-primary-gold;
+
+    &:hover {
+      background-color: $color-primary-gold;
+      color: $color-dark-charcoal;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold-glow);
+    }
+  }
+
+  // ── Text: Underline link style ─────────────────────────────
+  &--text {
+    background: none;
+    border: none;
+    border-bottom: 1.5px solid $color-dark-charcoal;
+    padding: 6px 0;
+    border-radius: 0;
+    letter-spacing: 0.08em;
+
+    &:hover {
+      color: $color-primary-gold;
+      border-color: $color-primary-gold;
+      transform: none; // no lift on text links
+    }
+  }
+
+  // ── Icon: Circular icon button ─────────────────────────────
+  &--icon {
+    padding: 12px;
+    border-radius: var(--radius-circle);
+    border-color: var(--color-gray-line);
+    background-color: transparent;
+    color: $color-dark-charcoal;
+    width: 48px;
+    height: 48px;
+
+    &:hover {
+      background-color: $color-dark-charcoal;
+      color: $color-pure-white;
+      border-color: $color-dark-charcoal;
+    }
+  }
+
+  // ── Small size modifier ────────────────────────────────────
+  &--sm {
+    font-size: 0.6875rem;
+    padding: 10px 20px;
+    letter-spacing: 0.08em;
+  }
+
+  // ── Large size modifier ────────────────────────────────────
+  &--lg {
+    font-size: 0.875rem;
+    padding: 18px 40px;
+    letter-spacing: 0.12em;
+  }
+}

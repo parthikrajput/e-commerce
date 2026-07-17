@@ -1,0 +1,535 @@
+// Rewards & Loyalty Membership Section layouts
+.c-rewards {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Split story/visual row
+  &__row {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left Story parameters
+  &__story {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+    display: block;
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__quote {
+    border-left: 2px solid var(--color-primary-gold);
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &-text {
+      font-family: var(--font-family-display);
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--color-dark-charcoal);
+      font-style: italic;
+    }
+
+    &-author {
+      font-family: var(--font-family-body);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-neutral-600);
+    }
+  }
+
+  &__narrative {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-neutral-500);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      gap: var(--spacing-sm);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  // Right card visual column
+  &__showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    perspective: 1000px; // Adds 3D depth to card floating runs
+  }
+
+  // Section subheadings
+  &__section-subheading {
+    font-family: var(--font-family-display);
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+
+    @include respond-to(tablet) {
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+    }
+  }
+
+  // Grid subdivisions
+  &__benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+
+    @include respond-to(laptop) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    align-items: stretch;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+}
+
+// Right column Premium Glass Membership Card
+.c-membership-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 230px;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--color-pure-white);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(201, 169, 110, 0.15),
+    var(--shadow-gold-glow-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #1F1F1F 0%,
+    #2A2008 40%,
+    #1A1A1A 65%,
+    #0D0D0D 100%
+  );
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.4s var(--easing-premium), box-shadow 0.4s ease;
+
+  // Animated gold shimmer streak
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(201, 169, 110, 0.06) 45%,
+      rgba(201, 169, 110, 0.12) 50%,
+      rgba(201, 169, 110, 0.06) 55%,
+      transparent 70%
+    );
+    animation: membership-shimmer 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-4px) rotateX(2deg);
+    box-shadow:
+      0 32px 72px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(201, 169, 110, 0.25),
+      0 0 80px rgba(201, 169, 110, 0.22);
+  }
+
+  // Gold metallic border shimmer variables
+  &__blur-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.16) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+
+  &__brand {
+    font-family: var(--font-family-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-pure-white);
+  }
+
+  &__tier-lbl {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary-gold);
+    border: 1px solid var(--color-primary-gold);
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    z-index: 2;
+  }
+
+  &__holder {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__mid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-xs);
+  }
+
+  &__info-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__lbl {
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-neutral-400);
+    margin-bottom: 2px;
+  }
+
+  &__val {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-pure-white);
+  }
+
+  &__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 2;
+  }
+
+  &__points {
+    display: flex;
+    flex-direction: column;
+
+    &-val {
+      font-family: var(--font-family-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-primary-gold);
+    }
+  }
+
+  &__status-signal {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-primary-gold);
+    box-shadow: 0 0 8px var(--color-primary-gold);
+  }
+}
+
+// Benefits static cards
+.c-benefit-card {
+  background-color: var(--color-pure-white);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  transition: transform 0.3s var(--easing-premium), box-shadow 0.3s var(--easing-premium), border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(201, 169, 110, 0.15);
+  }
+
+  &__icon-box {
+    color: var(--color-primary-gold);
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+}
+
+// Tier comparison cards
+.c-tier-card {
+  background-color: var(--color-cream-tint);
+  border: 1px solid var(--color-gray-line);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg) var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  position: relative;
+  transition: all 0.35s ease;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--color-gray-line);
+    padding-bottom: var(--spacing-sm);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__points {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    color: var(--color-neutral-600);
+    margin-top: 2px;
+  }
+
+  &__body {
+    flex-grow: 1;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    li {
+      font-family: var(--font-family-body);
+      font-size: 0.8125rem;
+      color: var(--color-neutral-600);
+      position: relative;
+      padding-left: var(--spacing-sm);
+
+      &::before {
+        content: '\2022';
+        color: var(--color-primary-gold);
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: var(--spacing-md);
+  }
+
+  &__cta {
+    width: 100%;
+  }
+
+  // Recommended selection overrides
+  &--recommended {
+    border-color: var(--color-primary-gold);
+    box-shadow: var(--shadow-md);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid var(--color-primary-gold);
+      border-radius: var(--radius-lg);
+      pointer-events: none;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary-gold);
+    color: var(--color-dark-charcoal);
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px var(--spacing-sm);
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+
+  // Dark Carbon variants
+  &--dark {
+    background-color: var(--color-dark-charcoal);
+    border-color: var(--color-dark-charcoal);
+    color: var(--color-pure-white);
+
+    .c-tier-card__title {
+      color: var(--color-pure-white);
+    }
+
+    .c-tier-card__points {
+      color: var(--color-neutral-400);
+    }
+
+    .c-tier-card__list li {
+      color: var(--color-neutral-300);
+    }
+
+    .c-tier-card__head {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn--secondary {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--color-pure-white);
+
+      &:hover {
+        background-color: var(--color-pure-white);
+        color: var(--color-dark-charcoal);
+        border-color: var(--color-pure-white);
+      }
+    }
+  }
+}
+
+// Adjust timeline step borders
+.c-journey--rewards {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+// Membership card animated shimmer streak
+@keyframes membership-shimmer {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  60%  { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+

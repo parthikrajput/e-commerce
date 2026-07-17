@@ -1,0 +1,371 @@
+<!-- ============================================================
+     PLP SEO CONTENT & BUYING GUIDE — Lustra Reusable Component
+     File:      sections/shop/plp-seo-guide.html
+     Purpose:   Luxury editorial information block. Hosts interactive buying
+                guides, trust indicators, BIS certificate notices, SEO FAQs,
+                and conversion navigation blocks.
+     Spec Ref:  04_Component_Library (§13), 07_Design_Tokens (§1-3),
+                11_Accessibility_Guidelines, 18_Icon_Guidelines
+     ============================================================ -->
+
+<section
+  class="c-seo-guide"
+  id="plp-seo-guide-section"
+  aria-labelledby="seo-section-title"
+  role="region"
+>
+  <div class="l-container">
+
+    <!-- 1. SECTION HEADER Area -->
+    <header class="c-seo-guide__header">
+      <span class="c-seo-guide__eyebrow">Jewellery Buying Guides</span>
+      <h2 class="c-seo-guide__title" id="seo-section-title">The Art of Fine Selection</h2>
+      <p class="c-seo-guide__description">
+        Empowering you with detailed insights into precious metals, diamond cuts, gemstone grades, and care guidelines to make informed lifetime coordinates.
+      </p>
+    </header>
+
+    <!-- 2. INTERACTIVE BUYING GUIDE TABS -->
+    <div class="c-seo-guide__tabs-wrapper">
+      
+      <!-- Tab Controls (Horizontal Scrollable) -->
+      <div class="c-seo-guide__tablist" role="tablist" aria-label="Buying guides categories">
+        <button class="c-seo-guide__tab-btn is-active" id="guide-tab-metal" role="tab" aria-selected="true" aria-controls="guide-panel-metal" type="button">Metal Guide</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-diamond" role="tab" aria-selected="false" aria-controls="guide-panel-diamond" type="button">Diamond Guide</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-gemstone" role="tab" aria-selected="false" aria-controls="guide-panel-gemstone" type="button">Gemstones</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-size" role="tab" aria-selected="false" aria-controls="guide-panel-size" type="button">Sizing Guide</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-occasion" role="tab" aria-selected="false" aria-controls="guide-panel-occasion" type="button">Occasions</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-care" role="tab" aria-selected="false" aria-controls="guide-panel-care" type="button">Care & Cleaning</button>
+        <button class="c-seo-guide__tab-btn" id="guide-tab-cert" role="tab" aria-selected="false" aria-controls="guide-panel-cert" type="button">Certifications</button>
+      </div>
+
+      <!-- Tab Panels -->
+      <div class="c-seo-guide__panels">
+
+        <!-- A. METAL GUIDE -->
+        <div class="c-seo-guide__panel is-active" id="guide-panel-metal" role="tabpanel" aria-labelledby="guide-tab-metal" tabindex="0">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Gold Alloys & Platinum DNA</h3>
+              <p>Choosing the correct gold karat is a balance between durability and gold purity. Lustra offers pieces in 18K and 14K gold, alongside pure Platinum 950.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>18K Gold (75.0% Purity):</strong> Ideal for statement solitaire rings. Possesses a deep, rich yellow tone with high resilience against scratching.</li>
+                <li><strong>14K Gold (58.5% Purity):</strong> Preferred for intricate settings and everyday coordinates due to increased hardness from alloys.</li>
+                <li><strong>Platinum 950 (95.0% Purity):</strong> Hypoallergenic, dense, and naturally white. The ultimate coordination match for solitaire diamonds.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <!-- Frosted metallic luxury preview card -->
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">Au</span>
+                <span class="c-seo-guide__visual-label">Gold Karat Alloys</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B. DIAMOND GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-diamond" role="tabpanel" aria-labelledby="guide-tab-diamond" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Understanding The 4Cs</h3>
+              <p>Every diamond curated by Lustra undergoes strict GIA, IGI, or SGL certification checks. We focus on the core attributes that define diamond brilliance.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>Cut:</strong> The single most critical factor determining brilliance. We prioritize Excellent and Very Good cut grades.</li>
+                <li><strong>Color:</strong> Ranging from D (completely colorless) to Z. Lustra curates diamonds strictly in the premium D to H range.</li>
+                <li><strong>Clarity:</strong> Evaluates internal inclusions. We focus on FL (Flawless) down to VS2 (Very Slightly Included) grades.</li>
+                <li><strong>Carat:</strong> The physical weight. Our AI match guides budget allocations towards ideal diamond cut qualities before weight upgrades.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">C4</span>
+                <span class="c-seo-guide__visual-label">Cut • Color • Clarity</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C. GEMSTONE GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-gemstone" role="tabpanel" aria-labelledby="guide-tab-gemstone" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Natural Precious Gemstones</h3>
+              <p>Explore natural coordinates selected for their saturation, clarity, and structural cut.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>Emeralds:</strong> Deep green hues primarily sourced from Zambian mines, cut to showcase crystal inclusions.</li>
+                <li><strong>Rubies:</strong> Pigeon blood red stones symbolizing passion and elegance, ideal for bridal halo accents.</li>
+                <li><strong>Blue Sapphires:</strong> Intense velvet cornflower blues, representing wisdom and high royalty.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">Gem</span>
+                <span class="c-seo-guide__visual-label">Natural Saturation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- D. SIZE GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-size" role="tabpanel" aria-labelledby="guide-tab-size" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Precision Sizing Coordinates</h3>
+              <p>Finding the perfect coordinate size avoids unnecessary exchanges and ensures natural comfort.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>Rings:</strong> Measure the inside diameter of a well-fitting ring or print out our printable sizing chart. Sizing during evening hours yields best outcomes.</li>
+                <li><strong>Necklaces:</strong> Chokers (14–16 inches) wrap close. Princess collars (18 inches) align with classic necklines. Opera drops extend to 24 inches.</li>
+                <li><strong>Bracelets:</strong> Measure wrist circumference at the bone and append 0.5 inches for a relaxed coordinate drape.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">Ø</span>
+                <span class="c-seo-guide__visual-label">Diameter Metrics</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- E. OCCASION GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-occasion" role="tabpanel" aria-labelledby="guide-tab-occasion" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Luxury Gifting Codes</h3>
+              <p>Match your coordinates with life's landmark celebrations.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>Bespoke Bridal:</strong> Yellow gold solitaires paired with matching baguette wedding bands.</li>
+                <li><strong>Anniversaries:</strong> Eternity diamond lines representing continuous love loops.</li>
+                <li><strong>Self-Couture:</strong> Minimal yellow gold link necklaces and ear hoops for professional profiles.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">Ann</span>
+                <span class="c-seo-guide__visual-label">Milestone Gifting</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- F. CARE GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-care" role="tabpanel" aria-labelledby="guide-tab-care" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Preserving Eternal Luster</h3>
+              <p>Keep your pieces glowing with proper daily handling and minimal home care.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>Home Cleaning:</strong> Soak pieces in warm water mixed with mild soap for 15 minutes. Gently wipe with a soft microfiber cloth. Avoid harsh chemicals.</li>
+                <li><strong>Storage:</strong> Keep diamonds in separate velvet slots. Diamonds scratch softer metals like gold and platinum if stored together.</li>
+                <li><strong>Wear Protocol:</strong> Always apply lotions, perfumes, and hairsprays before wearing your fine coordinates to prevent dulling films.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">Care</span>
+                <span class="c-seo-guide__visual-label">Luster Preservation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- G. CERTIFICATION GUIDE -->
+        <div class="c-seo-guide__panel" id="guide-panel-cert" role="tabpanel" aria-labelledby="guide-tab-cert" tabindex="0" aria-hidden="true">
+          <div class="c-seo-guide__panel-grid">
+            <div class="c-seo-guide__panel-content">
+              <h3>Verifiable Trust Certifications</h3>
+              <p>Lustra guarantees the authenticity, origin, and grading details of every metal and gemstone.</p>
+              <ul class="c-seo-guide__list">
+                <li><strong>BIS Hallmarking (Gold):</strong> Every gold design carries the official Government BIS stamp verifying gold purity.</li>
+                <li><strong>GIA / IGI Diamonds:</strong> Solitaire diamond logs include a distinct laser inscription matching official GIA/IGI laboratory grading reports.</li>
+                <li><strong>Conflict-Free Sourcing:</strong> We strictly follow the Kimberley Process, certifying that our diamonds are sourced from conflict-free regions.</li>
+              </ul>
+            </div>
+            <div class="c-seo-guide__panel-illustration">
+              <div class="c-seo-guide__visual-card">
+                <span class="c-seo-guide__visual-symbol">BIS</span>
+                <span class="c-seo-guide__visual-label">Official Hallmarks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 3. WHY CHOOSE LUSTRA TRUST GRID -->
+    <div class="c-seo-guide__trust">
+      <h3 class="c-seo-guide__section-title">The Lustra Promise</h3>
+      
+      <div class="c-seo-guide__trust-grid">
+        <div class="c-seo-guide__trust-card">
+          <div class="c-seo-guide__trust-icon" aria-hidden="true">✦</div>
+          <h4>Insured Secure Shipping</h4>
+          <p>Every order is fully insured during transit and hand-delivered securely with tamper-proof packaging.</p>
+        </div>
+        <div class="c-seo-guide__trust-card">
+          <div class="c-seo-guide__trust-icon" aria-hidden="true">✦</div>
+          <h4>Hallmarked Purity</h4>
+          <p>Strict BIS Hallmarked gold guarantees the authenticity of your gold carat specifications.</p>
+        </div>
+        <div class="c-seo-guide__trust-card">
+          <div class="c-seo-guide__trust-icon" aria-hidden="true">✦</div>
+          <h4>Certified Solitaires</h4>
+          <p>Each individual diamond includes official certifications from GIA, IGI, or SGL laboratories.</p>
+        </div>
+        <div class="c-seo-guide__trust-card">
+          <div class="c-seo-guide__trust-icon" aria-hidden="true">✦</div>
+          <h4>Lifetime Exchange</h4>
+          <p>Enjoy hassle-free lifetime buybacks and exchanges based on current gemstone coordinates market value.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. FAQ ACCORDION -->
+    <div class="c-seo-guide__faq">
+      <h3 class="c-seo-guide__section-title">Frequently Asked Questions</h3>
+
+      <div class="c-seo-faq" id="plp-faq-accordion">
+        
+        <!-- Accordion Item 1 -->
+        <div class="c-seo-faq__item">
+          <button
+            class="c-seo-faq__trigger"
+            id="faq-trig-1"
+            aria-expanded="false"
+            aria-controls="faq-ans-1"
+            type="button"
+          >
+            <span>What is the difference between 18K and 14K gold?</span>
+            <svg class="c-seo-faq__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            class="c-seo-faq__panel"
+            id="faq-ans-1"
+            aria-labelledby="faq-trig-1"
+            role="region"
+            aria-hidden="true"
+          >
+            <div class="c-seo-faq__content">
+              <p>The primary difference is the purity level. 18K gold contains 75% pure gold mixed with 25% other alloys (like copper and silver), making it richer in color. 14K gold contains 58.5% pure gold, making it harder and highly resilient to scratching—perfect for daily wear rings and chains.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="c-seo-faq__item">
+          <button
+            class="c-seo-faq__trigger"
+            id="faq-trig-2"
+            aria-expanded="false"
+            aria-controls="faq-ans-2"
+            type="button"
+          >
+            <span>How do I determine my correct ring size?</span>
+            <svg class="c-seo-faq__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            class="c-seo-faq__panel"
+            id="faq-ans-2"
+            aria-labelledby="faq-trig-2"
+            role="region"
+            aria-hidden="true"
+          >
+            <div class="c-seo-faq__content">
+              <p>You can find your ideal ring size by wrapping a piece of string or paper around the base of your finger, marking where it overlaps, and comparing the millimeter length with our size chart. For complete accuracy, we recommend measuring at the end of the day when your fingers are warm.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="c-seo-faq__item">
+          <button
+            class="c-seo-faq__trigger"
+            id="faq-trig-3"
+            aria-expanded="false"
+            aria-controls="faq-ans-3"
+            type="button"
+          >
+            <span>Are Lustra’s diamonds ethically sourced?</span>
+            <svg class="c-seo-faq__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            class="c-seo-faq__panel"
+            id="faq-ans-3"
+            aria-labelledby="faq-trig-3"
+            role="region"
+            aria-hidden="true"
+          >
+            <div class="c-seo-faq__content">
+              <p>Yes. Every natural diamond curated by Lustra is certified conflict-free in complete compliance with the Kimberly Process certification scheme. Our lab-grown coordinates also follow green carbon-neutral manufacturing regulations.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="c-seo-faq__item">
+          <button
+            class="c-seo-faq__trigger"
+            id="faq-trig-4"
+            aria-expanded="false"
+            aria-controls="faq-ans-4"
+            type="button"
+          >
+            <span>What is your lifetime exchange and buyback policy?</span>
+            <svg class="c-seo-faq__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            class="c-seo-faq__panel"
+            id="faq-ans-4"
+            aria-labelledby="faq-trig-4"
+            role="region"
+            aria-hidden="true"
+          >
+            <div class="c-seo-faq__content">
+              <p>We provide lifetime buyback and exchange options on gold and diamonds. Gold is valued at the current market rate, while diamonds receive up to 90% of their current market rates for exchanges, or 80% for cash returns, subject to inspection.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 5. FINAL EDITORIAL CTA CONVERSION BOX -->
+    <div class="c-seo-guide__cta">
+      <div class="c-seo-guide__cta-content">
+        <h3>Ready to Custom Coordinate?</h3>
+        <p>Talk to our luxury style advisors for private diamond curation, sizing assistance, and bespoke custom jewelry coordinates.</p>
+        
+        <div class="c-seo-guide__cta-buttons">
+          <button class="btn btn--primary c-seo-guide__consult-btn" id="seo-advisor-btn" type="button">Refine Style Profile</button>
+          <a href="shop.html" class="btn btn--outline">Browse Signature Jewels</a>
+        </div>
+      </div>
+      
+      <!-- Internal anchor collections link panel -->
+      <footer class="c-seo-guide__cta-footer">
+        <span class="c-seo-guide__cta-footer-label">Explore Signature Categories:</span>
+        <div class="c-seo-guide__cta-links">
+          <a href="shop.html?category=rings">Solitaire Rings</a>
+          <span class="c-seo-guide__cta-divider" aria-hidden="true">|</span>
+          <a href="shop.html?category=earrings">Diamond Earrings</a>
+          <span class="c-seo-guide__cta-divider" aria-hidden="true">|</span>
+          <a href="shop.html?category=necklaces">Gold Necklaces</a>
+          <span class="c-seo-guide__cta-divider" aria-hidden="true">|</span>
+          <a href="shop.html?category=bracelets">Signature Bracelets</a>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+</section>

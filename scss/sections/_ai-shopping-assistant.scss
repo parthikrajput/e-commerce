@@ -1,0 +1,468 @@
+// AI Shopping Assistant Section layout styling rules
+.c-ai-assistant {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  // Ambient gold radial glow behind the AI panel
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(201, 169, 110, 0.07) 0%,
+      rgba(215, 167, 160, 0.04) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+
+    @include respond-to(tablet) {
+      display: none;
+    }
+  }
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left Column Content blocks
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to(tablet) {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-neutral-600);
+    margin-bottom: var(--spacing-xl);
+    max-width: 520px;
+  }
+
+  // Features Cards Grid layout
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    width: 100%;
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      gap: var(--spacing-sm);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  &__learn-link {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--color-dark-charcoal);
+    padding-bottom: 2px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      color: var(--color-primary-gold);
+      border-color: var(--color-primary-gold);
+    }
+  }
+
+  // Right Column Dashboard Panel Mockup
+  &__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+}
+
+// AI Feature Cards individual styling
+.c-ai-feature-card {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-line);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary-gold);
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    align-items: flex-start;
+    color: var(--color-primary-gold);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  &__title {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    margin-bottom: 4px;
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+}
+
+// User Journey Flow Indicator styling rules
+.c-journey {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--color-cream-tint);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-line);
+  width: 100%;
+
+  @include respond-to(tablet) {
+    justify-content: center;
+  }
+
+  @include respond-to(mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__steps {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+
+    @include respond-to(mobile) {
+      width: 100%;
+    }
+  }
+
+  &__step {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    color: var(--color-neutral-600);
+  }
+
+  &__arrow {
+    color: var(--color-primary-gold);
+    font-size: 0.875rem;
+
+    @include respond-to(mobile) {
+      display: none; // Hide steps arrows on stacked layout
+    }
+  }
+}
+
+// Interactive recommendation dashboard mockup styling
+.c-ai-panel {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  width: 90%;
+  max-width: 440px;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 1px rgba(201, 169, 110, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  @include respond-to(mobile) {
+    width: 100%;
+    padding: var(--spacing-sm);
+  }
+
+  // Conversation Bullets
+  &__bubble {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    align-self: flex-start;
+    background-color: var(--color-cream-tint);
+    border: 1px solid var(--color-gray-line);
+    max-width: 80%;
+
+    &--user {
+      align-self: flex-end;
+      background-color: var(--color-dark-charcoal);
+      color: var(--color-cream-tint);
+
+      .c-ai-panel__sender {
+        color: var(--color-primary-gold);
+      }
+    }
+  }
+
+  &__sender {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  &__text {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  // Online Pulse signal
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    justify-content: center;
+    border-top: 1px solid var(--color-gray-line);
+    padding-top: var(--spacing-sm);
+  }
+
+  &__pulse {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-ok-green);
+    border-radius: var(--radius-circle);
+    animation: signal-glow 2s infinite ease-in-out;
+  }
+
+  &__status-text {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-neutral-600);
+  }
+
+  // Result card mockup
+  &__mock-card {
+    background-color: var(--color-pure-white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-gray-line);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__img-box {
+    position: relative;
+    padding-top: 50%; // landscape ratio for details closeup
+    overflow: hidden;
+  }
+
+  &__match-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // 98% Match details marker overlay
+  &__score {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    background-color: var(--color-dark-charcoal);
+    color: var(--color-pure-white);
+    padding: 4px var(--spacing-xs);
+    border-radius: var(--radius-xs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--color-primary-gold);
+    line-height: 1;
+
+    &-num {
+      font-family: var(--font-family-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary-gold);
+    }
+
+    &-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  &__item-info {
+    padding: var(--spacing-sm);
+  }
+
+  &__item-title {
+    font-family: var(--font-family-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    margin-bottom: 2px;
+  }
+
+  &__item-specs {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    color: var(--color-neutral-600);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+  }
+
+  // Floating ambient glass tags
+  .c-ai-tag {
+    position: absolute;
+    background: rgba(250, 248, 245, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(233, 231, 226, 0.6);
+    padding: 6px var(--spacing-sm);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-dark-charcoal);
+    box-shadow: var(--shadow-sm);
+    z-index: 6;
+
+    &--top {
+      top: -12px;
+      left: -20px;
+      animation: float-panel-tag 4s ease-in-out infinite;
+
+      @include respond-to(tablet) {
+        left: 0;
+      }
+    }
+
+    &--bottom {
+      bottom: 20px;
+      right: -24px;
+      animation: float-panel-tag 4.6s ease-in-out infinite alternate;
+
+      @include respond-to(tablet) {
+        right: 0;
+      }
+    }
+  }
+}
+
+@keyframes signal-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float-panel-tag {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}

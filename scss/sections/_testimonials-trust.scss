@@ -1,0 +1,449 @@
+// Customer Reviews, Testimonials & Trust Badges Section styles
+.c-testimonials-trust {
+  background-color: var(--color-cream-tint);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Header Intro parameters
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--spacing-xl);
+
+    @include respond-to(tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+    }
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+    display: block;
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px;
+  }
+
+  &__all-link {
+    flex-shrink: 0;
+    font-size: 0.8125rem;
+  }
+
+  // Grid wrapper
+  &__swiper {
+    width: 100%;
+    min-width: 0; // Fixes layout flex slider overflows
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    @include respond-to(mobile) {
+      display: flex;
+      gap: 0;
+    }
+  }
+}
+
+// Top: Trust Metrics stats cards
+.c-trust-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-metric-card {
+  background-color: var(--color-pure-white);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transition: transform 0.3s var(--easing-premium), box-shadow 0.3s var(--easing-premium);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  &__number {
+    font-family: var(--font-family-display);
+    font-size: 2.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--color-dark-charcoal);
+    line-height: 1;
+  }
+
+  &__label {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-neutral-500);
+  }
+
+  &__stars {
+    color: var(--color-primary-gold);
+    display: inline-block;
+    margin-left: 2px;
+  }
+}
+
+// Middle: Featured Patron Story
+.c-featured-story {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--spacing-3xl);
+  align-items: center;
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-line);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  &__image-box {
+    position: relative;
+    padding-top: 85%;
+    overflow: hidden;
+    background-color: var(--color-gray-line);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover &__image {
+    transform: scale(1.02);
+  }
+
+  &__img-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    background: rgba(26, 26, 26, 0.85);
+    color: var(--color-pure-white);
+    padding: 6px var(--spacing-sm);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 5;
+  }
+
+  &__content {
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-2xl) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+
+    @include respond-to(tablet) {
+      padding: var(--spacing-md) var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+    }
+  }
+
+  &__verified {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__stars {
+    color: var(--color-primary-gold);
+    font-size: 0.875rem;
+  }
+
+  &__quote {
+    margin: 0;
+
+    &-text {
+      font-family: var(--font-family-display);
+      font-size: 1.125rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--color-dark-charcoal);
+    }
+  }
+
+  &__author-box {
+    border-top: 1px solid var(--color-gray-line);
+    padding-top: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__author {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__occasion {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    color: var(--color-neutral-500);
+  }
+
+  &__piece-link {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary-gold);
+    text-decoration: none;
+    margin-top: var(--spacing-xs);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Bottom: Testimonials Cards
+.c-testimonial-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-pure-white);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  transition: transform 0.3s var(--easing-premium), box-shadow 0.3s var(--easing-premium), border-color 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(201, 169, 110, 0.15);
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-gray-line);
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__stars {
+    color: var(--color-primary-gold);
+    font-size: 0.75rem;
+  }
+
+  &__text {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-neutral-600);
+    margin: 0 0 var(--spacing-md) 0;
+    flex-grow: 1;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__name {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__date {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    color: var(--color-neutral-500);
+  }
+}
+
+// Verification tags
+.c-verified-badge {
+  font-family: var(--font-family-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #2e7d32; // Organic premium green hue
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+// Trust Badges Grid (8 Badges Grid)
+.c-trust-badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  border-top: 1px solid var(--color-gray-line);
+  padding-top: var(--spacing-3xl);
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-badge-card {
+  background-color: var(--color-pure-white);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  box-shadow: var(--shadow-xs);
+  transition: all 0.25s var(--easing-premium);
+
+  .c-icon {
+    color: var(--color-primary-gold);
+    flex-shrink: 0;
+  }
+
+  &__txt {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-dark-charcoal);
+  }
+
+  &:hover {
+    border-color: var(--color-primary-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold-glow);
+  }
+}
+
+// Media Mentions Logo strip wrapper
+.c-media-mentions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border-top: 1px solid var(--color-gray-line);
+  padding-top: var(--spacing-2xl);
+
+  &__lbl {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-xl);
+
+    @include respond-to(mobile) {
+      gap: var(--spacing-md);
+    }
+  }
+
+  &__logo {
+    font-family: var(--font-family-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-neutral-400);
+    opacity: 0.75;
+    transition: opacity 0.25s ease, color 0.25s ease;
+    cursor: default;
+
+    &:hover {
+      opacity: 1;
+      color: var(--color-dark-charcoal);
+    }
+  }
+}
+
+// Security flow custom styling adjustments
+.c-journey--testimonials {
+  background: none;
+  border: none;
+  padding: 0;
+
+  .c-journey__step {
+    font-size: 0.6875rem;
+  }
+}

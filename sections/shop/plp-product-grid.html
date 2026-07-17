@@ -1,0 +1,766 @@
+<!-- ============================================================
+     PLP PRODUCT GRID LAYOUT — Lustra Fine Jewellery Platform
+     Section:  sections/shop/plp-product-grid.html
+     Purpose:  Editorial product grid container, grid header,
+               12 reusable card slots, all grid states, view modes
+     Author:   Lustra Frontend Team
+     Spec Ref: 03_Page_Specifications (Shop Listing, §02)
+                06_Grid_System, 07_Design_Tokens,
+                09_Animation_Guidelines, 11_Accessibility_Guidelines
+     Prompt:   23 — PLP Product Grid Layout
+     ============================================================ -->
+
+<section
+  class="c-plp-grid"
+  id="plp-product-grid-section"
+  aria-labelledby="plp-grid-heading"
+  data-grid-state="default"
+  data-view-mode="grid"
+>
+
+  <!-- ─────────────────────────────────────────────────────────
+       GRID HEADER
+       Displays: result count, applied filters summary,
+                 sort status, view mode toggles, refresh action
+       ───────────────────────────────────────────────────────── -->
+  <header class="c-plp-grid__header" id="plp-grid-header" role="region" aria-label="Product grid controls">
+
+    <!-- Left group: count + filter summary -->
+    <div class="c-plp-grid__header-left">
+
+      <!-- Product Count — aria-live so screen readers hear updates -->
+      <div
+        class="c-plp-grid__count"
+        id="plp-product-count"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-label="Product results count"
+      >
+        <span class="c-plp-grid__count-label">Showing</span>
+        <span class="c-plp-grid__count-range" id="plp-count-range">1–12</span>
+        <span class="c-plp-grid__count-separator">of</span>
+        <span class="c-plp-grid__count-total" id="plp-count-total">324</span>
+        <span class="c-plp-grid__count-word">Products</span>
+      </div>
+
+      <!-- Applied Filters Summary chips strip -->
+      <div
+        class="c-plp-grid__filter-summary"
+        id="plp-filter-summary"
+        aria-label="Currently applied filters"
+        aria-live="polite"
+      >
+        <!-- Populated dynamically by JS when filters are active -->
+        <div class="c-plp-grid__filter-chips" id="plp-filter-chips" role="list">
+          <!-- Example rendered chip structure (JS-driven):
+          <span class="c-plp-grid__filter-chip" role="listitem">
+            <span class="c-plp-grid__filter-chip-label">Gold</span>
+            <button class="c-plp-grid__filter-chip-remove"
+                    aria-label="Remove Gold filter"
+                    data-filter-key="metal"
+                    data-filter-value="gold">
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </span>
+          -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right group: sort status, view mode, refresh -->
+    <div class="c-plp-grid__header-right">
+
+      <!-- Sort Status Badge (read-only display, full control is in plp-filters.html) -->
+      <div class="c-plp-grid__sort-status" id="plp-sort-status" aria-label="Current sort order">
+        <svg class="c-plp-grid__sort-icon" aria-hidden="true" width="14" height="14"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M7 12h10M11 18h2"/>
+        </svg>
+        <span class="c-plp-grid__sort-label">Sorted by:</span>
+        <span class="c-plp-grid__sort-value" id="plp-sort-display-value">Recommended</span>
+      </div>
+
+      <!-- View Mode Toggle Group -->
+      <div
+        class="c-plp-grid__view-modes"
+        id="plp-view-modes"
+        role="group"
+        aria-label="Select product grid view mode"
+      >
+
+        <!-- Grid View (Default Active) -->
+        <button
+          class="c-plp-grid__view-btn is-active"
+          id="plp-view-btn-grid"
+          data-view="grid"
+          aria-pressed="true"
+          aria-label="Grid view (active)"
+          title="Standard grid view"
+        >
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </button>
+
+        <!-- Compact Grid View (Future-ready, disabled placeholder) -->
+        <button
+          class="c-plp-grid__view-btn is-disabled"
+          id="plp-view-btn-compact"
+          data-view="compact"
+          aria-pressed="false"
+          aria-label="Compact grid view (coming soon)"
+          aria-disabled="true"
+          title="Compact grid view — coming soon"
+          tabindex="-1"
+        >
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="4" height="4" rx="0.5"/>
+            <rect x="10" y="3" width="4" height="4" rx="0.5"/>
+            <rect x="17" y="3" width="4" height="4" rx="0.5"/>
+            <rect x="3" y="10" width="4" height="4" rx="0.5"/>
+            <rect x="10" y="10" width="4" height="4" rx="0.5"/>
+            <rect x="17" y="10" width="4" height="4" rx="0.5"/>
+            <rect x="3" y="17" width="4" height="4" rx="0.5"/>
+            <rect x="10" y="17" width="4" height="4" rx="0.5"/>
+            <rect x="17" y="17" width="4" height="4" rx="0.5"/>
+          </svg>
+        </button>
+
+        <!-- List View (Future-ready, disabled placeholder) -->
+        <button
+          class="c-plp-grid__view-btn is-disabled"
+          id="plp-view-btn-list"
+          data-view="list"
+          aria-pressed="false"
+          aria-label="List view (coming soon)"
+          aria-disabled="true"
+          title="List view — coming soon"
+          tabindex="-1"
+        >
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- Refresh Results Button -->
+      <button
+        class="c-plp-grid__refresh-btn"
+        id="plp-refresh-btn"
+        aria-label="Refresh product results"
+        title="Refresh results"
+      >
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 4v6h-6"/>
+          <path d="M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+        <span class="sr-only">Refresh</span>
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ─────────────────────────────────────────────────────────
+       GRID BODY: STATE CONTAINER
+       Switched via JS data-grid-state attribute on .c-plp-grid
+       States: default | loading | empty | error | offline
+       ───────────────────────────────────────────────────────── -->
+  <div class="c-plp-grid__body" id="plp-grid-body">
+
+
+    <!-- ───────────────────────────────────
+         STATE: DEFAULT — Product Card Slots
+         12 reusable placeholder slots
+         Product Cards injected here by JS
+         (Prompt 24 will build actual cards)
+         ─────────────────────────────────── -->
+    <div
+      class="c-plp-grid__canvas"
+      id="plp-grid-canvas"
+      role="list"
+      aria-label="Product listing grid"
+      data-state="default"
+    >
+
+      <!-- 12 × Reusable Product Card Placeholder Slots
+           Each slot carries data-slot-index for JS targeting
+           Product card components are injected into these anchors
+           Slots remain in DOM so GSAP stagger reveal works cleanly -->
+
+      <article
+        class="c-plp-grid__card-slot"
+        id="plp-card-slot-1"
+        data-slot-index="1"
+        role="listitem"
+        aria-label="Product slot 1"
+      >
+        <!-- [PRODUCT CARD COMPONENT INJECTED HERE — Prompt 24] -->
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-2" data-slot-index="2" role="listitem" aria-label="Product slot 2">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-3" data-slot-index="3" role="listitem" aria-label="Product slot 3">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-4" data-slot-index="4" role="listitem" aria-label="Product slot 4">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-5" data-slot-index="5" role="listitem" aria-label="Product slot 5">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-6" data-slot-index="6" role="listitem" aria-label="Product slot 6">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-7" data-slot-index="7" role="listitem" aria-label="Product slot 7">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-8" data-slot-index="8" role="listitem" aria-label="Product slot 8">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-9" data-slot-index="9" role="listitem" aria-label="Product slot 9">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-10" data-slot-index="10" role="listitem" aria-label="Product slot 10">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-11" data-slot-index="11" role="listitem" aria-label="Product slot 11">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="c-plp-grid__card-slot" id="plp-card-slot-12" data-slot-index="12" role="listitem" aria-label="Product slot 12">
+        <div class="c-plp-grid__card-placeholder" aria-hidden="true">
+          <div class="c-plp-grid__card-placeholder-image"></div>
+          <div class="c-plp-grid__card-placeholder-body">
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--short"></div>
+            <div class="c-plp-grid__card-placeholder-line"></div>
+            <div class="c-plp-grid__card-placeholder-line c-plp-grid__card-placeholder-line--med"></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- /c-plp-grid__canvas -->
+
+
+    <!-- ───────────────────────────────────
+         STATE: LOADING — Skeleton Loaders
+         Luxury shimmer placeholders
+         JS toggles visibility via state attr
+         ─────────────────────────────────── -->
+    <div
+      class="c-plp-grid__skeleton-canvas"
+      id="plp-skeleton-canvas"
+      aria-hidden="true"
+      aria-label="Loading products"
+      role="status"
+      data-state="loading"
+    >
+      <!-- Screen-reader announcement -->
+      <span class="sr-only">Loading jewellery products, please wait…</span>
+
+      <!-- 12 × Luxury Skeleton Cards -->
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+      <div class="c-plp-skeleton" aria-hidden="true">
+        <div class="c-plp-skeleton__image"></div>
+        <div class="c-plp-skeleton__body">
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--short"></div>
+          <div class="c-plp-skeleton__line"></div>
+          <div class="c-plp-skeleton__line c-plp-skeleton__line--med"></div>
+          <div class="c-plp-skeleton__price"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /c-plp-grid__skeleton-canvas -->
+
+
+    <!-- ───────────────────────────────────
+         STATE: EMPTY — No Results
+         Luxury illustration, heading,
+         supporting text, reset + AI CTAs
+         ─────────────────────────────────── -->
+    <div
+      class="c-plp-grid__empty"
+      id="plp-empty-state"
+      role="region"
+      aria-label="No products found"
+      data-state="empty"
+    >
+      <!-- Decorative Gold Ring Illustration -->
+      <div class="c-plp-grid__empty-illustration" aria-hidden="true">
+        <svg
+          class="c-plp-grid__empty-icon"
+          viewBox="0 0 200 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <!-- Outer decorative circle -->
+          <circle cx="100" cy="100" r="90" stroke="#E9E7E2" stroke-width="1"/>
+          <!-- Inner ring shape -->
+          <circle cx="100" cy="100" r="55" stroke="#C9A96E" stroke-width="2.5" stroke-dasharray="8 4"/>
+          <circle cx="100" cy="100" r="42" stroke="#C9A96E" stroke-width="1.5" opacity="0.4"/>
+          <!-- Gem sparkle top -->
+          <path d="M100 30 L104 42 L116 42 L107 50 L110 62 L100 55 L90 62 L93 50 L84 42 L96 42 Z"
+                fill="#C9A96E" opacity="0.7"/>
+          <!-- Side accent lines -->
+          <line x1="22" y1="100" x2="35" y2="100" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+          <line x1="165" y1="100" x2="178" y2="100" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+          <line x1="100" y1="165" x2="100" y2="178" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+          <!-- Small sparkles -->
+          <circle cx="148" cy="52" r="2.5" fill="#C9A96E" opacity="0.6"/>
+          <circle cx="52" cy="148" r="2" fill="#C9A96E" opacity="0.4"/>
+          <circle cx="155" cy="155" r="1.5" fill="#B0B0B0" opacity="0.5"/>
+        </svg>
+        <!-- Pulsing glow ring behind illustration -->
+        <div class="c-plp-grid__empty-glow" aria-hidden="true"></div>
+      </div>
+
+      <!-- Empty State Text Content -->
+      <div class="c-plp-grid__empty-content">
+        <h2 class="c-plp-grid__empty-heading" id="plp-empty-heading">
+          No Pieces Found
+        </h2>
+        <p class="c-plp-grid__empty-subtext">
+          Your current filters didn't match any jewellery in our atelier.
+          Try broadening your search or let our AI advisor discover the perfect piece for you.
+        </p>
+
+        <!-- CTA Row -->
+        <div class="c-plp-grid__empty-actions">
+          <button
+            class="btn btn--primary c-plp-grid__empty-reset-btn"
+            id="plp-empty-reset-btn"
+            aria-label="Reset all filters and show all products"
+          >
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M7 12h10M11 18h2"/>
+            </svg>
+            Reset All Filters
+          </button>
+
+          <a
+            href="ai-style-advisor.html"
+            class="btn btn--secondary c-plp-grid__empty-ai-btn"
+            id="plp-empty-ai-btn"
+            aria-label="Open AI Style Advisor for personalised recommendations"
+          >
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+            Ask AI Advisor
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <!-- /c-plp-grid__empty -->
+
+
+    <!-- ───────────────────────────────────
+         STATE: ERROR — Service Failure
+         Elegant message, retry, support link
+         ─────────────────────────────────── -->
+    <div
+      class="c-plp-grid__error"
+      id="plp-error-state"
+      role="alert"
+      aria-live="assertive"
+      aria-label="Error loading products"
+      data-state="error"
+    >
+      <!-- Error Icon -->
+      <div class="c-plp-grid__error-icon-wrap" aria-hidden="true">
+        <svg class="c-plp-grid__error-icon" viewBox="0 0 80 80" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="40" cy="40" r="38" stroke="#E9E7E2" stroke-width="1.5"/>
+          <circle cx="40" cy="40" r="28" stroke="#D64545" stroke-width="1.5" opacity="0.3"/>
+          <path d="M40 22 L40 42" stroke="#D64545" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="40" cy="52" r="2" fill="#D64545"/>
+        </svg>
+      </div>
+
+      <!-- Error Text -->
+      <div class="c-plp-grid__error-content">
+        <h2 class="c-plp-grid__error-heading">
+          Something Went Wrong
+        </h2>
+        <p class="c-plp-grid__error-subtext">
+          We couldn't load the collection right now. This is a temporary issue.
+          Please try refreshing, or reach our concierge team if the problem persists.
+        </p>
+
+        <!-- Error Actions -->
+        <div class="c-plp-grid__error-actions">
+          <button
+            class="btn btn--primary c-plp-grid__error-retry-btn"
+            id="plp-error-retry-btn"
+            aria-label="Retry loading products"
+          >
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6"/>
+              <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
+            </svg>
+            Try Again
+          </button>
+
+          <a
+            href="contact.html"
+            class="btn btn--ghost c-plp-grid__error-support-link"
+            id="plp-error-support-link"
+            aria-label="Contact Lustra support team"
+          >
+            Contact Support
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <!-- /c-plp-grid__error -->
+
+
+    <!-- ───────────────────────────────────
+         STATE: OFFLINE — No Connection
+         Elegant offline message + retry
+         ─────────────────────────────────── -->
+    <div
+      class="c-plp-grid__offline"
+      id="plp-offline-state"
+      role="alert"
+      aria-live="assertive"
+      aria-label="You appear to be offline"
+      data-state="offline"
+    >
+      <!-- Offline Icon -->
+      <div class="c-plp-grid__offline-icon-wrap" aria-hidden="true">
+        <svg class="c-plp-grid__offline-icon" viewBox="0 0 80 80" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="40" cy="40" r="38" stroke="#E9E7E2" stroke-width="1.5"/>
+          <path d="M10 10 L70 70" stroke="#B0B0B0" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M52 28a16 16 0 00-12.5-4M28 34a16 16 0 00-2 8"
+                stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"/>
+          <path d="M40 48a6 6 0 016 6H34a6 6 0 016-6z"
+                fill="#B0B0B0" opacity="0.4"/>
+          <circle cx="40" cy="58" r="2.5" fill="#B0B0B0"/>
+        </svg>
+      </div>
+
+      <div class="c-plp-grid__offline-content">
+        <h2 class="c-plp-grid__offline-heading">No Connection</h2>
+        <p class="c-plp-grid__offline-subtext">
+          It seems you're offline. Please check your connection and try again
+          to browse our atelier collection.
+        </p>
+
+        <button
+          class="btn btn--primary c-plp-grid__offline-retry-btn"
+          id="plp-offline-retry-btn"
+          aria-label="Retry loading after reconnecting"
+        >
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
+          </svg>
+          Reconnect &amp; Refresh
+        </button>
+      </div>
+
+    </div>
+    <!-- /c-plp-grid__offline -->
+
+
+  </div>
+  <!-- /c-plp-grid__body -->
+
+
+  <!-- ─────────────────────────────────────────────────────────
+       RECOMMENDATION CAROUSEL
+       Optional horizontal AI-recommendation strip below grid
+       GSAP-ready, Swiper-ready placeholder scaffold
+       ───────────────────────────────────────────────────────── -->
+  <aside
+    class="c-plp-grid__rec-strip"
+    id="plp-recommendation-strip"
+    aria-labelledby="plp-rec-strip-heading"
+  >
+    <div class="c-plp-grid__rec-strip-inner">
+
+      <!-- Strip Header -->
+      <div class="c-plp-grid__rec-strip-header">
+        <div class="c-plp-grid__rec-strip-title-group">
+          <!-- AI badge -->
+          <span class="c-plp-grid__rec-ai-badge" aria-label="Powered by AI">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+            AI Picks
+          </span>
+          <h2 class="c-plp-grid__rec-strip-heading" id="plp-rec-strip-heading">
+            You May Also Adore
+          </h2>
+        </div>
+        <p class="c-plp-grid__rec-strip-subtext">
+          Curated selections based on your browsing and style preferences.
+        </p>
+      </div>
+
+      <!-- Carousel Track — Swiper-ready scaffold -->
+      <div class="c-plp-grid__rec-carousel swiper" id="plp-rec-carousel" aria-label="AI-recommended products carousel">
+        <div class="swiper-wrapper c-plp-grid__rec-track" role="list">
+
+          <!-- 6 × Recommendation Card Placeholder Slots -->
+          <!-- Product cards injected here in Prompt 24 -->
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 1">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 2">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 3">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 4">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 5">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+          <div class="swiper-slide c-plp-grid__rec-slot" role="listitem" aria-label="Recommended product 6">
+            <div class="c-plp-grid__rec-placeholder" aria-hidden="true">
+              <div class="c-plp-grid__rec-placeholder-image"></div>
+              <div class="c-plp-grid__rec-placeholder-line c-plp-grid__rec-placeholder-line--short"></div>
+              <div class="c-plp-grid__rec-placeholder-line"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Swiper Navigation Arrows -->
+        <button
+          class="c-plp-grid__rec-prev swiper-button-prev"
+          id="plp-rec-prev"
+          aria-label="Previous recommendations"
+        ></button>
+        <button
+          class="c-plp-grid__rec-next swiper-button-next"
+          id="plp-rec-next"
+          aria-label="Next recommendations"
+        ></button>
+
+      </div>
+      <!-- /c-plp-grid__rec-carousel -->
+
+    </div>
+    <!-- /c-plp-grid__rec-strip-inner -->
+  </aside>
+  <!-- /c-plp-grid__rec-strip -->
+
+
+</section>
+<!-- /c-plp-grid -->

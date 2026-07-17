@@ -1,0 +1,41 @@
+// Spacing tokens (8px grid base)
+$spacing-2xs: 4px;
+$spacing-xs:  8px;
+$spacing-sm:  16px;
+$spacing-md:  24px;
+$spacing-lg:  32px;
+$spacing-xl:  48px;
+$spacing-2xl: 64px;
+$spacing-3xl: 80px;
+
+// Corner radii shapes
+$radius-xs:     4px;
+$radius-sm:     8px;
+$radius-md:     12px;
+$radius-lg:     16px;
+$radius-xl:     24px;
+$radius-circle: 50%;
+
+// Shadow elevation categories
+$shadow-sm:   0 2px 4px rgba(0, 0, 0, 0.05);
+$shadow-md:   0 8px 16px rgba(0, 0, 0, 0.08);
+$shadow-lg:   0 16px 32px rgba(0, 0, 0, 0.12);
+$shadow-card: 0 10px 30px rgba(26, 26, 26, 0.04);
+
+// Width container scopes
+$width-max:      1400px;
+$width-product:  1200px;
+$width-reading:  800px;
+$width-narrow:   600px;
+
+// Typographic variables style details
+$font-family-display: 'Playfair Display', Georgia, serif;
+$font-family-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+// Transitions variables list
+$transition-ease-slow:    all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+$transition-ease-default: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+$transition-ease-fast:    all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+$transition-duration-default: 300ms;
+$transition-duration-slow:    500ms;
+$easing-default: cubic-bezier(0.25, 1, 0.5, 1);

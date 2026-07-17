@@ -1,0 +1,293 @@
+// Product Listing Page Hero & Breadcrumb styling rules
+.c-plp-hero {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-xl) 0;
+  width: 100%;
+  border-bottom: 1px solid var(--color-gray-line);
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+
+    @include respond-to(tablet) {
+      gap: var(--spacing-md);
+    }
+  }
+
+  // Split view grid layout
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary-gold);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-neutral-600);
+    max-width: 580px;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+
+    @include respond-to(mobile) {
+      width: 100%;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  // Dynamic media image bounds
+  &__media {
+    width: 100%;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__img-container {
+    position: relative;
+    padding-top: 56.25%; // Standard 16:9 ratio
+    background-color: var(--color-cream-tint);
+    width: 100%;
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  // Statistics Highlights
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    background-color: var(--color-cream-tint);
+    border: 1px solid var(--color-gray-line);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xs);
+    }
+  }
+
+  // Quick category navigation
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+  }
+
+  &__navigation-label {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+
+    @include respond-to(mobile) {
+      gap: 6px;
+    }
+  }
+}
+
+// BREADCRUMB
+.c-breadcrumb {
+  margin-bottom: var(--spacing-xs);
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    color: var(--color-neutral-500);
+    font-weight: 500;
+
+    &::after {
+      content: "/";
+      margin: 0 var(--spacing-xs);
+      color: var(--color-neutral-400);
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+
+    &.is-active {
+      color: var(--color-neutral-700);
+      font-weight: 600;
+    }
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: var(--color-primary-gold);
+    }
+  }
+}
+
+// Stats individual visual units
+.c-plp-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xs) 0;
+
+  @include respond-to(mobile) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__num {
+    font-family: var(--font-family-display);
+    font-size: 1.375rem;
+    color: var(--color-dark-charcoal);
+    font-weight: 400;
+
+    @include respond-to(mobile) {
+      font-size: 1.125rem;
+    }
+  }
+
+  &__lbl {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+
+    @include respond-to(mobile) {
+      margin-top: 0;
+    }
+  }
+}
+
+// Premium Chip Elements
+.c-plp-chip {
+  background-color: var(--color-pure-white);
+  border: 1px solid var(--color-gray-line);
+  color: var(--color-dark-charcoal);
+  font-family: var(--font-family-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 8px var(--spacing-sm);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border-color: var(--color-primary-gold);
+    color: var(--color-primary-gold);
+    background-color: var(--color-cream-tint);
+    transform: translateY(-1px);
+  }
+
+  &.is-active {
+    background-color: var(--color-dark-charcoal);
+    border-color: var(--color-dark-charcoal);
+    color: var(--color-pure-white);
+
+    &:hover {
+      background-color: #262626;
+      color: var(--color-pure-white);
+      border-color: #262626;
+    }
+  }
+}

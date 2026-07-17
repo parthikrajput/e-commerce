@@ -1,0 +1,439 @@
+<!-- ============================================================
+     PREMIUM QUICK VIEW MODAL — Lustra Fine Jewellery Platform
+     File:      components/quick-view-modal.html
+     Purpose:   Premium reusable modal template for product quick view.
+                Supports dynamic hydration, skeletal loading state, 
+                and high-fidelity layout states.
+     Spec Ref:  04_Component_Library (§14), 07_Design_Tokens (§3-5),
+                11_Accessibility_Guidelines, 18_Icon_Guidelines
+     ============================================================ -->
+
+<div
+  class="c-quick-view-modal"
+  id="quick-view-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="qv-product-title"
+  tabindex="-1"
+>
+  <!-- Modal Overlay Mask -->
+  <div class="c-quick-view-modal__overlay" data-action="close"></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="c-quick-view-modal__dialog">
+    <!-- Close Button -->
+    <button
+      class="c-quick-view-modal__close-btn"
+      aria-label="Close Quick View"
+      data-action="close"
+      type="button"
+    >
+      <svg class="c-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- 1. LOADING SKELETON STATE -->
+    <div class="c-quick-view-modal__state c-quick-view-modal__state--loading" aria-hidden="false" role="status" aria-label="Loading product details">
+      <div class="c-quick-view-modal__grid">
+        <!-- Gallery Skeleton -->
+        <div class="c-quick-view-modal__gallery-skeleton">
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--media"></div>
+          <div class="c-quick-view-modal__shimmer-thumbs">
+            <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--thumb"></div>
+            <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--thumb"></div>
+            <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--thumb"></div>
+            <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--thumb"></div>
+          </div>
+        </div>
+        <!-- Info Skeleton -->
+        <div class="c-quick-view-modal__info-skeleton">
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--label"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--title"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--rating"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--price"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--desc"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--options"></div>
+          <div class="c-quick-view-modal__shimmer c-quick-view-modal__shimmer--cta"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ERROR STATE -->
+    <div class="c-quick-view-modal__state c-quick-view-modal__state--error" aria-hidden="true">
+      <div class="c-quick-view-modal__error-content">
+        <div class="c-quick-view-modal__error-icon-wrap" aria-hidden="true">
+          <svg class="c-icon c-icon--alert" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-ruby-alert)" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h3 class="c-quick-view-modal__error-title">Unable to Load Piece</h3>
+        <p class="c-quick-view-modal__error-msg">We encountered an issue fetching this design's configuration. Please check your network or try again.</p>
+        <button class="btn btn--outline c-quick-view-modal__retry-btn" type="button">
+          <span>Retry Loading</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. UNAVAILABLE PRODUCT STATE -->
+    <div class="c-quick-view-modal__state c-quick-view-modal__state--unavailable" aria-hidden="true">
+      <div class="c-quick-view-modal__error-content">
+        <div class="c-quick-view-modal__error-icon-wrap" aria-hidden="true">
+          <svg class="c-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-neutral-500)" stroke-width="1.5">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <h3 class="c-quick-view-modal__error-title">Design Unavailable</h3>
+        <p class="c-quick-view-modal__error-msg">This specific jewellery piece is currently archived or unavailable for preview in your region.</p>
+        <button class="btn btn--outline" data-action="close" type="button">
+          <span>Back to Collection</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4. MAIN CONTENT HYDRATED STATE -->
+    <div class="c-quick-view-modal__state c-quick-view-modal__state--content" aria-hidden="true">
+      <div class="c-quick-view-modal__grid">
+        
+        <!-- Left Side: Product Gallery -->
+        <div class="c-quick-view-modal__gallery">
+          <div class="c-quick-view-modal__gallery-main">
+            <!-- Favorite Toggle overlay -->
+            <button
+              class="c-quick-view-modal__fav-btn"
+              aria-label="Add product to wishlist"
+              aria-pressed="false"
+              type="button"
+            >
+              <svg class="c-quick-view-modal__fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+              <span class="c-quick-view-modal__fav-spinner" aria-hidden="true"></span>
+            </button>
+
+            <!-- Image Track Stage -->
+            <div class="c-quick-view-modal__gallery-stage" id="qv-gallery-stage">
+              <div class="c-quick-view-modal__gallery-track" id="qv-gallery-track">
+                <!-- Injected images will go here dynamically -->
+              </div>
+            </div>
+
+            <!-- Image Zoom Viewport Lens Placeholder (indicated overlay for styling) -->
+            <div class="c-quick-view-modal__zoom-indicator" aria-hidden="true">
+              <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <span>Hover to Zoom</span>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="c-quick-view-modal__gallery-nav">
+              <button
+                class="c-quick-view-modal__gallery-arrow c-quick-view-modal__gallery-arrow--prev"
+                aria-label="Previous image"
+                type="button"
+              >
+                <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+              <button
+                class="c-quick-view-modal__gallery-arrow c-quick-view-modal__gallery-arrow--next"
+                aria-label="Next image"
+                type="button"
+              >
+                <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Image counter text status -->
+            <div class="c-quick-view-modal__gallery-counter" aria-live="polite">
+              <span id="qv-gallery-current">1</span> / <span id="qv-gallery-total">1</span>
+            </div>
+          </div>
+
+          <!-- Thumbnail Gallery Track -->
+          <div class="c-quick-view-modal__thumbs-container">
+            <div class="c-quick-view-modal__thumbs" id="qv-thumbs-track">
+              <!-- Thumbnails injected dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Product Information Details -->
+        <div class="c-quick-view-modal__info">
+          
+          <!-- Header Area: Brand label, certification and Title -->
+          <header class="c-quick-view-modal__info-header">
+            <div class="c-quick-view-modal__meta-row">
+              <span class="c-quick-view-modal__collection" id="qv-collection">Collection Label</span>
+              <span class="c-quick-view-modal__cert-badge" id="qv-certification">GIA Certified</span>
+            </div>
+            <h2 class="c-quick-view-modal__title" id="qv-product-title">Product Title</h2>
+            
+            <!-- Ratings and stock status row -->
+            <div class="c-quick-view-modal__ratings-row">
+              <div class="c-quick-view-modal__rating-wrapper" id="qv-rating-wrapper">
+                <!-- Stars list -->
+                <div class="c-quick-view-modal__stars" id="qv-stars-container" aria-hidden="true">
+                  <!-- Injected stars -->
+                </div>
+                <span class="c-quick-view-modal__rating-val" id="qv-rating-val">4.9</span>
+                <span class="c-quick-view-modal__rating-count" id="qv-review-count">(42 reviews)</span>
+              </div>
+              <span class="c-quick-view-modal__stock-tag" id="qv-stock-status">In Stock</span>
+            </div>
+          </header>
+
+          <!-- Price & Financials Area -->
+          <div class="c-quick-view-modal__pricing-box">
+            <div class="c-quick-view-modal__price-row">
+              <span class="c-quick-view-modal__price c-quick-view-modal__price--current" id="qv-price-current">₹1,45,000</span>
+              <span class="c-quick-view-modal__price c-quick-view-modal__price--original" id="qv-price-original">₹1,75,000</span>
+              <span class="c-quick-view-modal__discount-badge" id="qv-discount-percent">17% OFF</span>
+            </div>
+            <div class="c-quick-view-modal__financials">
+              <div class="c-quick-view-modal__emi-info" id="qv-emi-info">
+                <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <span>EMI available from ₹12,083/month</span>
+              </div>
+              <div class="c-quick-view-modal__shipping-estimate" id="qv-delivery-info">
+                <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+                <span>Free Insured Delivery by Thursday, July 23</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Short Description -->
+          <p class="c-quick-view-modal__description" id="qv-description">
+            A timeless expression of handmade luxury, this piece features high-clarity diamonds set meticulously in high-polish gold settings.
+          </p>
+
+          <!-- Dynamic Selections Form options -->
+          <form class="c-quick-view-modal__options-form" id="qv-options-form">
+            <!-- Option 1: Metal Choice -->
+            <div class="c-quick-view-modal__option-group">
+              <div class="c-quick-view-modal__option-header">
+                <span class="c-quick-view-modal__option-label">Metal Color</span>
+                <span class="c-quick-view-modal__option-selected-val" id="qv-metal-selected">18K Yellow Gold</span>
+              </div>
+              <div class="c-quick-view-modal__option-swatches" id="qv-metal-swatches">
+                <!-- Swatch nodes injected dynamically -->
+              </div>
+            </div>
+
+            <!-- Option 2: Stone Carat/Type Choice -->
+            <div class="c-quick-view-modal__option-group" id="qv-stone-group">
+              <div class="c-quick-view-modal__option-header">
+                <span class="c-quick-view-modal__option-label">Stone Type</span>
+                <span class="c-quick-view-modal__option-selected-val" id="qv-stone-selected">Round Brilliant Diamond</span>
+              </div>
+              <div class="c-quick-view-modal__option-swatches" id="qv-stone-swatches">
+                <!-- Swatch nodes injected dynamically -->
+              </div>
+            </div>
+
+            <!-- Option 3: Size Choice -->
+            <div class="c-quick-view-modal__option-group" id="qv-size-group">
+              <div class="c-quick-view-modal__option-header">
+                <label for="qv-size-select" class="c-quick-view-modal__option-label">Size Selection</label>
+                <a href="#size-guide" class="c-quick-view-modal__size-guide-link" id="qv-size-guide-btn">Sizing Guide</a>
+              </div>
+              <div class="c-quick-view-modal__size-select-wrapper">
+                <select class="c-quick-view-modal__size-select" id="qv-size-select">
+                  <!-- Size selections injected dynamically -->
+                </select>
+                <svg class="c-quick-view-modal__size-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Option 4: Quantity Incrementer -->
+            <div class="c-quick-view-modal__option-group c-quick-view-modal__option-group--quantity">
+              <span class="c-quick-view-modal__option-label">Quantity</span>
+              <div class="c-quick-view-modal__qty-selector">
+                <button
+                  class="c-quick-view-modal__qty-btn c-quick-view-modal__qty-btn--minus"
+                  aria-label="Decrease quantity by 1"
+                  type="button"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+                <input
+                  class="c-quick-view-modal__qty-input"
+                  id="qv-quantity"
+                  name="quantity"
+                  type="number"
+                  value="1"
+                  min="1"
+                  max="10"
+                  aria-label="Product quantity input"
+                >
+                <button
+                  class="c-quick-view-modal__qty-btn c-quick-view-modal__qty-btn--plus"
+                  aria-label="Increase quantity by 1"
+                  type="button"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- PREMIUM AI STYLE INSIGHTS CARD -->
+          <div class="c-quick-view-modal__ai-insights" id="qv-ai-insights-card">
+            <header class="c-quick-view-modal__ai-header">
+              <div class="c-quick-view-modal__ai-tag">
+                <span class="c-quick-view-modal__ai-sparkle">✨</span>
+                <span>AI Stylist Match</span>
+              </div>
+              <span class="c-quick-view-modal__ai-match-score" id="qv-ai-score">96% Match</span>
+            </header>
+            <div class="c-quick-view-modal__ai-body">
+              <p class="c-quick-view-modal__ai-reason" id="qv-ai-reason">
+                Complements your wardrobe tones and matches search items inside your Bridal Jewellery collection.
+              </p>
+              <div class="c-quick-view-modal__ai-meta">
+                <div class="c-quick-view-modal__ai-meta-item">
+                  <strong>Perfect Occasion:</strong>
+                  <span id="qv-ai-occasion">Sangeet Ceremony, Editorial Dinners</span>
+                </div>
+                <div class="c-quick-view-modal__ai-meta-item">
+                  <strong>Styling Advice:</strong>
+                  <span id="qv-ai-style-advice">Coordinate with silk ivory fabrics and fine diamond studs.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRIMARY ACTION BUTTONS -->
+          <div class="c-quick-view-modal__actions">
+            <div class="c-quick-view-modal__btn-row">
+              <!-- Add to Jewellery Box (Cart) -->
+              <button
+                class="btn btn--primary c-quick-view-modal__action-btn c-quick-view-modal__action-btn--cart"
+                id="qv-add-to-cart-btn"
+                type="button"
+              >
+                <span class="c-quick-view-modal__action-text">Add to Jewellery Box</span>
+                <span class="c-quick-view-modal__action-spinner" aria-hidden="true"></span>
+              </button>
+
+              <!-- Buy Now -->
+              <button
+                class="btn btn--secondary c-quick-view-modal__action-btn c-quick-view-modal__action-btn--buynow"
+                id="qv-buy-now-btn"
+                type="button"
+              >
+                <span>Buy Now</span>
+              </button>
+            </div>
+
+            <div class="c-quick-view-modal__utility-row">
+              <!-- View Full Details Page Link -->
+              <a href="product.html?id=placeholder" class="btn btn--outline c-quick-view-modal__details-link" id="qv-view-details-btn">
+                <span>View Full Details</span>
+              </a>
+
+              <!-- Additional Action triggers -->
+              <div class="c-quick-view-modal__secondary-actions">
+                <!-- Save Wishlist -->
+                <button
+                  class="c-quick-view-modal__utility-btn c-quick-view-modal__utility-btn--wishlist"
+                  id="qv-wishlist-toggle-btn"
+                  aria-label="Add to Wishlist"
+                  aria-pressed="false"
+                  type="button"
+                >
+                  <svg class="c-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                  </svg>
+                </button>
+                <!-- Share Piece -->
+                <button
+                  class="c-quick-view-modal__utility-btn c-quick-view-modal__utility-btn--share"
+                  id="qv-share-btn"
+                  aria-label="Share this Jewellery Piece"
+                  type="button"
+                >
+                  <svg class="c-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRUST INDICATORS BAR -->
+          <footer class="c-quick-view-modal__trust-strip" aria-label="Lustra Assurances">
+            <div class="c-quick-view-modal__trust-item">
+              <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>Certified Jewellery</span>
+            </div>
+            <div class="c-quick-view-modal__trust-item">
+              <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>Lifetime Exchange</span>
+            </div>
+            <div class="c-quick-view-modal__trust-item">
+              <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span>Free Shipping</span>
+            </div>
+            <div class="c-quick-view-modal__trust-item">
+              <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>Secure Checkout</span>
+            </div>
+            <div class="c-quick-view-modal__trust-item">
+              <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                <path d="M16 3h5v5"/>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                <path d="M8 21H3v-5"/>
+              </svg>
+              <span>Easy Returns</span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

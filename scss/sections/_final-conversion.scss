@@ -1,0 +1,496 @@
+// Homepage Final Conversion Section styling rules
+.c-final-conversion {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-3xl) 0 0 0; // Seamless transitions to footer below
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Section intro
+  &__header {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+    display: block;
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// CURATED INSTAGRAM CAMPAIGN GALLERY
+.c-instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-instagram-card {
+  display: block;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-gray-line);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+
+  &__media {
+    position: relative;
+    padding-top: 100%; // Square ratio
+    overflow: hidden;
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 26, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xs);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    padding: var(--spacing-md);
+    text-align: center;
+    color: var(--color-pure-white);
+  }
+
+  &__tag {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-gold);
+  }
+
+  &__likes {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+  }
+
+  &__cta {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    border: 1px solid var(--color-pure-white);
+    padding: 6px var(--spacing-sm);
+    border-radius: var(--radius-xs);
+    margin-top: var(--spacing-2xs);
+    transition: background-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      background-color: var(--color-pure-white);
+      color: var(--color-dark-charcoal);
+    }
+  }
+
+  &:hover &__overlay {
+    opacity: 1;
+  }
+
+  &:hover &__img {
+    transform: scale(1.03);
+  }
+}
+
+// Social Statistics values
+.c-social-highlights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  border-bottom: 1px solid var(--color-gray-line);
+  padding-bottom: var(--spacing-3xl);
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+}
+
+.c-social-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__num {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__lbl {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+// LUXURY NEWSLETTER ATELIER CARD
+.c-luxury-newsletter {
+  background: linear-gradient(
+    145deg,
+    var(--color-cream-tint) 0%,
+    #F0EBE2 50%,
+    var(--color-cream-tint) 100%
+  );
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: var(--spacing-3xl) var(--spacing-2xl);
+  max-width: 850px;
+  margin: 0 auto;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  &__form-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  &__field-group {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--spacing-sm);
+    width: 100%;
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xs);
+    }
+  }
+
+  &__privacy-note {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    color: var(--color-neutral-500);
+    margin: var(--spacing-xs) 0 0 0;
+  }
+}
+
+// User Subscription checkbox list styling
+.c-newsletter-prefs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: center;
+
+  &__label {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+
+    @include respond-to(mobile) {
+      gap: var(--spacing-sm);
+    }
+  }
+}
+
+.c-pref-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  
+  span {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    color: var(--color-dark-charcoal);
+  }
+}
+
+.c-pref-checkbox {
+  accent-color: var(--color-primary-gold);
+  cursor: pointer;
+}
+
+// Form validation error fields
+.c-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.c-input-field {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-family-body);
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-line);
+  background-color: var(--color-pure-white);
+  color: var(--color-dark-charcoal);
+  height: 52px;
+  transition: border-color 0.25s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-gold);
+  }
+}
+
+.c-input-msg-error {
+  font-family: var(--font-family-body);
+  font-size: 0.6875rem;
+  color: var(--color-tertiary-red);
+  text-align: left;
+  margin-top: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+}
+
+.c-input-field.is-invalid {
+  border-color: var(--color-tertiary-red);
+}
+
+.c-input-field.is-invalid ~ .c-input-msg-error {
+  display: block;
+}
+
+// LUXURY FINAL CTA PARALLAX/GRADIENT BANNER
+.c-final-banner {
+  // Rich layered dark gradient with warm gold mid-stop for luxury depth
+  background:
+    linear-gradient(
+      135deg,
+      #0D0D0D 0%,
+      #1A1308 35%,
+      #1A1A1A 65%,
+      #0A0A0A 100%
+    );
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  color: var(--color-pure-white);
+  margin-bottom: var(--spacing-3xl);
+
+  // Ambient gold radial halo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    max-width: 100%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(201, 169, 110, 0.12) 0%,
+      rgba(201, 169, 110, 0.04) 35%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // Decorative SVG ring asset in background
+  &::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(201, 169, 110, 0.12);
+    box-shadow:
+      0 0 0 40px rgba(201, 169, 110, 0.04),
+      0 0 0 80px rgba(201, 169, 110, 0.025),
+      0 0 0 120px rgba(201, 169, 110, 0.015);
+    pointer-events: none;
+    z-index: 1;
+
+    @include respond-to(tablet) {
+      display: none;
+    }
+  }
+
+  @include respond-to(tablet) {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    gap: var(--spacing-lg);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--color-pure-white);
+    margin: 0;
+    text-shadow: 0 0 60px rgba(201, 169, 110, 0.35);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    max-width: 520px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    width: 100%;
+    justify-content: center;
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      gap: var(--spacing-xs);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  &__assurance {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-primary-gold);
+    opacity: 0.9;
+    margin-top: var(--spacing-xs);
+  }
+
+  .btn--secondary {
+    background-color: rgba(201, 169, 110, 0.12);
+    border-color: rgba(201, 169, 110, 0.4);
+    color: var(--color-primary-gold);
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background-color: var(--color-primary-gold);
+      color: var(--color-dark-charcoal);
+      border-color: var(--color-primary-gold);
+      box-shadow: var(--shadow-gold-glow);
+    }
+  }
+}

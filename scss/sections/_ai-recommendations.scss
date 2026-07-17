@@ -1,0 +1,253 @@
+// AI Personalized Recommendations Section layouts
+.c-ai-recommendations {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: var(--spacing-2xl);
+
+    @include respond-to(laptop) {
+      grid-template-columns: 1.1fr 2fr;
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Sidebar Layout blocks
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__cta {
+    align-self: flex-start;
+  }
+
+  // Right column product showcase wrappers
+  &__showcase {
+    width: 100%;
+    min-width: 0; // Fixes flex overflow details inside slider grids
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+
+    @include respond-to(laptop) {
+      gap: var(--spacing-md);
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      // Swiper handles mobile list rows
+      display: flex;
+      gap: 0;
+    }
+  }
+}
+
+// AI Client Profile Card styling details
+.c-ai-profile-card {
+  background: rgba(250, 248, 245, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-gray-line);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-gray-line);
+    padding-bottom: var(--spacing-xs);
+  }
+
+  &__badge {
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px var(--spacing-xs);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-primary-gold);
+    color: var(--color-dark-charcoal);
+  }
+
+  &__match {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-neutral-600);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+// Client Profile Parameter Details layout
+.c-ai-stat {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: var(--spacing-xs);
+
+  &__label {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-neutral-600);
+  }
+
+  &__val {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-dark-charcoal);
+    text-align: right;
+  }
+
+  // Linear indicators for Match Confidence
+  &__progress-bar {
+    background-color: var(--color-gray-line);
+    height: 6px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    grid-column: 1;
+  }
+
+  &__progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--color-primary-gold);
+    border-radius: var(--radius-sm);
+    transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &__percentage {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-dark-charcoal);
+    text-align: right;
+    grid-column: 2;
+  }
+}
+
+// Best Match variation properties
+.c-product-card--best-match {
+  border: 1px solid var(--color-primary-gold) !important;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid var(--color-primary-gold);
+    border-radius: var(--radius-md);
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+// Custom internal tags elements inside personal product cards
+.c-product-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.c-product-tag {
+  font-family: var(--font-family-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 2px 6px;
+  background-color: var(--color-cream-tint);
+  color: var(--color-neutral-600);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-gray-line);
+}
+
+// Reason subtitle formatting rules
+.c-product-card__match-reason {
+  font-family: var(--font-family-body);
+  font-size: 0.6875rem;
+  color: var(--color-neutral-500);
+  margin-top: 4px;
+}
+
+// Journey style modifications for sider rows
+.c-journey--recs {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--spacing-sm);
+
+  .c-journey__step {
+    font-size: 0.6875rem;
+  }
+
+  .c-journey__arrow {
+    font-size: 0.75rem;
+  }
+}

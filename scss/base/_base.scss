@@ -1,0 +1,125 @@
+:root {
+  // ── Brand Color Palette ─────────────────────────────────────
+  --color-primary-gold:         #C9A96E;
+  --color-primary-gold-light:   #DFC49A;
+  --color-primary-gold-hover:   #B8985D;
+  --color-primary-gold-deep:    #A07840;
+  --color-dark-charcoal:        #1A1A1A;
+  --color-dark-charcoal-hover:  #0F0F0F;
+  --color-pure-white:           #FFFFFF;
+  --color-cream-tint:           #FAF8F5;
+  --color-cream-deep:           #F3EFE9;
+  --color-gray-line:            #E9E7E2;
+
+  // ── Extended Neutral Scale ──────────────────────────────────
+  --color-neutral-900:          #121212;
+  --color-neutral-800:          #2A2A2A;
+  --color-neutral-700:          #444444;
+  --color-neutral-600:          #666666;
+  --color-neutral-500:          #8A8A8A;
+  --color-neutral-400:          #B0B0B0;
+  --color-neutral-300:          #D2D2D2;
+  --color-neutral-200:          #ECECEC;
+  --color-neutral-100:          #F6F6F6;
+
+  // ── Status & Accent Colors ──────────────────────────────────
+  --color-ok-green:             #2F855A;
+  --color-warn-red:             #D64545;
+  --color-sapphire-info:        #2563EB;
+  --color-gold-rewards:         #F4B740;
+  --color-ai-rose:              #D7A7A0;
+  --color-ai-rose-deep:         #C49490;
+
+  // ── Typography Font Stack ───────────────────────────────────
+  --font-family-display:        'Playfair Display', Georgia, serif;
+  --font-family-body:           'Inter', system-ui, -apple-system, sans-serif;
+
+  // ── Spacing Scale (8px Grid) ────────────────────────────────
+  --spacing-2xs:                4px;
+  --spacing-xs:                 8px;
+  --spacing-sm:                 16px;
+  --spacing-md:                 24px;
+  --spacing-lg:                 32px;
+  --spacing-xl:                 48px;
+  --spacing-2xl:                64px;
+  --spacing-3xl:                80px;
+  --spacing-4xl:                96px;
+  --spacing-5xl:                120px;
+
+  // ── Border Radius System ────────────────────────────────────
+  --radius-xs:                  4px;
+  --radius-sm:                  8px;
+  --radius-md:                  12px;
+  --radius-lg:                  16px;
+  --radius-xl:                  24px;
+  --radius-xxl:                 32px;
+  --radius-pill:                999px;
+  --radius-circle:              50%;
+
+  // ── Shadow Elevation Scale ──────────────────────────────────
+  --shadow-xs:                  0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-sm:                  0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md:                  0 8px 24px rgba(0, 0, 0, 0.09);
+  --shadow-lg:                  0 20px 48px rgba(0, 0, 0, 0.12);
+  --shadow-xl:                  0 32px 64px rgba(0, 0, 0, 0.16);
+  --shadow-card:                0 4px 20px rgba(26, 26, 26, 0.06);
+  --shadow-card-hover:          0 12px 36px rgba(26, 26, 26, 0.12);
+  --shadow-modal:               0 24px 60px rgba(0, 0, 0, 0.28);
+  --shadow-gold-glow:           0 8px 32px rgba(201, 169, 110, 0.28);
+  --shadow-gold-glow-lg:        0 0 60px rgba(201, 169, 110, 0.18);
+
+  // ── Transitions & Easing ───────────────────────────────────
+  --transition-ease-slow:       all 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-ease-default:    all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-ease-fast:       all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-duration-default: 300ms;
+  --transition-duration-slow:    550ms;
+  --easing-default:              cubic-bezier(0.25, 1, 0.5, 1);
+  --easing-premium:              cubic-bezier(0.16, 1, 0.3, 1);
+  --easing-spring:               cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ── Z-Index Stack ──────────────────────────────────────────
+  --z-back:     -10;
+  --z-base:       1;
+  --z-raised:    10;
+  --z-sticky:   100;
+  --z-drawer:   500;
+  --z-overlay: 1000;
+  --z-toast:   2000;
+}
+
+/* Base document definitions */
+body {
+  background-color: $color-cream-tint;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Global backdrop overlay layer styling */
+.c-overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 950;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Visibility helpers overrides */
+.u-overflow-hidden {
+  overflow: hidden !important;
+}
+
+.u-d-none {
+  display: none !important;
+}

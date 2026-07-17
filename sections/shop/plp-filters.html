@@ -1,0 +1,529 @@
+<!-- Product Listing Page (PLP) Advanced Filters & Sorting Section -->
+<div class="c-plp-controls" id="plp-controls-section">
+  
+  <!-- Backdrop Overlay for Tablet Drawer / Mobile Bottom Sheet -->
+  <div class="c-plp-overlay" id="filter-overlay" aria-hidden="true" onclick="window.LustraFilters && window.LustraFilters.closeFilters()"></div>
+
+  <!-- Horizontal Track for Quick Filter Chips -->
+  <div class="c-quick-chips" aria-label="Quick collection filters">
+    <div class="c-quick-chips__wrapper">
+      <button class="c-quick-chip" data-quick-filter="new">New</button>
+      <button class="c-quick-chip" data-quick-filter="wedding">Wedding</button>
+      <button class="c-quick-chip" data-quick-filter="daily-wear">Daily Wear</button>
+      <button class="c-quick-chip" data-quick-filter="luxury">Luxury</button>
+      <button class="c-quick-chip" data-quick-filter="under-50k">Under ₹50K</button>
+      <button class="c-quick-chip" data-quick-filter="diamond">Diamond</button>
+      <button class="c-quick-chip" data-quick-filter="gold">Gold</button>
+      <button class="c-quick-chip" data-quick-filter="trending">Trending</button>
+    </div>
+  </div>
+
+  <!-- Main Toolbar with state variables and layout controls -->
+  <div class="c-plp-toolbar" role="toolbar" aria-label="Catalog Toolbar Tools">
+    <div class="c-plp-toolbar__left">
+      <div class="c-plp-toolbar__count-group">
+        <span class="c-plp-toolbar__category" id="current-category-name">All Jewellery</span>
+        <span class="c-plp-toolbar__count" id="active-product-count">(320 Pieces)</span>
+      </div>
+      
+      <!-- Mobile Filter Trigger Button -->
+      <button class="c-plp-toolbar__mobile-trigger btn btn--outline" id="mobile-filter-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="plp-filter-sidebar">
+        <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M4 6h16M7 12h10M9 18h6"/></svg>
+        <span>Filters</span>
+        <span class="c-plp-toolbar__badge-num" id="mobile-filter-badge">0</span>
+      </button>
+    </div>
+
+    <!-- Active Filters Chips row -->
+    <div class="c-active-filters" id="active-filters-bar" aria-label="Active Filters Applied" aria-live="polite">
+      <div class="c-active-filters__list" id="active-chips-container">
+        <!-- Rendered dynamically via JS -->
+      </div>
+      <button class="c-active-filters__clear btn btn--text is-hidden" id="clear-all-filters-btn">Clear All</button>
+    </div>
+
+    <div class="c-plp-toolbar__right">
+      <!-- Layout view grid toggles -->
+      <div class="c-layout-toggle" aria-label="Change products layout">
+        <button class="c-layout-toggle__btn is-active" id="grid-view-toggle" aria-label="Grid View" aria-pressed="true">
+          <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        </button>
+        <button class="c-layout-toggle__btn" id="list-view-toggle" aria-label="List View" aria-pressed="false">
+          <svg class="c-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Sorting dropdown -->
+      <div class="c-sort-dropdown" id="sort-dropdown-container">
+        <button class="c-sort-dropdown__trigger" id="sort-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Sort products, currently sorted by Recommended">
+          <span class="c-sort-dropdown__label">Sort By:</span>
+          <span class="c-sort-dropdown__value" id="current-sort-val">Recommended</span>
+          <svg class="c-icon c-sort-dropdown__chevron" width="14" height="14" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        
+        <ul class="c-sort-dropdown__list" role="listbox" id="sort-options-list" aria-activedescendant="sort-recommended">
+          <li class="c-sort-dropdown__item is-selected" role="option" id="sort-recommended" data-value="recommended" aria-selected="true">Recommended</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-newest" data-value="newest">Newest First</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-trending" data-value="trending">Trending</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-best-sellers" data-value="best-sellers">Best Sellers</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-price-low" data-value="price-low">Price: Low to High</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-price-high" data-value="price-high">Price: High to Low</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-highest-rated" data-value="highest-rated">Highest Rated</li>
+          <li class="c-sort-dropdown__item" role="option" id="sort-editors-choice" data-value="editors-choice">Editor's Choice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workspace Grid Layout split -->
+  <div class="c-plp-workspace">
+    
+    <!-- Collapsible Filters Sidebar Drawer/Panel -->
+    <aside class="c-plp-sidebar" id="plp-filter-sidebar" role="dialog" aria-labelledby="sidebar-title">
+      
+      <!-- Drawer Header only visible on Tablet / Mobile -->
+      <div class="c-plp-sidebar__header">
+        <h2 class="c-plp-sidebar__title" id="sidebar-title">Filters</h2>
+        <button class="c-plp-sidebar__close" id="filter-drawer-close" aria-label="Close Filters Panel" onclick="window.LustraFilters && window.LustraFilters.closeFilters()">
+          <svg class="c-icon" width="20" height="20" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="c-plp-sidebar__scroll">
+        
+        <!-- Premium AI Smart Stylist Filter Card -->
+        <div class="c-ai-smart-card">
+          <div class="c-ai-smart-card__glow"></div>
+          <div class="c-ai-smart-card__header">
+            <div class="c-ai-smart-card__badge">
+              <svg class="c-icon" width="14" height="14" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H7M21 9H3"/></svg>
+              <span>AI CURATION</span>
+            </div>
+            <label class="c-ai-switch" aria-label="Toggle AI intelligent stylist recommendation">
+              <input type="checkbox" id="ai-recommendation-toggle" class="c-ai-switch__input">
+              <span class="c-ai-switch__slider"></span>
+            </label>
+          </div>
+          
+          <h3 class="c-ai-smart-card__title">AI Styling Consultant</h3>
+          <p class="c-ai-smart-card__desc">Activate intelligent preferences to sort matches by your personal style profile.</p>
+          
+          <div class="c-ai-smart-card__body is-collapsed" id="ai-smart-body">
+            <!-- Style Preferences Selection -->
+            <div class="c-ai-field">
+              <label for="ai-style-preference" class="c-ai-field__label">Style DNA Profile</label>
+              <select id="ai-style-preference" class="c-ai-field__selectSelector">
+                <option value="minimalist">Parisian Minimalist</option>
+                <option value="royal">Traditional Royal</option>
+                <option value="statement">Bold Statement</option>
+                <option value="vintage">Art Deco Vintage</option>
+              </select>
+            </div>
+
+            <!-- Occasion Styling Selector -->
+            <div class="c-ai-field">
+              <label for="ai-occasion-select" class="c-ai-field__label">Occasion Context</label>
+              <select id="ai-occasion-select" class="c-ai-field__selectSelector">
+                <option value="gala">Evening Gala / Red Carpet</option>
+                <option value="everyday">Everyday Work Style</option>
+                <option value="wedding">Bridal Celebrations</option>
+                <option value="brunch">Luxury Social Brunches</option>
+              </select>
+            </div>
+
+            <!-- Pre-defined Match Seeds tags -->
+            <div class="c-ai-seeds">
+              <label class="c-ai-seeds__chip">
+                <input type="checkbox" id="ai-seed-recent" checked>
+                <span>Recently Viewed</span>
+              </label>
+              <label class="c-ai-seeds__chip">
+                <input type="checkbox" id="ai-seed-wishlist">
+                <span>Wishlist Match</span>
+              </label>
+              <label class="c-ai-seeds__chip">
+                <input type="checkbox" id="ai-seed-trending" checked>
+                <span>Trending Near You</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 1: Category -->
+        <div class="c-accordion" data-filter-group="category">
+          <button class="c-accordion__trigger" aria-expanded="true" aria-controls="filter-panel-category">
+            <span>Category</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel" id="filter-panel-category">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="category" value="rings" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Rings</span>
+                  <span class="c-custom-control__count">(124)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="category" value="necklaces" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Necklaces</span>
+                  <span class="c-custom-control__count">(98)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="category" value="earrings" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Earrings</span>
+                  <span class="c-custom-control__count">(64)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="category" value="bracelets" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Bracelets</span>
+                  <span class="c-custom-control__count">(48)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="category" value="bangles" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Bangles</span>
+                  <span class="c-custom-control__count">(36)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 2: Collection -->
+        <div class="c-accordion" data-filter-group="collection">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-collection">
+            <span>Collection</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-collection">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="collection" value="eternal-bridal" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Eternal Bridal Suite</span>
+                  <span class="c-custom-control__count">(32)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="collection" value="heritage" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Royal Heritage Edit</span>
+                  <span class="c-custom-control__count">(42)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="collection" value="aura" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Solitaire Aura</span>
+                  <span class="c-custom-control__count">(28)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 3: Price Range (Slider) -->
+        <div class="c-accordion" data-filter-group="price">
+          <button class="c-accordion__trigger" aria-expanded="true" aria-controls="filter-panel-price">
+            <span>Price Range</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel" id="filter-panel-price">
+            <div class="c-accordion__content">
+              <div class="c-dual-range">
+                <div class="c-dual-range__slider">
+                  <div class="c-dual-range__track" id="price-slider-track"></div>
+                  <input type="range" class="c-dual-range__input-min" id="price-slider-min" min="20000" max="1000000" value="20000" step="5000" aria-label="Minimum Price limit">
+                  <input type="range" class="c-dual-range__input-max" id="price-slider-max" min="20000" max="1000000" value="800000" step="5000" aria-label="Maximum Price limit">
+                </div>
+                
+                <div class="c-dual-range__numeric">
+                  <div class="c-dual-range__val-box">
+                    <span class="c-dual-range__currency">₹</span>
+                    <input type="number" id="price-num-min" value="20000" min="20000" max="1000000">
+                  </div>
+                  <span class="c-dual-range__dash">&mdash;</span>
+                  <div class="c-dual-range__val-box">
+                    <span class="c-dual-range__currency">₹</span>
+                    <input type="number" id="price-num-max" value="800000" min="20000" max="1000000">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 4: Metal Type (Color Swatches) -->
+        <div class="c-accordion" data-filter-group="metal">
+          <button class="c-accordion__trigger" aria-expanded="true" aria-controls="filter-panel-metal">
+            <span>Material Metal</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel" id="filter-panel-metal">
+            <div class="c-accordion__content">
+              <div class="c-swatches">
+                <!-- Swatch 1: Yellow Gold -->
+                <label class="c-swatch" title="18K Yellow Gold">
+                  <input type="checkbox" name="metal" value="gold" class="c-swatch__input">
+                  <span class="c-swatch__box c-swatch__box--yellow-gold"></span>
+                  <span class="c-swatch__name">18K Yellow Gold</span>
+                </label>
+                <!-- Swatch 2: Rose Gold -->
+                <label class="c-swatch" title="18K Rose Gold">
+                  <input type="checkbox" name="metal" value="rose-gold" class="c-swatch__input">
+                  <span class="c-swatch__box c-swatch__box--rose-gold"></span>
+                  <span class="c-swatch__name">18K Rose Gold</span>
+                </label>
+                <!-- Swatch 3: White Gold -->
+                <label class="c-swatch" title="18K White Gold">
+                  <input type="checkbox" name="metal" value="white-gold" class="c-swatch__input">
+                  <span class="c-swatch__box c-swatch__box--white-gold"></span>
+                  <span class="c-swatch__name">18K White Gold</span>
+                </label>
+                <!-- Swatch 4: Platinum -->
+                <label class="c-swatch" title="Platinum 950">
+                  <input type="checkbox" name="metal" value="platinum" class="c-swatch__input">
+                  <span class="c-swatch__box c-swatch__box--platinum"></span>
+                  <span class="c-swatch__name">Platinum 950</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 5: Gem Stone -->
+        <div class="c-accordion" data-filter-group="stone">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-stone">
+            <span>Gemstone</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-stone">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="stone" value="natural-diamond" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Natural Diamond</span>
+                  <span class="c-custom-control__count">(180)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="stone" value="emerald" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Zambian Emerald</span>
+                  <span class="c-custom-control__count">(24)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="stone" value="sapphire" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Blue Sapphire</span>
+                  <span class="c-custom-control__count">(18)</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="stone" value="pearl" class="c-custom-control__input">
+                  <span class="c-custom-control__label">South Sea Pearl</span>
+                  <span class="c-custom-control__count">(12)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 6: Stone Tone Color -->
+        <div class="c-accordion" data-filter-group="color">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-color">
+            <span>Diamond Color Grade</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-color">
+            <div class="c-accordion__content">
+              <div class="c-swatches c-swatches--grid">
+                <label class="c-swatch c-swatch--txt" title="D-F Colorless">
+                  <input type="checkbox" name="color" value="df" class="c-swatch__input">
+                  <span class="c-swatch__tag">D-F</span>
+                </label>
+                <label class="c-swatch c-swatch--txt" title="G-H Near Colorless">
+                  <input type="checkbox" name="color" value="gh" class="c-swatch__input">
+                  <span class="c-swatch__tag">G-H</span>
+                </label>
+                <label class="c-swatch c-swatch--txt" title="I-J Near Colorless">
+                  <input type="checkbox" name="color" value="ij" class="c-swatch__input">
+                  <span class="c-swatch__tag">I-J</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 7: Occasion -->
+        <div class="c-accordion" data-filter-group="occasion">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-occasion">
+            <span>Occasion</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-occasion">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="occasion" value="wedding" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Wedding</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="occasion" value="engagement" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Engagement</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="occasion" value="anniversary" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Anniversary</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="occasion" value="evening-wear" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Evening Gala</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 8: Gender -->
+        <div class="c-accordion" data-filter-group="gender">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-gender">
+            <span>Gender Focus</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-gender">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="radio" name="gender" value="womens" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Women's Finest</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="radio" name="gender" value="mens" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Men's Editorial</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="radio" name="gender" value="unisex" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Unisex Selection</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 9: Availability Status -->
+        <div class="c-accordion" data-filter-group="availability">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-availability">
+            <span>Availability</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-availability">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="availability" value="in-stock" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Ready to Insured Ship</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="availability" value="bespoke" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Bespoke Custom Orders</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 10: Rating -->
+        <div class="c-accordion" data-filter-group="rating">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-rating">
+            <span>Customer Rating</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-rating">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="radio" name="rating" value="4.5" class="c-custom-control__input">
+                  <span class="c-custom-control__label">4.5 &starf; &amp; Above</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="radio" name="rating" value="4.0" class="c-custom-control__input">
+                  <span class="c-custom-control__label">4.0 &starf; &amp; Above</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 11: Member Alliance Offers -->
+        <div class="c-accordion" data-filter-group="offers">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-offers">
+            <span>Special Member Offers</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-offers">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="offers" value="vip-benefit" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Member Privilege Deals</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="offers" value="complimentary-gift" class="c-custom-control__input">
+                  <span class="c-custom-control__label">Complimentary Gift wrapping</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Accordion Group 12: Integrity Certifications -->
+        <div class="c-accordion" data-filter-group="certification">
+          <button class="c-accordion__trigger" aria-expanded="false" aria-controls="filter-panel-certification">
+            <span>Certification Authority</span>
+            <svg class="c-icon c-accordion__chevron" width="16" height="16" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="c-accordion__panel is-collapsed" id="filter-panel-certification">
+            <div class="c-accordion__content">
+              <div class="c-filter-options">
+                <label class="c-custom-control">
+                  <input type="checkbox" name="certification" value="gia" class="c-custom-control__input">
+                  <span class="c-custom-control__label">GIA Diamond Certification</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="certification" value="igi" class="c-custom-control__input">
+                  <span class="c-custom-control__label">IGI Laboratory Grading</span>
+                </label>
+                <label class="c-custom-control">
+                  <input type="checkbox" name="certification" value="bis-hallmark" class="c-custom-control__input">
+                  <span class="c-custom-control__label">BIS Hallmark Gold Purity</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Sticky Apply/Reset Actions for Mobile Bottom sheet -->
+      <div class="c-plp-sidebar__footer">
+        <button class="btn btn--outline" id="mobile-filter-clear-all" onclick="window.LustraFilters && window.LustraFilters.clearAllFilters()">Reset</button>
+        <button class="btn btn--primary" id="mobile-filter-apply-btn" onclick="window.LustraFilters && window.LustraFilters.closeFilters()">Apply Filters</button>
+      </div>
+
+    </aside>
+
+    <!-- Right Column Placeholder for Grid (Leave empty wrapper as specified) -->
+    <div class="c-plp-grid-container">
+      
+      <!-- Premium Empty State block inside product views -->
+      <div class="c-plp-empty-state is-hidden" id="plp-empty-state-view">
+        <div class="c-plp-empty-state__icon-box">
+          <svg class="c-icon" width="48" height="48" fill="none" stroke="currentColor" stroke-dasharray="2 2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5"/></svg>
+        </div>
+        <h4 class="c-plp-empty-state__title">No Matches Found</h4>
+        <p class="c-plp-empty-state__desc">No jewellery items match your active filters. Try refining your selections or resetting values.</p>
+        <div class="c-plp-empty-state__actions">
+          <button class="btn btn--primary" onclick="window.LustraFilters && window.LustraFilters.clearAllFilters()">Reset Filters</button>
+          <button class="btn btn--secondary" onclick="window.LustraFilters && window.LustraFilters.triggerAiStylist()">Consult AI Assistant</button>
+        </div>
+      </div>
+
+      <!-- Real catalogue product cards will boot here -->
+      <load src="./sections/shop/plp-product-grid.html"></load>
+
+    </div>
+
+  </div>
+</div>

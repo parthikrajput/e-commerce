@@ -1,0 +1,215 @@
+<!-- ============================================================
+     AI RECOMMENDED PRODUCTS — Lustra Reusable Component
+     File:      sections/shop/ai-recommendations.html
+     Purpose:   Personalized personal-shopper experience. Double-column
+                layout mapping Style DNA insights on the left, and tabbed
+                recommendation feeds on the right.
+     Spec Ref:  04_Component_Library (§4), 07_Design_Tokens (§1-3),
+                10_Responsive_Guidelines, 11_Accessibility_Guidelines
+     ============================================================ -->
+
+<section
+  class="c-ai-recommendations"
+  id="ai-recommendations-section"
+  aria-labelledby="ai-section-title"
+  data-ai-state="loading"
+>
+  <div class="l-container">
+    
+    <!-- 1. SECTION HEADER Area -->
+    <header class="c-ai-recommendations__header">
+      <div class="c-ai-recommendations__header-left">
+        <span class="c-ai-recommendations__eyebrow">AI Personal Shopper</span>
+        <h2 class="c-ai-recommendations__title" id="ai-section-title">Curated For You</h2>
+        <p class="c-ai-recommendations__description">
+          Bespoke coordinates matched to your unique Style DNA, browsing history, and aesthetic preferences.
+        </p>
+      </div>
+      <div class="c-ai-recommendations__header-right">
+        <!-- Interactive controls -->
+        <button
+          class="btn btn--outline c-ai-recommendations__refresh-btn"
+          id="ai-refresh-trigger"
+          aria-label="Refresh curated suggestions"
+          type="button"
+        >
+          <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          <span>Refresh Picks</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. DOUBLE-COLUMN LAYOUT WRAPPER -->
+    <div class="c-ai-recommendations__layout">
+      
+      <!-- COLUMN A: DYNAMIC STYLE DNA ASSISTANT CARD -->
+      <aside class="c-ai-recommendations__aside">
+        
+        <!-- Interactive frosted glass card -->
+        <div class="c-ai-insight-card" id="ai-insight-card-root">
+          <div class="c-ai-insight-card__glass">
+            
+            <div class="c-ai-insight-card__header">
+              <div class="c-ai-insight-card__avatar" aria-hidden="true">
+                <span class="c-ai-insight-card__spark">✦</span>
+              </div>
+              <div class="c-ai-insight-card__status">
+                <div class="c-ai-insight-card__score" id="ai-match-score">98% Match</div>
+                <div class="c-ai-insight-card__confidence">Personalized Style DNA</div>
+              </div>
+            </div>
+
+            <div class="c-ai-insight-card__body">
+              <h4 class="c-ai-insight-card__section-title">Your Style Profile</h4>
+              
+              <ul class="c-ai-insight-card__attributes">
+                <li class="c-ai-insight-card__attribute-item">
+                  <span class="c-ai-insight-card__attr-label">Shopping Style</span>
+                  <span class="c-ai-insight-card__attr-val" id="ai-val-style">Minimal Luxury</span>
+                </li>
+                <li class="c-ai-insight-card__attribute-item">
+                  <span class="c-ai-insight-card__attr-label">Preferred Metal</span>
+                  <span class="c-ai-insight-card__attr-val" id="ai-val-metal">White Gold</span>
+                </li>
+                <li class="c-ai-insight-card__attribute-item">
+                  <span class="c-ai-insight-card__attr-label">Favorite Stone</span>
+                  <span class="c-ai-insight-card__attr-val" id="ai-val-stone">Diamond</span>
+                </li>
+                <li class="c-ai-insight-card__attribute-item">
+                  <span class="c-ai-insight-card__attr-label">Ideal Budget</span>
+                  <span class="c-ai-insight-card__attr-val" id="ai-val-budget">Under ₹1.5L</span>
+                </li>
+                <li class="c-ai-insight-card__attribute-item">
+                  <span class="c-ai-insight-card__attr-label">Occasion Focus</span>
+                  <span class="c-ai-insight-card__attr-val" id="ai-val-occasion">Anniversary / Bridal</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="c-ai-insight-card__footer">
+              <button
+                class="btn btn--outline btn--sm c-ai-insight-card__profile-btn"
+                id="ai-improve-profile-trigger"
+                aria-label="Launch assistant to refine style profile preferences"
+                type="button"
+              >
+                Refine Style DNA
+              </button>
+            </div>
+            
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- COLUMN B: RECOMMENDATION CAROUSEL TRACK -->
+      <main class="c-ai-recommendations__main">
+        
+        <!-- Dynamic Category Navigation Tabs -->
+        <nav class="c-ai-recommendations__tabs-nav" aria-label="Recommendation filters">
+          <div class="c-ai-recommendations__tabs" id="ai-tabs-container" role="tablist">
+            <button class="c-ai-recommendations__tab-btn is-active" id="tab-perfect" role="tab" aria-selected="true" aria-controls="ai-carousel-view" data-category="perfect" type="button">Perfect For You</button>
+            <button class="c-ai-recommendations__tab-btn" id="tab-wishlist" role="tab" aria-selected="false" aria-controls="ai-carousel-view" data-category="wishlist" type="button">Inspired By Wishlist</button>
+            <button class="c-ai-recommendations__tab-btn" id="tab-trending" role="tab" aria-selected="false" aria-controls="ai-carousel-view" data-category="trending" type="button">Trending In Your City</button>
+            <button class="c-ai-recommendations__tab-btn" id="tab-luxury" role="tab" aria-selected="false" aria-controls="ai-carousel-view" data-category="luxury" type="button">Luxury Picks</button>
+          </div>
+        </nav>
+
+        <!-- 1. LOADING STATE PLACEHOLDER -->
+        <div class="c-ai-recommendations__state c-ai-recommendations__state--loading" aria-hidden="false" role="status" aria-label="Curating recommended items">
+          <div class="c-ai-recommendations__skeleton-grid">
+            <div class="c-ai-recommendations__skeleton-card">
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--media"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--title"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--price"></div>
+            </div>
+            <div class="c-ai-recommendations__skeleton-card u-d-none-mobile">
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--media"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--title"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--price"></div>
+            </div>
+            <div class="c-ai-recommendations__skeleton-card u-d-none-tablet">
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--media"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--title"></div>
+              <div class="c-ai-recommendations__shimmer c-ai-recommendations__shimmer--price"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. EMPTY STATE PLACEHOLDER -->
+        <div class="c-ai-recommendations__state c-ai-recommendations__state--empty" aria-hidden="true">
+          <div class="c-ai-recommendations__empty-box">
+            <div class="c-ai-recommendations__illustration" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-gold)" stroke-width="1">
+                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+              </svg>
+            </div>
+            <h3 class="c-ai-recommendations__state-title">No Recommendations Yet</h3>
+            <p class="c-ai-recommendations__state-desc">Answer a few questions about your luxury tastes so our AI stylist can formulate your unique Style DNA.</p>
+            <div class="c-ai-recommendations__empty-actions">
+              <button class="btn btn--primary c-ai-recommendations__profile-start-btn" type="button">Complete Style Profile</button>
+              <a href="shop.html" class="btn btn--outline">Explore Catalog</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. ERROR RECOVERY STATE -->
+        <div class="c-ai-recommendations__state c-ai-recommendations__state--error" aria-hidden="true">
+          <div class="c-ai-recommendations__error-box">
+            <h3 class="c-ai-recommendations__state-title">Stylist Temporarily Offline</h3>
+            <p class="c-ai-recommendations__state-desc">We had trouble syncing with the AI personalization servers. Please try again.</p>
+            <button class="btn btn--outline c-ai-recommendations__retry-btn" type="button">Retry Curating</button>
+          </div>
+        </div>
+
+        <!-- 4. HYDRATED SLIDER MAIN CONTENT -->
+        <div class="c-ai-recommendations__state c-ai-recommendations__state--content" id="ai-carousel-view" aria-hidden="true">
+          <div class="swiper-container c-ai-recommendations__slider" id="ai-swiper-container">
+            <div class="swiper-wrapper" id="ai-swiper-wrapper">
+              <!-- Swiper slides injected in JS -->
+            </div>
+            
+            <!-- Dynamic Scrollbar navigation -->
+            <div class="swiper-scrollbar c-ai-recommendations__scrollbar"></div>
+          </div>
+
+          <!-- Slide navigation triggers (custom positions) -->
+          <div class="c-ai-recommendations__slider-nav">
+            <button class="c-ai-recommendations__arrow c-ai-recommendations__arrow--prev" id="ai-arrow-prev" aria-label="Previous recommendation" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button class="c-ai-recommendations__arrow c-ai-recommendations__arrow--next" id="ai-arrow-next" aria-label="Next recommendation" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL BOX: FUTURE-READY "WHY AM I SEEING THIS?" DIALOG -->
+<div class="c-ai-explain-modal" id="ai-explain-modal-root" aria-hidden="true" role="dialog" aria-labelledby="explain-modal-title">
+  <div class="c-ai-explain-modal__overlay" id="ai-explain-overlay"></div>
+  <div class="c-ai-explain-modal__content">
+    <button class="c-ai-explain-modal__close-btn" id="ai-explain-close" aria-label="Close dialog" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <h3 class="c-ai-explain-modal__title" id="explain-modal-title">AI Curation Details</h3>
+    <div class="c-ai-explain-modal__body" id="ai-explain-body">
+      <!-- Injected in JS -->
+    </div>
+  </div>
+</div>

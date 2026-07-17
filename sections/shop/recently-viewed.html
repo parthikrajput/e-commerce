@@ -1,0 +1,131 @@
+<!-- ============================================================
+     RECENTLY VIEWED PRODUCTS — Lustra Reusable Component
+     File:      sections/shop/recently-viewed.html
+     Purpose:   Premium Recently Viewed section layout, using Swiper carousels
+                and local storage state hydration.
+     Spec Ref:  04_Component_Library (§4), 07_Design_Tokens (§1-3),
+                10_Responsive_Guidelines, 11_Accessibility_Guidelines
+     ============================================================ -->
+
+<section
+  class="c-recently-viewed"
+  id="recently-viewed-section"
+  aria-labelledby="rv-section-title"
+  data-rv-state="loading"
+>
+  <div class="l-container">
+    
+    <!-- SECTION HEADER Area -->
+    <header class="c-recently-viewed__header">
+      <div class="c-recently-viewed__header-left">
+        <span class="c-recently-viewed__eyebrow">Your Discoveries</span>
+        <h2 class="c-recently-viewed__title" id="rv-section-title">Recently Viewed</h2>
+        <p class="c-recently-viewed__description">
+          Continue exploring the handcrafted fine designs you've recently viewed.
+        </p>
+      </div>
+      <div class="c-recently-viewed__header-right">
+        <!-- Swiper Nav Arrows -->
+        <div class="c-recently-viewed__nav-arrows">
+          <button
+            class="c-recently-viewed__arrow c-recently-viewed__arrow--prev"
+            id="rv-arrow-prev"
+            aria-label="Previous slide"
+            type="button"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <button
+            class="c-recently-viewed__arrow c-recently-viewed__arrow--next"
+            id="rv-arrow-next"
+            aria-label="Next slide"
+            type="button"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. LOADING SKELETON CAROUSEL -->
+    <div class="c-recently-viewed__state c-recently-viewed__state--loading" aria-hidden="false" role="status" aria-label="Loading viewed pieces">
+      <div class="c-recently-viewed__skeleton-grid">
+        <div class="c-recently-viewed__skeleton-card">
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--media"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--title"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--price"></div>
+        </div>
+        <div class="c-recently-viewed__skeleton-card u-d-none-mobile">
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--media"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--title"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--price"></div>
+        </div>
+        <div class="c-recently-viewed__skeleton-card u-d-none-tablet">
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--media"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--title"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--price"></div>
+        </div>
+        <div class="c-recently-viewed__skeleton-card u-d-none-laptop">
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--media"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--title"></div>
+          <div class="c-recently-viewed__shimmer c-recently-viewed__shimmer--price"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ERROR OVERLAY STATE -->
+    <div class="c-recently-viewed__state c-recently-viewed__state--error" aria-hidden="true">
+      <div class="c-recently-viewed__error-box">
+        <h3 class="c-recently-viewed__state-title">Discoveries Interrupted</h3>
+        <p class="c-recently-viewed__state-desc">We had trouble retrieving your recently viewed list. Please refresh the section.</p>
+        <button class="btn btn--outline c-recently-viewed__retry-btn" type="button">Retry Loading</button>
+      </div>
+    </div>
+
+    <!-- 3. EMPTY STATE: NO VIEWED ITEMS -->
+    <div class="c-recently-viewed__state c-recently-viewed__state--empty" aria-hidden="true">
+      <div class="c-recently-viewed__empty-box">
+        <div class="c-recently-viewed__illustration" aria-hidden="true">
+          <!-- Elegant vector line gem icon -->
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-gold)" stroke-width="1">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="c-recently-viewed__state-title">Begin Your Discovery</h3>
+        <p class="c-recently-viewed__state-desc">You haven't viewed any designs in this session yet. Let us guide you through our latest fine jewellery.</p>
+        <div class="c-recently-viewed__empty-actions">
+          <a href="shop.html" class="btn btn--primary">Continue Shopping</a>
+          <a href="collections.html" class="btn btn--outline">Browse Collections</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. HYDRATED CONTENT: SWIPER SLIDER -->
+    <div class="c-recently-viewed__state c-recently-viewed__state--content" aria-hidden="true">
+      <div class="swiper-container c-recently-viewed__slider" id="rv-swiper-container">
+        <div class="swiper-wrapper" id="rv-swiper-wrapper">
+          <!-- Dynamic product slides are injected here in JS -->
+        </div>
+        
+        <!-- Swiper Scrollbar indicators -->
+        <div class="swiper-scrollbar c-recently-viewed__scrollbar"></div>
+      </div>
+    </div>
+
+    <!-- 5. OPTIONAL EDITORIAL CONTINUE BROWSING STRIP -->
+    <footer class="c-recently-viewed__footer" id="rv-browsing-footer">
+      <div class="c-recently-viewed__divider" aria-hidden="true"></div>
+      <div class="c-recently-viewed__continue">
+        <span>Looking for something else?</span>
+        <a href="collections.html" class="btn btn--text c-recently-viewed__explore-btn">
+          Explore Our Signature Collections
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</section>

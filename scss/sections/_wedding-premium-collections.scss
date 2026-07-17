@@ -1,0 +1,354 @@
+// Wedding & Premium Collections Section styles
+.c-wedding-premium {
+  background-color: var(--color-pure-white);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  // Editorial Split Layout block
+  &__row {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+    margin-bottom: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left Column Storytelling details
+  &__story {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  // Quotes blocks
+  &__quote {
+    border-left: 2px solid var(--color-primary-gold);
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &-text {
+      font-family: var(--font-family-display);
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--color-dark-charcoal);
+      font-style: italic;
+    }
+
+    &-author {
+      font-family: var(--font-family-body);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-neutral-600);
+    }
+  }
+
+  &__narrative {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-neutral-500);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      gap: var(--spacing-sm);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  // Right Column Showcase Card
+  &__featured {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  // Editorial lower grid (6 Cards)
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      margin-bottom: var(--spacing-2xl);
+    }
+  }
+
+  // Craftsmanship Highlights lower bar (4 Columns)
+  &__craft {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    border-top: 1px solid var(--color-gray-line);
+    padding-top: var(--spacing-3xl);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+      padding-top: var(--spacing-2xl);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Right column large featured collection preview
+.c-featured-collection {
+  background-color: var(--color-cream-tint);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-gray-line);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 460px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  &__media {
+    position: relative;
+    padding-top: 85%;
+    overflow: hidden;
+    background-color: var(--color-gray-line);
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover &__img {
+    transform: scale(1.03);
+  }
+
+  &__info {
+    padding: var(--spacing-xl) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__tag {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-2xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__subtitle {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--color-neutral-600);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-neutral-500);
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__cta {
+    align-self: flex-start;
+  }
+}
+
+// Occasion Individual Cards styling
+.c-wedding-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-cream-tint);
+  border: 1px solid var(--color-gray-line);
+  height: 100%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &__media {
+    position: relative;
+    padding-top: 75%; // Widescreen banner ratio
+    overflow: hidden;
+    background-color: var(--color-gray-line);
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover &__img {
+    transform: scale(1.04);
+  }
+
+  &__content {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__tag {
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-2xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-2xs);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-neutral-600);
+    margin-bottom: var(--spacing-sm);
+    flex-grow: 1;
+  }
+
+  &__link {
+    align-self: flex-start;
+    font-size: 0.75rem;
+  }
+}
+
+// Craftsmanship Highlight Cells
+.c-craft-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+
+  &__icon-box {
+    color: var(--color-primary-gold);
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-neutral-600);
+    margin: 0;
+  }
+}
+
+// Custom steps alignments
+.c-journey--wedding {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--spacing-sm);
+
+  .c-journey__step {
+    font-size: 0.6875rem;
+  }
+}

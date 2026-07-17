@@ -1,0 +1,175 @@
+<!-- Homepage AI Personalized Recommendations Section -->
+<section class="c-ai-recommendations" id="ai-recs-section" aria-labelledby="rec-heading">
+  <div class="c-ai-recommendations__container">
+    
+    <!-- Left Column: AI Profiler Insight Panel & Journey Flow -->
+    <div class="c-ai-recommendations__sidebar">
+      <div class="c-ai-recommendations__header">
+        <span class="c-ai-recommendations__eyebrow">Concierge Tailored</span>
+        <h2 class="c-ai-recommendations__title" id="rec-heading">Curated for Your Essence</h2>
+        <p class="c-ai-recommendations__desc">
+          Our intelligent engine calculates your style parameters and active collection browses to serve matching handcrafted items.
+        </p>
+        <a href="ai-style-advisor.html" class="btn btn--primary c-ai-recommendations__cta">Discover Your Style</a>
+      </div>
+
+      <!-- AI Client Profile Card (Visual Custom Data Panel) -->
+      <div class="c-ai-profile-card">
+        <div class="c-ai-profile-card__head">
+          <div class="c-ai-profile-card__badge">AI Persona</div>
+          <span class="c-ai-profile-card__match">98% Curation Accuracy</span>
+        </div>
+        <div class="c-ai-profile-card__body">
+          <div class="c-ai-stat">
+            <span class="c-ai-stat__label">Preferred Style</span>
+            <span class="c-ai-stat__val">Modern Minimalist</span>
+          </div>
+          <div class="c-ai-stat">
+            <span class="c-ai-stat__label">Preferred Metal</span>
+            <span class="c-ai-stat__val">18k Rose Gold</span>
+          </div>
+          <div class="c-ai-stat">
+            <span class="c-ai-stat__label">Occasion Focus</span>
+            <span class="c-ai-stat__val">Daily Elegance</span>
+          </div>
+          <div class="c-ai-stat">
+            <span class="c-ai-stat__label">Confidence Score</span>
+            <div class="c-ai-stat__progress-bar">
+              <div class="c-ai-stat__progress-fill" data-progress="96"></div>
+            </div>
+            <span class="c-ai-stat__percentage">96%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendation Journey Step Block -->
+      <div class="c-journey c-journey--recs" aria-label="Personalized styling parameters flow">
+        <div class="c-journey__steps">
+          <div class="c-journey__step">1. Profile Variables</div>
+          <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+          <div class="c-journey__step">2. Pattern Match</div>
+          <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+          <div class="c-journey__step">3. Curated Recommendations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Recommendation Showcase Grid -->
+    <div class="c-ai-recommendations__showcase">
+      
+      <div class="c-ai-recommendations__swiper swiper-container" id="recs-swiper">
+        <div class="c-ai-recommendations__grid swiper-wrapper">
+          
+          <!-- Best Match Product Card (Gold Aura Solitaire) -->
+          <div class="c-product-card c-product-card--best-match swiper-slide">
+            <div class="c-product-card__media">
+              <span class="c-product-badge c-product-badge--trending">Best Match - 99% Score</span>
+              <img src="assets/images/products/hero-promo-ring.webp" alt="AI Best Match: Cushion Aura Ring" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Cushion Aura Ring to Wishlist" data-wishlist-id="rec-cushion-aura">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="rec-cushion-aura">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="rec-cushion-aura">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <div class="c-product-card__tags">
+                <span class="c-product-tag">Matches Your Style</span>
+                <span class="c-product-tag">Based on Wishlist</span>
+              </div>
+              <h5 class="c-product-card__name">Cushion Aura Ring</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹1,85,000</span>
+                <span class="c-product-card__match-reason">Reason: Complements minimal layouts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2: Minimal Gold Earrings -->
+          <div class="c-product-card swiper-slide">
+            <div class="c-product-card__media">
+              <span class="c-product-badge">96% Match</span>
+              <img src="assets/images/products/earrings-category.webp" alt="AI Recommend Match: Classic Gold Hoop Earrings" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Gold Hoop Earrings to Wishlist" data-wishlist-id="rec-gold-hoops">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="rec-gold-hoops">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="rec-gold-hoops">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <div class="c-product-card__tags">
+                <span class="c-product-tag">Matches metals variables</span>
+                <span class="c-product-tag">Trending in your state</span>
+              </div>
+              <h5 class="c-product-card__name">Classic Gold Hoop Earrings</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹85,000</span>
+                <span class="c-product-card__match-reason">Reason: Matches metal preferences</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3: Minimal Gold Collar -->
+          <div class="c-product-card swiper-slide">
+            <div class="c-product-card__media">
+              <span class="c-product-badge">94% Match</span>
+              <img src="assets/images/products/necklaces-category.webp" alt="AI Recommend Match: Gold Choker Necklace" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Gold Choker Necklace to Wishlist" data-wishlist-id="rec-gold-collar">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="rec-gold-collar">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="rec-gold-collar">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <div class="c-product-card__tags">
+                <span class="c-product-tag">Based on Wishlist</span>
+                <span class="c-product-tag">Recently Visited</span>
+              </div>
+              <h5 class="c-product-card__name">Gold Collar Choker</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹3,15,000</span>
+                <span class="c-product-card__match-reason">Reason: Similar design category lookup</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 4: Linear Gold Bracelet -->
+          <div class="c-product-card swiper-slide">
+            <div class="c-product-card__media">
+              <span class="c-product-badge">92% Match</span>
+              <img src="assets/images/products/bracelets-category.webp" alt="AI Recommend Match: Diamond Line Bracelet" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Diamond Line Bracelet to Wishlist" data-wishlist-id="rec-line-bracelet">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="rec-line-bracelet">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="rec-line-bracelet">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <div class="c-product-card__tags">
+                <span class="c-product-tag">Daily elegance fit</span>
+                <span class="c-product-tag">New Season Release</span>
+              </div>
+              <h5 class="c-product-card__name">Diamond Line Bracelet</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹1,60,000</span>
+                <span class="c-product-card__match-reason">Reason: Complements ring active search history</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Scroll dots on Touch Viewport Swipers -->
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

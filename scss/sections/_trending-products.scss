@@ -1,0 +1,422 @@
+// Trending & New Arrivals Section layout styling rules
+.c-trending {
+  background-color: var(--color-cream-tint);
+  padding: var(--spacing-3xl) 0;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: var(--spacing-2xl);
+
+    @include respond-to(laptop) {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left Column Intro & Filter Blocks
+  &__intro {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  // Filter tab list navigation
+  &__filters {
+    margin-bottom: var(--spacing-2xl);
+    border-bottom: 1px solid var(--color-gray-line);
+    padding-bottom: var(--spacing-xs);
+  }
+
+  &__tabs-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    list-style: none;
+    padding: 0;
+
+    @include respond-to(tablet) {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: var(--spacing-xs);
+      gap: var(--spacing-md);
+    }
+  }
+
+  &__tab {
+    background: none;
+    border: none;
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-neutral-600);
+    text-align: left;
+    padding: var(--spacing-xs) 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -11px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-primary-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      color: var(--color-dark-charcoal);
+    }
+
+    &.is-active {
+      color: var(--color-dark-charcoal);
+      font-weight: 700;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  // Right Column Showcase Frame
+  &__display {
+    width: 100%;
+    min-width: 0; // Fixes flex overflow inside grids
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+
+    @include respond-to(laptop) {
+      gap: var(--spacing-md);
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      // Swiper handles mobile list rows
+      display: flex;
+      gap: 0;
+    }
+  }
+}
+
+// Hero product showcase card styles
+.c-hero-product {
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-gray-line);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  margin-top: auto; // Push to bottom of flex layout
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  @include respond-to(tablet) {
+    display: none; // Offload left hero card details on tablets
+  }
+
+  &__image-box {
+    position: relative;
+    padding-top: 75%; // 4:3 Aspect Ratios
+    overflow: hidden;
+    background-color: var(--color-gray-line);
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover &__image {
+    transform: scale(1.03);
+  }
+
+  &__content {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: 0.8125rem;
+    color: var(--color-neutral-600);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__price {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__craft {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2xs);
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    color: var(--color-neutral-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-md);
+
+    .c-icon {
+      color: var(--color-primary-gold);
+    }
+  }
+
+  &__cta {
+    width: 100%;
+  }
+}
+
+// Reusable Product Cards BEM Class stylings
+.c-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid transparent;  // invisible — appears on hover only
+  box-shadow: var(--shadow-card);
+  transition: transform 0.35s var(--easing-premium), box-shadow 0.35s var(--easing-premium), border-color 0.35s ease;
+  will-change: transform;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(201, 169, 110, 0.18);
+  }
+
+  &__media {
+    position: relative;
+    padding-top: 110%; // Elegant portrait grids
+    overflow: hidden;
+    background-color: var(--color-gray-line);
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover &__img {
+    transform: scale(1.04);
+  }
+
+  // Wishlist Floating Button
+  &__wishlist {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--color-gray-line);
+    color: var(--color-dark-charcoal);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      background-color: var(--color-pure-white);
+      border-color: var(--color-primary-gold);
+      color: var(--color-primary-gold);
+    }
+
+    &.is-active {
+      background-color: var(--color-primary-gold);
+      border-color: var(--color-primary-gold);
+      color: var(--color-pure-white);
+
+      .c-icon {
+        fill: currentColor;
+      }
+    }
+  }
+
+  // Hover slide drawers
+  &__hover-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-sm);
+    background: linear-gradient(180deg, transparent 0%, rgba(26, 26, 26, 0.8) 100%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xs);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 5;
+  }
+
+  &:hover &__hover-actions {
+    transform: translateY(0);
+  }
+
+  &__action {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm) !important;
+    font-size: 0.6875rem !important;
+  }
+
+  // Text Info Blocks
+  &__info {
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__cat {
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-gold);
+    margin-bottom: 2px;
+  }
+
+  &__name {
+    font-family: var(--font-family-display);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-2xs);
+  }
+
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  &__price {
+    font-family: var(--font-family-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark-charcoal);
+  }
+
+  &__ratings {
+    font-family: var(--font-family-body);
+    font-size: 0.6875rem;
+    color: var(--color-primary-gold);
+  }
+}
+
+// Product Badges
+.c-product-badge {
+  position: absolute;
+  top: var(--spacing-xs);
+  left: var(--spacing-xs);
+  font-family: var(--font-family-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px var(--spacing-xs);
+  border-radius: var(--radius-xs);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-dark-charcoal);
+  color: var(--color-pure-white);
+
+  &--trending {
+    background-color: var(--color-primary-gold);
+    color: var(--color-dark-charcoal);
+  }
+
+  &--new {
+    background-color: var(--color-pure-white);
+    color: var(--color-dark-charcoal);
+    border: 1px solid var(--color-gray-line);
+  }
+
+  &--limited {
+    background-color: var(--color-primary-gold-hover);
+    color: var(--color-pure-white);
+  }
+}

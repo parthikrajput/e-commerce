@@ -1,0 +1,131 @@
+<!-- Homepage Virtual Try-On Experience Section -->
+<section class="c-tryon" id="virtual-tryon-section" aria-labelledby="tryon-heading">
+  <div class="c-tryon__container">
+    
+    <!-- Left Column: Editorial Information & Features list -->
+    <div class="c-tryon__content">
+      <span class="c-tryon__eyebrow">Immersive Preview</span>
+      <h2 class="c-tryon__title" id="tryon-heading">Bespoke Fitting,<br>Virtually Remapped</h2>
+      <p class="c-tryon__desc">
+        Visualize how Lustra's signature designs adorn you in real-time. Our AI-driven fitting engine matches gold alloys and VVS diamond facets to your personal canvas.
+      </p>
+
+      <!-- Benefits Highlights List -->
+      <div class="c-tryon__benefits">
+        <div class="c-tryon-benefit">
+          <div class="c-tryon-benefit__icon-box" aria-hidden="true">
+            <svg class="c-icon" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+          </div>
+          <div class="c-tryon-benefit__info">
+            <h4 class="c-tryon-benefit__title">See Before You Buy</h4>
+            <p class="c-tryon-benefit__desc">Simulate structural fitting metrics before committing to orders.</p>
+          </div>
+        </div>
+
+        <div class="c-tryon-benefit">
+          <div class="c-tryon-benefit__icon-box" aria-hidden="true">
+            <svg class="c-icon" width="20" height="20"><path d="M12 2v20M17 5H7M21 9H3"/></svg>
+          </div>
+          <div class="c-tryon-benefit__info">
+            <h4 class="c-tryon-benefit__title">Realistic Facet Shaders</h4>
+            <p class="c-tryon-benefit__desc">Light refracts across precious stones matching real camera environments.</p>
+          </div>
+        </div>
+
+        <div class="c-tryon-benefit">
+          <div class="c-tryon-benefit__icon-box" aria-hidden="true">
+            <svg class="c-icon" width="20" height="20"><path d="M23 4H1v16h22V4zM12 12m-3 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/></svg>
+          </div>
+          <div class="c-tryon-benefit__info">
+            <h4 class="c-tryon-benefit__title">Instant Photo Comparison</h4>
+            <p class="c-tryon-benefit__desc">Compare options side-by-side or capture reference screenshots.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Actions -->
+      <div class="c-tryon__actions">
+        <a href="try-on.html" class="btn btn--primary">Launch Try-On Suite</a>
+        <a href="ar-specifications.html" class="btn btn--secondary">Learn More</a>
+      </div>
+
+      <!-- Experience Flow steps -->
+      <div class="c-journey c-journey--tryon" aria-label="Virtual try-on workflow steps">
+        <div class="c-journey__steps">
+          <div class="c-journey__step">1. Select Piece</div>
+          <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+          <div class="c-journey__step">2. Turn Camera</div>
+          <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+          <div class="c-journey__step">3. Fit Mapping</div>
+          <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+          <div class="c-journey__step">4. Save Model</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive AR Try-On Simulator Mockup -->
+    <div class="c-tryon__visual">
+      <div class="c-tryon-chrome">
+        
+        <!-- Live Video feed box -->
+        <div class="c-tryon-chrome__viewport" id="tryon-viewport">
+          <!-- Ambient camera backdrop -->
+          <div class="c-tryon-chrome__video-mock"></div>
+          
+          <!-- Interactive Jewelry Vector Overlay -->
+          <img src="assets/images/products/rings-category.webp" alt="Interactive virtual overlay product" class="c-tryon-chrome__overlay-item" id="tryon-product-overlay">
+          
+          <!-- Diagnostic Scanning Lines -->
+          <div class="c-tryon-chrome__scanning-axis" id="tryon-scanner" aria-hidden="true"></div>
+          
+          <!-- UI Overlay Flash element -->
+          <div class="c-tryon-chrome__shutter-flash" id="tryon-flash" aria-hidden="true"></div>
+
+          <!-- Diagnostic Metrics Glass Label -->
+          <div class="c-tryon-chrome__radar" aria-hidden="true">
+            <div class="c-tryon-chrome__radar-pulse"></div>
+            <span>AI Face &amp; Node Detectors Engaged</span>
+          </div>
+
+          <!-- Camera Adjustments Box -->
+          <div class="c-tryon-controls">
+            <!-- Zoom controls -->
+            <div class="c-tryon-controls__row">
+              <span class="c-tryon-controls__label">Zoom:</span>
+              <input type="range" class="c-tryon-controls__slider" id="tryon-zoom" min="0.8" max="1.8" step="0.05" value="1.0" aria-label="Adjust product zoom scale">
+            </div>
+            
+            <!-- Rotation controls -->
+            <div class="c-tryon-controls__row">
+              <span class="c-tryon-controls__label">Rotation:</span>
+              <input type="range" class="c-tryon-controls__slider" id="tryon-rotate" min="-90" max="90" step="5" value="0" aria-label="Adjust product display rotation angle">
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Navigation Settings Panel -->
+        <div class="c-tryon-chrome__actions">
+          
+          <!-- Snapshot action button -->
+          <button class="c-tryon-btn" id="tryon-snap" aria-label="Take instant photo snapshot">
+            <svg class="c-icon" width="20" height="20" fill="none" stroke="currentColor"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>Capture</span>
+          </button>
+
+          <!-- Divider -->
+          <div class="c-tryon-chrome__actions-divider" aria-hidden="true"></div>
+
+          <!-- Select Ring/Earring/Necklace categories tabs selector -->
+          <div class="c-tryon-selector">
+            <button class="c-tryon-selector__item is-active" data-overlay-src="assets/images/products/rings-category.webp" aria-label="Switch Virtual Try-on overlay to Rings">Rings</button>
+            <button class="c-tryon-selector__item" data-overlay-src="assets/images/products/earrings-category.webp" aria-label="Switch Virtual Try-on overlay to Earrings">Earrings</button>
+            <button class="c-tryon-selector__item" data-overlay-src="assets/images/products/necklaces-category.webp" aria-label="Switch Virtual Try-on overlay to Necklaces">Necklaces</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

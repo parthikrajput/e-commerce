@@ -1,0 +1,33 @@
+// Responsive breakpoint media queries helpers
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 575px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $breakpoint == laptop {
+    @media (max-width: 1199px) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+// Centering flex items shortcut helper
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Accessible double focus outline ring mixin
+@mixin focus-ring {
+  outline: 2px solid $color-primary-gold;
+  outline-offset: 4px;
+}

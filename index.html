@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lustra | Handcrafted Fine Jewels & Smart AI Styling Advisor</title>
+  <meta name="description" content="Experience the pinnacle of handcrafted fine jewellery. Try on premium pieces virtually, match accessories with your favorite outfits, and discover your jewelry style today.">
+  
+  <!-- Styling Dependencies -->
+  <link rel="stylesheet" href="./fonts/font.css">
+  <link rel="stylesheet" href="scss/main.css">
+  
+  <!-- Vendor animations & carousels libraries (deferred load) -->
+  <script src="js/vendors/gsap.min.js" defer></script>
+  <script src="js/vendors/swiper-bundle.min.js" defer></script>
+
+  <!-- DOMContentLoaded Event Interceptor: Fixes race conditions for asynchronously loaded JS pages -->
+  <script>
+    (function() {
+      const originalAddEventListener = document.addEventListener;
+      document.addEventListener = function(type, listener, options) {
+        if (type === 'DOMContentLoaded' && (document.readyState === 'interactive' || document.readyState === 'complete')) {
+          setTimeout(listener, 1);
+        }
+        return originalAddEventListener.call(this, type, listener, options);
+      };
+    })();
+  </script>
+</head>
+<body>
+  <div id="root-wrapper">
+    
+    <!-- Primary Site Header Layout Component -->
+    <load src="./layouts/header.html"></load>
+
+    <!-- Main Content Container with standard landmarks -->
+    <main id="main-content">
+      
+      <!-- 1. Hero Showcase carousel -->
+      <load src="./sections/hero.html"></load>
+
+      <!-- 2. AI Shopping Assistant personal stylist intro -->
+      <load src="./sections/ai-shopping-assistant.html"></load>
+
+      <!-- 3. Shop by Categories touch carousel -->
+      <load src="./sections/categories.html"></load>
+
+      <!-- 4. Featured Collections Editorial grid -->
+      <load src="./sections/featured-collections.html"></load>
+
+      <!-- 5. Trending & New Arrivals catalog grid -->
+      <load src="./sections/trending-products.html"></load>
+
+      <!-- 6. AI Personalized Recommendations configuration showcase -->
+      <load src="./sections/ai-recommendations.html"></load>
+
+      <!-- 7. Virtual Try-On dynamic camera sandbox -->
+      <load src="./sections/virtual-try-on.html"></load>
+
+      <!-- 8. Wedding & Signature heirloom collections -->
+      <load src="./sections/wedding-premium-collections.html"></load>
+
+      <!-- 9. Community Inspiration Shoppable Bento wall -->
+      <load src="./sections/community-inspiration.html"></load>
+
+      <!-- 10. Customer Reviews, Testimonials & Trust indicators -->
+      <load src="./sections/testimonials-trust.html"></load>
+
+      <!-- 11. Rewards & Loyalty VIP privilege membership alliance -->
+      <load src="./sections/rewards-membership.html"></load>
+
+      <!-- 12. Homepage Final Conversion collective (Instagram + Newsletter + Editorial CTA) -->
+      <load src="./sections/final-conversion.html"></load>
+
+    </main>
+
+    <!-- Global Directory Site Footer Layout Component -->
+    <load src="./layouts/footer.html"></load>
+
+  </div>
+
+  <!-- Dynamic Fallback Loader Client-side handler to prevent Blank Pages in standard servers -->
+  <script type="module">
+    async function compileLayouts() {
+      const loaders = Array.from(document.querySelectorAll('load'));
+      
+      if (loaders.length > 0) {
+        for (const loader of loaders) {
+          const src = loader.getAttribute('src');
+
+          if (src) {
+            try {
+              const response = await fetch(src);
+              if (response.ok) {
+                const html = await response.text();
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                
+                const parent = loader.parentNode;
+                while (temp.firstChild) {
+                  parent.insertBefore(temp.firstChild, loader);
+                }
+                loader.remove();
+              } else {
+                console.warn(`Dynamic load failed for component: ${src}`);
+              }
+            } catch (err) {
+              console.error(`Error compileLayout partials: ${src}`, err);
+            }
+          }
+        }
+      }
+      
+      // Load app entrance script dynamically only after HTML partials are fully injected
+      const appScript = document.createElement('script');
+      appScript.type = 'module';
+      appScript.src = 'js/app.js';
+      document.body.appendChild(appScript);
+    }
+    
+    // Execute compiler immediately
+    compileLayouts();
+  </script>
+</body>
+</html>

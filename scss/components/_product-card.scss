@@ -1,0 +1,780 @@
+// ============================================================
+//  PRODUCT CARD — Lustra Reusable Component Styling
+//  File:     scss/components/_product-card.scss
+//  Purpose:  Premium visual styles, hover transitions, image zoom,
+//            wishlist pulses, skeleton shimmers, and variant styles.
+//  Spec Ref: 04_Component_Library (§4), 07_Design_Tokens (§7),
+//            09_Animation_Guidelines, 15_SCSS_Architecture
+// ============================================================
+
+// ── Local keyframe animations ────────────────────────────────
+@keyframes card-wishlist-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+@keyframes card-spinner {
+  to { transform: rotate(360deg); }
+}
+
+
+// ── Root Card Component Block ────────────────────────────────
+.c-product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $color-pure-white;
+  border-radius: $radius-md; // 12px
+  border: 1px solid rgba($color-gray-line, 0.6);
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  transition: transform 0.5s $easing-default, box-shadow 0.5s $easing-default, border-color 0.4s $easing-default;
+  will-change: transform, box-shadow;
+
+  // ── Hover State ───────────────────────────────────────────
+  &:hover:not(.is-disabled):not(.is-skeleton) {
+    transform: translateY(rem(-6));
+    border-color: rgba($color-primary-gold, 0.45);
+    box-shadow: 0 16px 36px rgba($color-dark-charcoal, 0.08);
+
+    // Reveal quick action buttons
+    .c-product-card__quick-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    // Secondary image swap
+    .c-product-card__img--front {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    .c-product-card__img--back {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  // ── Focus State ───────────────────────────────────────────
+  &:focus-within {
+    border-color: $color-primary-gold;
+    box-shadow: $shadow-md;
+  }
+}
+
+
+// ── Badges Container ──────────────────────────────────────────
+.c-product-card__header {
+  position: absolute;
+  top: rem(14);
+  left: rem(14);
+  right: rem(14);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 5;
+  pointer-events: none; // allow clicking card media behind it
+}
+
+.c-product-card__badges {
+  display: flex;
+  flex-direction: column;
+  gap: rem(6);
+  pointer-events: none;
+}
+
+// ── Wishlist Button ───────────────────────────────────────────
+.c-product-card__wishlist-btn,
+.c-product-card__remove-btn {
+  pointer-events: auto; // re-enable clicks
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(38);
+  height: rem(38);
+  border-radius: $radius-circle;
+  background-color: rgba($color-pure-white, 0.9);
+  border: 1px solid rgba($color-gray-line, 0.8);
+  box-shadow: $shadow-sm;
+  cursor: pointer;
+  color: $color-neutral-600;
+  transition: all 0.3s $easing-default;
+
+  &:hover {
+    color: $color-warn-red;
+    background-color: $color-pure-white;
+    border-color: $color-warn-red;
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  // Active state: wishlisted
+  &.is-active {
+    color: $color-warn-red;
+    background-color: $color-pure-white;
+    border-color: rgba($color-warn-red, 0.3);
+    animation: card-wishlist-pulse 0.4s $easing-default;
+
+    svg {
+      fill: $color-warn-red;
+    }
+  }
+
+  // Wishlist operation in-progress loading state
+  &.is-saving {
+    pointer-events: none;
+    color: transparent;
+
+    svg {
+      opacity: 0;
+    }
+
+    .c-product-card__wishlist-spinner {
+      display: block;
+    }
+  }
+}
+
+.c-product-card__wishlist-icon {
+  width: rem(18);
+  height: rem(18);
+  transition: fill 0.3s $easing-default, stroke 0.3s $easing-default;
+}
+
+.c-product-card__wishlist-spinner {
+  display: none;
+  position: absolute;
+  width: rem(16);
+  height: rem(16);
+  border: 2px solid rgba($color-neutral-400, 0.2);
+  border-top-color: $color-warn-red;
+  border-radius: $radius-circle;
+  animation: card-spinner 0.6s linear infinite;
+}
+
+// ── Close/Remove button (for wishlist page) ───────────────────
+.c-product-card__remove-btn {
+  &:hover {
+    color: $color-dark-charcoal;
+    border-color: $color-dark-charcoal;
+  }
+}
+
+
+// ── Media visual frame ─────────────────────────────────────────
+.c-product-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4; // Spec aspect ratio §7
+  background-color: $color-cream-tint;
+  overflow: hidden;
+}
+
+.c-product-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.c-product-card__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.c-product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s $easing-default, opacity 0.5s $easing-default;
+  will-change: transform, opacity;
+
+  &--front {
+    opacity: 1;
+    transform: scale(1.0);
+  }
+
+  &--back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+
+
+// ── Quick action overlays ──────────────────────────────────────
+.c-product-card__quick-actions {
+  position: absolute;
+  bottom: rem(14);
+  left: rem(14);
+  right: rem(14);
+  display: flex;
+  gap: rem(8);
+  opacity: 0;
+  transform: translateY(rem(12));
+  transition: opacity 0.4s $easing-default, transform 0.4s $easing-default;
+  z-index: 3;
+
+  @include respond-to(tablet) {
+    // Show permanently on touch devices
+    opacity: 1;
+    transform: translateY(0);
+    bottom: rem(10);
+    left: rem(10);
+    right: rem(10);
+    gap: rem(6);
+  }
+}
+
+.c-product-card__quick-action-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(6);
+  height: rem(36);
+  padding: 0 rem(12);
+  background-color: rgba($color-pure-white, 0.93);
+  border: 1px solid rgba($color-gray-line, 0.8);
+  border-radius: $radius-sm;
+  color: $color-dark-charcoal;
+  font-family: $font-family-body;
+  font-size: rem(11);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: $shadow-sm;
+  backdrop-filter: blur(4px);
+  transition: all 0.25s $easing-default;
+
+  svg {
+    flex-shrink: 0;
+    color: $color-neutral-600;
+    transition: color 0.25s;
+  }
+
+  &:hover {
+    background-color: $color-dark-charcoal;
+    border-color: $color-dark-charcoal;
+    color: $color-pure-white;
+
+    svg {
+      color: $color-primary-gold;
+    }
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  @include respond-to(tablet) {
+    height: rem(32);
+    padding: 0 rem(8);
+    font-size: rem(10);
+
+    span {
+      display: none; // hide text to save space on mobile
+    }
+  }
+}
+
+
+// ── Card Details content ───────────────────────────────────────
+.c-product-card__details {
+  padding: rem(16) rem(16) rem(12);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.c-product-card__collection {
+  font-family: $font-family-body;
+  font-size: rem(10);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $color-primary-gold;
+  margin-bottom: rem(4);
+}
+
+.c-product-card__title {
+  margin: 0 0 rem(4) 0;
+  font-family: $font-family-display;
+  font-size: rem(17);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.c-product-card__title-link {
+  color: $color-dark-charcoal;
+  text-decoration: none;
+  transition: color 0.25s;
+
+  &:hover {
+    color: $color-primary-gold;
+  }
+
+  &:focus-visible {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+.c-product-card__subtitle {
+  margin: 0 0 rem(10) 0;
+  font-family: $font-family-body;
+  font-size: rem(12);
+  color: $color-neutral-600;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.c-product-card__specs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: rem(4) rem(8);
+  font-family: $font-family-body;
+  font-size: rem(11);
+  color: $color-neutral-600;
+  margin-bottom: rem(12);
+}
+
+.c-product-card__spec-divider {
+  color: $color-neutral-400;
+}
+
+// ── Rating blocks ─────────────────────────────────────────────
+.c-product-card__rating {
+  display: flex;
+  align-items: center;
+  gap: rem(6);
+  margin-bottom: rem(14);
+}
+
+.c-product-card__stars {
+  display: flex;
+  align-items: center;
+  gap: rem(1);
+}
+
+.c-product-card__star-icon {
+  width: rem(13);
+  height: rem(13);
+  fill: $color-neutral-400; // empty star
+
+  &.is-filled {
+    fill: #F4B740; // Gold star color
+  }
+}
+
+.c-product-card__rating-text {
+  font-family: $font-family-body;
+  font-size: rem(11);
+  color: $color-neutral-600;
+}
+
+
+// ── AI recommendation match badge ─────────────────────────────
+.c-product-card__ai-rec {
+  display: flex;
+  align-items: center;
+  gap: rem(6);
+  padding: rem(6) rem(10);
+  background-color: rgba($color-ai-rose, 0.08);
+  border: 1px dashed rgba($color-ai-rose, 0.4);
+  border-radius: $radius-sm;
+  margin-bottom: rem(14);
+  width: fit-content;
+}
+
+.c-product-card__ai-badge {
+  font-family: $font-family-body;
+  font-size: rem(10);
+  font-weight: 700;
+  color: #A06862;
+  text-transform: uppercase;
+}
+
+.c-product-card__ai-desc {
+  font-family: $font-family-body;
+  font-size: rem(10);
+  color: $color-neutral-600;
+}
+
+
+// ── Pricing section ───────────────────────────────────────────
+.c-product-card__price-group {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: rem(6);
+  margin-bottom: rem(4);
+}
+
+.c-product-card__price {
+  font-family: $font-family-body;
+
+  &--current {
+    font-size: rem(16);
+    font-weight: 700;
+    color: $color-dark-charcoal;
+  }
+
+  &--original {
+    font-size: rem(12);
+    color: $color-neutral-400;
+    text-decoration: line-through;
+  }
+}
+
+.c-product-card__discount {
+  font-family: $font-family-body;
+  font-size: rem(10);
+  font-weight: 700;
+  color: $color-warn-red;
+  text-transform: uppercase;
+}
+
+.c-product-card__emi {
+  font-family: $font-family-body;
+  font-size: rem(11);
+  color: $color-neutral-600;
+}
+
+
+// ── Footer CTA Area ────────────────────────────────────────────
+.c-product-card__footer {
+  padding: 0 rem(16) rem(16) rem(16);
+  margin-top: auto; // push CTA block to the bottom of the card details flex
+}
+
+.c-product-card__cta {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(8);
+
+  // Spinner inside card CTA during Add-to-cart latency loading
+  &.is-adding {
+    color: transparent !important;
+
+    .c-product-card__cta-spinner {
+      display: block;
+    }
+  }
+}
+
+.c-product-card__cta-spinner {
+  display: none;
+  position: absolute;
+  width: rem(18);
+  height: rem(18);
+  border: 2px solid rgba($color-pure-white, 0.3);
+  border-top-color: $color-pure-white;
+  border-radius: $radius-circle;
+  animation: card-spinner 0.6s linear infinite;
+}
+
+
+// ============================================================
+//  PRODUCT CARD VARIANTS MODIFIERS
+// ============================================================
+
+// ── COMPACT VARIANT ──────────────────────────────────────────
+.c-product-card--compact {
+  border-radius: $radius-sm;
+
+  .c-product-card__details {
+    padding: rem(12) rem(12) rem(8);
+  }
+
+  .c-product-card__title {
+    font-size: rem(15);
+  }
+
+  .c-product-card__subtitle,
+  .c-product-card__specs,
+  .c-product-card__emi {
+    display: none; // hide heavy details
+  }
+
+  .c-product-card__rating {
+    margin-bottom: rem(8);
+  }
+
+  .c-product-card__footer {
+    padding: 0 rem(12) rem(12) rem(12);
+  }
+}
+
+// ── FEATURED VARIANT ─────────────────────────────────────────
+.c-product-card--featured {
+  flex-direction: row;
+  grid-column: span 2;
+
+  @include respond-to(tablet) {
+    flex-direction: column;
+    grid-column: span 1;
+  }
+
+  .c-product-card__media {
+    width: 45%;
+    aspect-ratio: 1 / 1.1; // wider proportion
+    flex-shrink: 0;
+
+    @include respond-to(tablet) {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  .c-product-card__details {
+    padding: rem(24) rem(24) rem(16);
+
+    @include respond-to(tablet) {
+      padding: rem(16) rem(16) rem(12);
+    }
+  }
+
+  .c-product-card__title {
+    font-size: rem(22);
+
+    @include respond-to(tablet) {
+      font-size: rem(18);
+    }
+  }
+
+  .c-product-card__footer {
+    padding: 0 rem(24) rem(24) rem(24);
+
+    @include respond-to(tablet) {
+      padding: 0 rem(16) rem(16) rem(16);
+    }
+  }
+}
+
+// ── WISHLIST VARIANT ─────────────────────────────────────────
+.c-product-card--wishlist {
+  .c-product-card__wishlist-btn {
+    display: none; // hidden in favor of remove-btn
+  }
+}
+
+// ── RECOMMENDATION VARIANT ───────────────────────────────────
+.c-product-card--recommendation {
+  border: 1px dashed rgba($color-ai-rose, 0.6);
+  box-shadow: 0 4px 12px rgba($color-ai-rose, 0.03);
+
+  &:hover:not(.is-disabled):not(.is-skeleton) {
+    border-color: rgba($color-ai-rose, 0.85);
+    box-shadow: 0 16px 36px rgba($color-ai-rose, 0.12);
+  }
+}
+
+// ── RELATED PRODUCT VARIANT ──────────────────────────────────
+.c-product-card--related {
+  border-radius: $radius-sm;
+
+  .c-product-card__details {
+    padding: rem(12) rem(12) rem(8);
+  }
+
+  .c-product-card__subtitle,
+  .c-product-card__specs,
+  .c-product-card__emi {
+    display: none;
+  }
+}
+
+// ── RECENTLY VIEWED VARIANT ──────────────────────────────────
+.c-product-card--recent {
+  border-radius: $radius-sm;
+
+  .c-product-card__details {
+    padding: rem(10) rem(10) rem(6);
+  }
+
+  .c-product-card__subtitle,
+  .c-product-card__specs,
+  .c-product-card__rating,
+  .c-product-card__emi,
+  .c-product-card__footer {
+    display: none;
+  }
+}
+
+// ── COLLECTION VARIANT (EDITORIAL OVERLAY) ───────────────────
+.c-product-card--collection {
+  aspect-ratio: 3 / 4;
+  
+  .c-product-card__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    aspect-ratio: auto;
+  }
+
+  .c-product-card__details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(26, 26, 26, 0.9) 0%, rgba(26, 26, 26, 0.5) 75%, transparent 100%);
+    color: $color-pure-white;
+    padding: rem(28) rem(20) rem(20) rem(20);
+    justify-content: flex-end;
+  }
+
+  .c-product-card__collection {
+    color: $color-primary-gold;
+    font-weight: 700;
+  }
+
+  .c-product-card__title-link {
+    color: $color-pure-white;
+
+    &:hover {
+      color: $color-primary-gold;
+    }
+  }
+
+  .c-product-card__subtitle {
+    color: $color-neutral-300;
+  }
+
+  .c-product-card__price--current {
+    color: $color-pure-white;
+  }
+
+  .c-product-card__price--original {
+    color: $color-neutral-400;
+  }
+
+  .c-product-card__footer {
+    position: absolute;
+    bottom: rem(20);
+    right: rem(20);
+    left: rem(20);
+    z-index: 3;
+    padding: 0;
+    margin-top: 0;
+    opacity: 0;
+    transform: translateY(rem(8));
+    transition: opacity 0.3s $easing-default, transform 0.3s $easing-default;
+  }
+
+  &:hover:not(.is-disabled) {
+    .c-product-card__footer {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ── QUICKVIEW VARIANT ────────────────────────────────────────
+.c-product-card--quickview {
+  .c-product-card__quick-actions {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+// ============================================================
+//  PRODUCT CARD STATES
+// ============================================================
+
+// ── Out of Stock ─────────────────────────────────────────────
+.c-product-card.is-out-of-stock {
+  .c-product-card__img {
+    filter: grayscale(80%) opacity(0.65);
+  }
+
+  .c-product-card__cta {
+    background-color: $color-neutral-400 !important;
+    border-color: $color-neutral-400 !important;
+    color: $color-neutral-900 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// ── Coming Soon ──────────────────────────────────────────────
+.c-product-card.is-coming-soon {
+  .c-product-card__cta {
+    background-color: $color-primary-gold !important;
+    border-color: $color-primary-gold !important;
+    color: $color-pure-white !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// ── Disabled State ────────────────────────────────────────────
+.c-product-card.is-disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+// ── Selected State ────────────────────────────────────────────
+.c-product-card.is-selected {
+  border-color: $color-primary-gold;
+  box-shadow: $shadow-md, $shadow-gold-glow;
+}
+
+// ── Skeleton Loader Shimmer State ──────────────────────────────
+.c-product-card.is-skeleton {
+  pointer-events: none;
+
+  .c-product-card__img {
+    display: none;
+  }
+
+  .c-product-card__media {
+    background: linear-gradient(
+      90deg,
+      $color-gray-line 25%,
+      #F2F0EC 37%,
+      $color-gray-line 63%
+    );
+    background-size: 800px 100%;
+    animation: plp-shimmer 1.8s ease-in-out infinite;
+  }
+
+  .c-product-card__details {
+    * {
+      color: transparent !important;
+      background-color: $color-gray-line !important;
+      border-radius: $radius-xs;
+      border: none !important;
+      box-shadow: none !important;
+      animation: plp-shimmer 1.8s ease-in-out infinite;
+    }
+  }
+
+  .c-product-card__collection { width: 30%; height: rem(10); }
+  .c-product-card__title { width: 75%; height: rem(16); margin-top: rem(6); }
+  .c-product-card__subtitle { width: 95%; height: rem(11); margin-top: rem(8); }
+  .c-product-card__specs { width: 50%; height: rem(10); margin-top: rem(6); }
+  .c-product-card__rating { width: 40%; height: rem(12); margin-top: rem(6); }
+  .c-product-card__price-group { width: 60%; height: rem(16); margin-top: rem(6); }
+  .c-product-card__emi { width: 45%; height: rem(10); margin-top: rem(4); }
+  .c-product-card__footer { display: none; }
+}

@@ -1,0 +1,63 @@
+// Abstracts (Variables, colors, functions, mixins)
+@import 'abstracts/variables';
+@import 'abstracts/colors';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
+
+// Base (Reset, typography, base overrides)
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/base';
+
+// Layout (Header, footer, grid, nav mechanics)
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/grid';
+@import 'layout/navigation';
+
+// Components (Buttons, inputs, tabs, accordions, modals)
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/forms';
+@import 'components/badges';
+@import 'components/tabs';
+@import 'components/accordions';
+@import 'components/modals';
+@import 'components/product-card';
+@import 'components/quick-view-modal';
+
+// Pages (Page-specific overrides)
+@import 'pages/home';
+@import 'pages/shop-listing';
+@import 'sections/shop/plp-hero';
+@import 'sections/shop/plp-filters';
+@import 'sections/shop/plp-product-grid';
+@import 'sections/shop/plp-pagination';
+@import 'sections/shop/recently-viewed';
+@import 'sections/shop/ai-recommendations';
+@import 'sections/shop/plp-seo-guide';
+@import 'pages/product-detail';
+@import 'pages/builder';
+@import 'pages/ai-advisor';
+
+// Sections (Editorial home sections layout)
+@import 'sections/hero';
+@import 'sections/ai-shopping-assistant';
+@import 'sections/categories';
+@import 'sections/featured-collections';
+@import 'sections/trending-products';
+@import 'sections/ai-recommendations';
+@import 'sections/virtual-try-on';
+@import 'sections/wedding-premium-collections';
+@import 'sections/community-inspiration';
+@import 'sections/testimonials-trust';
+@import 'sections/rewards-membership';
+@import 'sections/final-conversion';
+
+// Themes (Theme variants skins)
+@import 'themes/gold-luxury';
+@import 'themes/dark-luxury';
+
+// Utilities (Helper animation wrappers, absolute overrides)
+@import 'utilities/animations';
+@import 'utilities/helpers';

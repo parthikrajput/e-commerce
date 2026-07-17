@@ -1,0 +1,237 @@
+<!-- Homepage Community Inspiration & Shop the Look Section -->
+<section class="c-community" id="community-inspiration-section" aria-labelledby="comm-heading">
+  <div class="c-community__container">
+    
+    <!-- Top: Section Header Row -->
+    <div class="c-community__header">
+      <div class="c-community__title-wrap">
+        <span class="c-community__eyebrow">Inspired By You</span>
+        <h2 class="c-community__title" id="comm-heading">Collective Expressions</h2>
+        <p class="c-community__desc">
+          Discover how creators and the Lustra community style our jewellery, blending modular shapes with individual narratives.
+        </p>
+      </div>
+      <a href="community.html" class="c-community__all-link btn btn--text">View Community Feed</a>
+    </div>
+
+    <!-- Middle: Featured Editorial Look (Split Layout) -->
+    <div class="c-featured-look">
+      <div class="c-featured-look__image-box">
+        <img src="assets/images/lifestyle/hero-necklace-portrait.webp" alt="Influencer wears gold choker and cuffs gala style" class="c-featured-look__image" loading="lazy">
+        <!-- Floating Style Tag overlay -->
+        <span class="c-featured-look__img-tag" aria-hidden="true">Featured Look: Evening Gala</span>
+      </div>
+      <div class="c-featured-look__content">
+        <span class="c-featured-look__creator">By Elena Rostova</span>
+        <h3 class="c-featured-look__title">The Silk &amp; Solid Contrast</h3>
+        <p class="c-featured-look__story">
+          &ldquo;I love pairing the geometric weight of the Lustra Solid Gold Cuff with a soft, flowing emerald silk gown. The contrast builds a bold statement.&rdquo;
+        </p>
+        
+        <!-- Featured Products List in the Look -->
+        <div class="c-featured-look__products">
+          <span class="c-featured-look__prod-title">Featured Pieces in this Look:</span>
+          <ul class="c-featured-look__prod-list">
+            <li>
+              <a href="product.html?id=solid-cuff" class="c-featured-look__prod-link">
+                <span>The Solid Gold Arch Cuff</span>
+                <span class="c-featured-look__prod-price">&bull; ₹1,95,000</span>
+              </a>
+            </li>
+            <li>
+              <a href="product.html?id=cigar-band" class="c-featured-look__prod-link">
+                <span>The Radiant Diamond Cigar Band</span>
+                <span class="c-featured-look__prod-price">&bull; ₹1,15,000</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="c-featured-look__actions">
+          <button class="btn btn--primary btn-shop-look" data-look-id="elena-gala">Shop Complete Look</button>
+          <button class="btn btn--secondary btn-save-look" data-look-id="elena-gala" aria-label="Save Elena's Gala Look to your style dashboard">Save Inspiration</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Community Inspiration Grid (6 Cards) -->
+    <div class="c-community__grid-container swiper-container" id="community-swiper">
+      <div class="c-community__grid swiper-wrapper">
+        
+        <!-- Card 1 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/rings-category.webp" alt="Wedding bands stacked styled on linen shirt" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Stacked Rings Look" data-look-card-id="stacked-rings">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Mira Sen</span>
+              <span class="c-inspiration-card__tag">Artisan Rings</span>
+            </div>
+            <h5 class="c-inspiration-card__title">Minimalist Stacked Hoops</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">3 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="mira-rings">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/necklaces-category.webp" alt="Layered delicate necklaces styled with blazer" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Layered Gold Look" data-look-card-id="layered-gold">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Aria Vance</span>
+              <span class="c-inspiration-card__tag">Office Chic</span>
+            </div>
+            <h5 class="c-inspiration-card__title">Layered Chains &amp; Blazer</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">2 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="aria-chains">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/earrings-category.webp" alt="Double cartilage diamond studs look" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Diamond Studs Look" data-look-card-id="diamond-studs">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Sophia K</span>
+              <span class="c-inspiration-card__tag">Diamond Nights</span>
+            </div>
+            <h5 class="c-inspiration-card__title">Classic Pearl &amp; Diamond Ear</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">4 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="sophia-ear">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/bracelets-category.webp" alt="Gold cuffs stacked with analog watches" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Stacked Bracelets Look" data-look-card-id="stacked-bracelets">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Arjun Pal</span>
+              <span class="c-inspiration-card__tag">Everyday Luxury</span>
+            </div>
+            <h5 class="c-inspiration-card__title">Heavy Gold Cuff &amp; Watch</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">2 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="arjun-cuff">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/bangles-category.webp" alt="Bridal gold bangles stack with red silk dress" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Bridal Silk Look" data-look-card-id="bridal-silk">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Priya Mehta</span>
+              <span class="c-inspiration-card__tag">Bridal Elegance</span>
+            </div>
+            <h5 class="c-inspiration-card__title">The Heritage Bridal Bangles Stack</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">5 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="priya-bangles">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="c-inspiration-card swiper-slide">
+          <div class="c-inspiration-card__media">
+            <img src="assets/images/products/gifts-category.webp" alt="Gold pendant gift boxes layered necklace styling" class="c-inspiration-card__img" loading="lazy">
+            <button class="c-inspiration-card__save" aria-label="Save Gift Gold Look" data-look-card-id="gift-gold">
+              <svg class="c-icon" width="16" height="16" fill="none" stroke="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="c-inspiration-card__info">
+            <div class="c-inspiration-card__profile">
+              <span class="c-inspiration-card__author">Elena R</span>
+              <span class="c-inspiration-card__tag font-semibold">Festive Glamour</span>
+            </div>
+            <h5 class="c-inspiration-card__title">The Solitaire Pendant Layer</h5>
+            <div class="c-inspiration-card__meta">
+              <span class="c-inspiration-card__count">3 Pieces Featured</span>
+              <button class="btn btn--text c-inspiration-card__shop btn-shop-look" data-look-id="elena-solitaire">Shop Look</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Creator Spotlight & Styling block -->
+    <div class="c-creator-spotlight">
+      <div class="c-creator-spotlight__image-box">
+        <img src="assets/images/lifestyle/banner-wedding.webp" alt="Creator Portrait: Elena Rostova styling editor" class="c-creator-spotlight__image" loading="lazy">
+      </div>
+      <div class="c-creator-spotlight__content">
+        <span class="c-creator-spotlight__tag">Creator Spotlight</span>
+        <h4 class="c-creator-spotlight__name">Elena Rostova</h4>
+        <p class="c-creator-spotlight__bio">
+          Elena is a luxury editorial stylist based in Milan. She focuses on blending structured silhouettes with delicate diamond accessories.
+        </p>
+        <div class="c-creator-spotlight__philosophy">
+          <span class="c-creator-spotlight__label">Favourite Edit:</span>
+          <span class="c-creator-spotlight__val">The Golden Aura Collection</span>
+        </div>
+        <button class="btn btn--secondary btn-follow-creator" data-creator-id="elena-rostova">Follow Elena</button>
+      </div>
+    </div>
+
+    <!-- Trending Style Tags Bar -->
+    <div class="c-community__tags" aria-label="Trending Community Style Hashtags">
+      <span class="c-community__tags-label">Trending Hashtags:</span>
+      <div class="c-community__tags-list">
+        <a href="community.html?hashtag=bridal" class="c-tag-chip">#BridalElegance</a>
+        <a href="community.html?hashtag=daily" class="c-tag-chip">#EverydayLuxury</a>
+        <a href="community.html?hashtag=minimal" class="c-tag-chip">#MinimalGold</a>
+        <a href="community.html?hashtag=diamond" class="c-tag-chip">#DiamondNights</a>
+        <a href="community.html?hashtag=office" class="c-tag-chip">#OfficeChic</a>
+        <a href="community.html?hashtag=festive" class="c-tag-chip">#FestiveGlamour</a>
+      </div>
+    </div>
+
+    <!-- Community Journey Flow tracker -->
+    <div class="c-journey c-journey--community" aria-label="Community Style Experience Flow">
+      <div class="c-journey__steps">
+        <div class="c-journey__step">1. Discover Looks</div>
+        <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+        <div class="c-journey__step">2. Save Inspiration</div>
+        <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+        <div class="c-journey__step">3. Shop the Look</div>
+        <div class="c-journey__arrow" aria-hidden="true">&rarr;</div>
+        <div class="c-journey__step">4. Share Your Style</div>
+      </div>
+    </div>
+
+  </div>
+</section>

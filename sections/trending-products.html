@@ -1,0 +1,158 @@
+<!-- Homepage Trending & New Arrivals Section -->
+<section class="c-trending" id="trending-section" aria-labelledby="trend-heading">
+  <div class="c-trending__container">
+    
+    <!-- Left Column: Section Introduction & Filter controls -->
+    <div class="c-trending__intro">
+      <span class="c-trending__eyebrow">Curated Collections</span>
+      <h2 class="c-trending__title" id="trend-heading">Trending &amp; New</h2>
+      <p class="c-trending__desc">
+        Explore a curated catalog of our latest releases, trending designs, and all-time best sellers.
+      </p>
+
+      <!-- Category Filter Tabs Navigation -->
+      <nav class="c-trending__filters" aria-label="Product categories tab selector">
+        <ul class="c-trending__tabs-list" role="tablist">
+          <li role="presentation">
+            <button class="c-trending__tab is-active" role="tab" id="tab-trending" aria-selected="true" aria-controls="panel-trending" data-tab="trending">Trending</button>
+          </li>
+          <li role="presentation">
+            <button class="c-trending__tab" role="tab" id="tab-new" aria-selected="false" aria-controls="panel-new" data-tab="new-arrivals" tabindex="-1">New Arrivals</button>
+          </li>
+          <li role="presentation">
+            <button class="c-trending__tab" role="tab" id="tab-best" aria-selected="false" aria-controls="panel-best" data-tab="best-sellers" tabindex="-1">Best Sellers</button>
+          </li>
+          <li role="presentation">
+            <button class="c-trending__tab" role="tab" id="tab-picks" aria-selected="false" aria-controls="panel-picks" data-tab="editors-picks" tabindex="-1">Editor's Picks</button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Hero Product Highlight Card -->
+      <div class="c-hero-product">
+        <div class="c-hero-product__image-box">
+          <span class="c-product-badge">Masterpiece</span>
+          <img src="assets/images/lifestyle/hero-necklace-portrait.webp" alt="The Royal Halo Marquise Emerald Pendant detailing" class="c-hero-product__image" loading="lazy">
+        </div>
+        <div class="c-hero-product__content">
+          <h4 class="c-hero-product__title">The Marquise Emerald Pendant</h4>
+          <p class="c-hero-product__desc">A handpicked Zambian emerald enclosed in VVS pav&eacute; diamonds and 18k gold mesh.</p>
+          <span class="c-hero-product__price">₹3,42,000</span>
+          <div class="c-hero-product__craft">
+            <svg class="c-icon" width="16" height="16" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Certified Ethical Sourcing</span>
+          </div>
+          <button class="btn btn--primary c-hero-product__cta" data-product-id="marquise-emerald-pendant">Bespoke Inquiry</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Products Display Frame -->
+    <div class="c-trending__display">
+      
+      <!-- Tab Panels Container -->
+      <div class="c-trending__showcase swiper-container" id="trending-swiper">
+        <div class="c-trending__grid swiper-wrapper">
+          
+          <!-- Product Card 1: Halo Ring -->
+          <div class="c-product-card swiper-slide" data-category="trending">
+            <div class="c-product-card__media">
+              <span class="c-product-badge c-product-badge--trending">Trending</span>
+              <img src="assets/images/products/hero-promo-ring.webp" alt="The Solitaire Cushion Aura Ring" class="c-product-card__img" loading="lazy">
+              <!-- Inline Action Triggers -->
+              <button class="c-product-card__wishlist" aria-label="Add Cushion Aura Ring to Wishlist" data-wishlist-id="cushion-aura-ring">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="cushion-aura-ring">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="cushion-aura-ring">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <span class="c-product-card__cat">Solitaires</span>
+              <h5 class="c-product-card__name">Cushion Aura Ring</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹1,85,000</span>
+                <span class="c-product-card__ratings" aria-label="4.9 ratings star reviews">4.9 &starf;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2: Wedding Band -->
+          <div class="c-product-card swiper-slide" data-category="new-arrivals">
+            <div class="c-product-card__media">
+              <span class="c-product-badge c-product-badge--new">New</span>
+              <img src="assets/images/products/rings-category.webp" alt="The Classic Diamond Eternity Band" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Eternity Band to Wishlist" data-wishlist-id="eternity-band">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="eternity-band">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="eternity-band">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <span class="c-product-card__cat">Wedding Bands</span>
+              <h5 class="c-product-card__name">Diamond Eternity Band</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹2,10,000</span>
+                <span class="c-product-card__ratings" aria-label="4.8 ratings star reviews">4.8 &starf;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3: Emerald Hoops -->
+          <div class="c-product-card swiper-slide" data-category="best-sellers">
+            <div class="c-product-card__media">
+              <span class="c-product-badge c-product-badge--trending">Best Seller</span>
+              <img src="assets/images/products/earrings-category.webp" alt="The Celestial Emerald Ear Hoops" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Emerald Ear Hoops to Wishlist" data-wishlist-id="emerald-ear-hoops">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="emerald-ear-hoops">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="emerald-ear-hoops">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <span class="c-product-card__cat">Earrings</span>
+              <h5 class="c-product-card__name">Emerald Ear Hoops</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹1,45,000</span>
+                <span class="c-product-card__ratings" aria-label="4.9 ratings star reviews">4.9 &starf;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 4: Gold Collar -->
+          <div class="c-product-card swiper-slide" data-category="editors-picks">
+            <div class="c-product-card__media">
+              <span class="c-product-badge c-product-badge--limited">Limited</span>
+              <img src="assets/images/products/necklaces-category.webp" alt="The Radiance Flat Mesh Link Gold Collar" class="c-product-card__img" loading="lazy">
+              <button class="c-product-card__wishlist" aria-label="Add Link Gold Collar to Wishlist" data-wishlist-id="link-gold-collar">
+                <svg class="c-icon" width="18" height="18" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <div class="c-product-card__hover-actions">
+                <button class="c-product-card__action btn btn--primary btn-quick-view" data-product-id="link-gold-collar">Quick View</button>
+                <button class="c-product-card__action btn btn--secondary btn-add-cart" data-product-id="link-gold-collar">Add To Cart</button>
+              </div>
+            </div>
+            <div class="c-product-card__info">
+              <span class="c-product-card__cat">Necklaces</span>
+              <h5 class="c-product-card__name">Link Gold Collar</h5>
+              <div class="c-product-card__meta">
+                <span class="c-product-card__price">₹4,20,000</span>
+                <span class="c-product-card__ratings" aria-label="5.0 ratings star reviews">5.0 &starf;</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Scroll dots on touch viewport Swipers -->
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

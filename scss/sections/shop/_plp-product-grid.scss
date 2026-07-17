@@ -1,0 +1,1048 @@
+// ============================================================
+//  PLP PRODUCT GRID LAYOUT — Lustra Fine Jewellery Platform
+//  File:     scss/sections/shop/_plp-product-grid.scss
+//  Purpose:  Editorial product grid container, grid header,
+//            all grid states (default/loading/empty/error/offline),
+//            view modes, skeleton loaders, recommendation strip.
+//  Spec Ref: 06_Grid_System, 07_Design_Tokens,
+//            09_Animation_Guidelines, 11_Accessibility_Guidelines,
+//            15_SCSS_Architecture
+//  Author:   Lustra Frontend Team
+//  Prompt:   23 — PLP Product Grid Layout
+// ============================================================
+
+// ── Screen-reader only utility (local) ──────────────────────
+// Uses same pattern as global .sr-only but scoped locally
+// so this file is self-contained.
+
+// ── Shimmer keyframe ────────────────────────────────────────
+@keyframes plp-shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+// ── Gold pulse glow for empty state ─────────────────────────
+@keyframes plp-glow-pulse {
+  0%,  100% { opacity: 0.15; transform: scale(0.95); }
+  50%        { opacity: 0.35; transform: scale(1.05); }
+}
+
+// ── Fade-up entrance (GSAP also uses this class as initial) ──
+@keyframes plp-fade-up {
+  from { opacity: 0; transform: translateY(rem(24)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Spin for refresh icon ────────────────────────────────────
+@keyframes plp-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  ROOT SECTION WRAPPER
+//  .c-plp-grid
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid {
+  width: 100%;
+  background-color: $color-pure-white;
+  padding-top: rem(8);
+  padding-bottom: $spacing-3xl; // 80px
+
+  // ── State visibility switches ──────────────────────────────
+  // JS sets data-grid-state on this element to show/hide panels
+
+  &[data-grid-state="default"] {
+    .c-plp-grid__canvas         { display: grid; }
+    .c-plp-grid__skeleton-canvas,
+    .c-plp-grid__empty,
+    .c-plp-grid__error,
+    .c-plp-grid__offline        { display: none; }
+  }
+
+  &[data-grid-state="loading"] {
+    .c-plp-grid__canvas         { display: none; }
+    .c-plp-grid__skeleton-canvas{ display: grid; }
+    .c-plp-grid__empty,
+    .c-plp-grid__error,
+    .c-plp-grid__offline        { display: none; }
+
+    // Dim the header slightly during load
+    .c-plp-grid__header         { opacity: 0.6; pointer-events: none; }
+  }
+
+  &[data-grid-state="empty"] {
+    .c-plp-grid__canvas,
+    .c-plp-grid__skeleton-canvas,
+    .c-plp-grid__error,
+    .c-plp-grid__offline        { display: none; }
+    .c-plp-grid__empty          { display: flex; }
+  }
+
+  &[data-grid-state="error"] {
+    .c-plp-grid__canvas,
+    .c-plp-grid__skeleton-canvas,
+    .c-plp-grid__empty,
+    .c-plp-grid__offline        { display: none; }
+    .c-plp-grid__error          { display: flex; }
+  }
+
+  &[data-grid-state="offline"] {
+    .c-plp-grid__canvas,
+    .c-plp-grid__skeleton-canvas,
+    .c-plp-grid__empty,
+    .c-plp-grid__error          { display: none; }
+    .c-plp-grid__offline        { display: flex; }
+  }
+
+  // ── Reduced motion: disable shimmer & animations ───────────
+  @media (prefers-reduced-motion: reduce) {
+    .c-plp-skeleton__image,
+    .c-plp-skeleton__line,
+    .c-plp-skeleton__price,
+    .c-plp-grid__card-placeholder-image,
+    .c-plp-grid__card-placeholder-line,
+    .c-plp-grid__rec-placeholder-image,
+    .c-plp-grid__rec-placeholder-line {
+      animation: none !important;
+    }
+    .c-plp-grid__empty-glow {
+      animation: none !important;
+    }
+    .c-plp-grid__card-slot {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  GRID HEADER
+//  .c-plp-grid__header
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: rem(20) $spacing-2xl rem(20);  // 20px 64px
+  border-bottom: 1px solid $color-gray-line;
+  background-color: $color-pure-white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: opacity $transition-ease-fast;
+
+  // Subtle shadow when scrolled
+  &.is-scrolled {
+    box-shadow: 0 2px 12px rgba($color-dark-charcoal, 0.05);
+  }
+
+  @include respond-to(laptop) {
+    padding-left: $spacing-xl;
+    padding-right: $spacing-xl;
+  }
+
+  @include respond-to(tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    padding: rem(16) $spacing-md;
+    position: static; // unstick on tablet to avoid layering issues
+  }
+
+  @include respond-to(mobile) {
+    padding: rem(12) $spacing-sm;
+    gap: rem(10);
+  }
+}
+
+// ── Header Left ──────────────────────────────────────────────
+.c-plp-grid__header-left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+
+  @include respond-to(mobile) {
+    gap: $spacing-sm;
+    width: 100%;
+  }
+}
+
+// ── Product Count ─────────────────────────────────────────────
+.c-plp-grid__count {
+  display: flex;
+  align-items: center;
+  gap: rem(5);
+  font-family: $font-family-body;
+  font-size: rem(13);
+  color: $color-neutral-600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.c-plp-grid__count-label,
+.c-plp-grid__count-separator,
+.c-plp-grid__count-word {
+  color: $color-neutral-600;
+  font-weight: 400;
+}
+
+.c-plp-grid__count-range,
+.c-plp-grid__count-total {
+  color: $color-dark-charcoal;
+  font-weight: 600;
+  font-size: rem(13);
+}
+
+// ── Filter Summary Chips ──────────────────────────────────────
+.c-plp-grid__filter-summary {
+  display: flex;
+  align-items: center;
+  min-height: rem(28);
+}
+
+.c-plp-grid__filter-chips {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.c-plp-grid__filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(6);
+  padding: rem(4) rem(12);
+  background-color: $color-cream-tint;
+  border: 1px solid $color-gray-line;
+  border-radius: $radius-sm; // 8px per spec pill/sm
+  font-family: $font-family-body;
+  font-size: rem(12);
+  font-weight: 500;
+  color: $color-dark-charcoal;
+  white-space: nowrap;
+  transition: $transition-ease-fast;
+
+  &:hover {
+    border-color: $color-primary-gold;
+    background-color: rgba($color-primary-gold, 0.06);
+  }
+}
+
+.c-plp-grid__filter-chip-label {
+  color: $color-dark-charcoal;
+}
+
+.c-plp-grid__filter-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(16);
+  height: rem(16);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-neutral-600;
+  padding: 0;
+  border-radius: rem(2);
+  transition: $transition-ease-fast;
+
+  &:hover {
+    color: $color-warn-red;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ── Header Right ──────────────────────────────────────────────
+.c-plp-grid__header-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  flex-shrink: 0;
+
+  @include respond-to(tablet) {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  @include respond-to(mobile) {
+    gap: $spacing-sm;
+  }
+}
+
+// ── Sort Status (read-only badge) ─────────────────────────────
+.c-plp-grid__sort-status {
+  display: flex;
+  align-items: center;
+  gap: rem(5);
+  font-family: $font-family-body;
+  font-size: rem(13);
+  color: $color-neutral-600;
+  white-space: nowrap;
+}
+
+.c-plp-grid__sort-icon {
+  flex-shrink: 0;
+  color: $color-primary-gold;
+}
+
+.c-plp-grid__sort-label {
+  color: $color-neutral-600;
+}
+
+.c-plp-grid__sort-value {
+  color: $color-dark-charcoal;
+  font-weight: 600;
+}
+
+// ── View Mode Toggles ─────────────────────────────────────────
+.c-plp-grid__view-modes {
+  display: flex;
+  align-items: center;
+  gap: rem(2);
+  background-color: $color-cream-tint;
+  border: 1px solid $color-gray-line;
+  border-radius: $radius-sm;
+  padding: rem(3);
+}
+
+.c-plp-grid__view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(32);
+  height: rem(32);
+  background: none;
+  border: none;
+  border-radius: rem(6);
+  cursor: pointer;
+  color: $color-neutral-600;
+  transition: $transition-ease-fast;
+
+  &:hover:not(.is-disabled) {
+    color: $color-dark-charcoal;
+    background-color: rgba($color-dark-charcoal, 0.05);
+  }
+
+  &.is-active {
+    background-color: $color-pure-white;
+    color: $color-primary-gold;
+    box-shadow: 0 1px 4px rgba($color-dark-charcoal, 0.08);
+  }
+
+  &.is-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ── Refresh Button ─────────────────────────────────────────────
+.c-plp-grid__refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(36);
+  height: rem(36);
+  background: none;
+  border: 1px solid $color-gray-line;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  color: $color-neutral-600;
+  transition: $transition-ease-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: $color-primary-gold;
+    color: $color-primary-gold;
+    background-color: rgba($color-primary-gold, 0.05);
+
+    svg {
+      animation: plp-spin 0.7s $easing-default;
+    }
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &.is-loading svg {
+    animation: plp-spin 0.8s linear infinite;
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  GRID BODY WRAPPER
+//  .c-plp-grid__body
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__body {
+  padding: $spacing-xl $spacing-2xl; // 48px 64px per spec (desktop)
+  min-height: rem(600);
+
+  @include respond-to(laptop) {
+    padding: $spacing-lg $spacing-xl; // 32px 48px
+  }
+
+  @include respond-to(tablet) {
+    padding: $spacing-md $spacing-md; // 24px on tablet
+  }
+
+  @include respond-to(mobile) {
+    padding: $spacing-sm $spacing-sm; // 16px mobile
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  DEFAULT STATE — PRODUCT GRID CANVAS
+//  .c-plp-grid__canvas
+//  CSS Grid: 4-col desktop → 3-col laptop → 2-col tablet → 1-col mobile
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__canvas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-xl $spacing-md; // 48px row / 24px column per spec
+
+  @include respond-to(laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg $spacing-sm;
+  }
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md $spacing-sm;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+// ── Card Slot (organism boundary) ────────────────────────────
+.c-plp-grid__card-slot {
+  // Ensure equal heights across all slots in same row
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
+
+  // GSAP stagger entrance — initial state set by JS
+  // Fallback CSS animation for no-JS or reduced-motion:
+  &.is-revealed {
+    animation: plp-fade-up 0.5s $easing-default both;
+  }
+
+  // Focus order: keyboard users tab through slots logically
+  &:focus-within {
+    outline: none; // focus rings handled on inner interactive elements
+  }
+}
+
+// ── Default placeholder shown before real cards are injected ─
+.c-plp-grid__card-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  background-color: $color-cream-tint;
+  border-radius: $radius-md;
+  overflow: hidden;
+  height: 100%;
+
+  // Shimmer overlay mixin
+  &-image,
+  &-line {
+    background: linear-gradient(
+      90deg,
+      $color-gray-line 25%,
+      #DDDBD6 37%,
+      $color-gray-line 63%
+    );
+    background-size: 800px 100%;
+    animation: plp-shimmer 1.8s ease-in-out infinite;
+    border-radius: $radius-xs;
+  }
+
+  &-image {
+    // 3:4 aspect ratio per spec §7 Image Aspect Ratios
+    aspect-ratio: 3 / 4;
+    border-radius: $radius-md $radius-md 0 0;
+    flex-shrink: 0;
+  }
+
+  &-body {
+    padding: $spacing-sm $spacing-sm $spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    flex: 1;
+  }
+
+  &-line {
+    height: rem(12);
+    border-radius: $radius-xs;
+    width: 100%;
+
+    &--short { width: 45%; height: rem(10); }
+    &--med   { width: 65%; }
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  LOADING STATE — LUXURY SKELETON GRID
+//  .c-plp-grid__skeleton-canvas
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__skeleton-canvas {
+  display: none; // shown via state selector above
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-xl $spacing-md;
+
+  @include respond-to(laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg $spacing-sm;
+  }
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md $spacing-sm;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+// ── Individual Skeleton Card ──────────────────────────────────
+.c-plp-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background-color: $color-cream-tint;
+
+  // Staggered animation delay for premium feel
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      .c-plp-skeleton__image,
+      .c-plp-skeleton__line,
+      .c-plp-skeleton__price {
+        animation-delay: #{($i - 1) * 0.07}s;
+      }
+    }
+  }
+}
+
+// Shared shimmer surface mixin (local)
+%plp-shimmer-surface {
+  background: linear-gradient(
+    90deg,
+    $color-gray-line 25%,
+    #F2F0EC 37%,
+    $color-gray-line 63%
+  );
+  background-size: 800px 100%;
+  animation: plp-shimmer 1.8s ease-in-out infinite;
+}
+
+.c-plp-skeleton__image {
+  @extend %plp-shimmer-surface;
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  border-radius: $radius-md $radius-md 0 0;
+  flex-shrink: 0;
+}
+
+.c-plp-skeleton__body {
+  padding: $spacing-sm $spacing-sm $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+}
+
+.c-plp-skeleton__line {
+  @extend %plp-shimmer-surface;
+  height: rem(12);
+  border-radius: $radius-xs;
+  width: 100%;
+
+  &--short { width: 40%; height: rem(10); }
+  &--med   { width: 60%; }
+}
+
+.c-plp-skeleton__price {
+  @extend %plp-shimmer-surface;
+  height: rem(18);
+  width: 55%;
+  border-radius: $radius-xs;
+  margin-top: rem(4);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  SHARED STATE PANEL BASE
+//  Shared layout for empty / error / offline states
+// ─────────────────────────────────────────────────────────────
+%plp-state-panel {
+  display: none; // overridden by data-grid-state selectors
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-3xl $spacing-2xl; // 80px 64px desktop
+  gap: $spacing-lg;
+  min-height: rem(500);
+  justify-content: center;
+
+  @include respond-to(tablet) {
+    padding: $spacing-xl $spacing-md;
+  }
+
+  @include respond-to(mobile) {
+    padding: $spacing-lg $spacing-sm;
+    min-height: rem(380);
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  EMPTY STATE
+//  .c-plp-grid__empty
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__empty {
+  @extend %plp-state-panel;
+  gap: $spacing-lg;
+}
+
+// Illustration container
+.c-plp-grid__empty-illustration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.c-plp-grid__empty-icon {
+  width: rem(160);
+  height: rem(160);
+  position: relative;
+  z-index: 1;
+
+  @include respond-to(mobile) {
+    width: rem(120);
+    height: rem(120);
+  }
+}
+
+// Gold glow halo behind illustration
+.c-plp-grid__empty-glow {
+  position: absolute;
+  width: rem(200);
+  height: rem(200);
+  border-radius: $radius-circle;
+  background: radial-gradient(
+    circle,
+    rgba($color-primary-gold, 0.18) 0%,
+    transparent 70%
+  );
+  animation: plp-glow-pulse 3s ease-in-out infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Empty state text content
+.c-plp-grid__empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  max-width: rem(480);
+}
+
+.c-plp-grid__empty-heading {
+  font-family: $font-family-display;
+  font-size: rem(30);
+  font-weight: 700;
+  color: $color-dark-charcoal;
+  line-height: 1.3;
+  margin: 0;
+
+  @include respond-to(mobile) {
+    font-size: rem(24);
+  }
+}
+
+.c-plp-grid__empty-subtext {
+  font-family: $font-family-body;
+  font-size: rem(15);
+  color: $color-neutral-600;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.c-plp-grid__empty-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-xs;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+// ── CTA Buttons — uses global .btn system ───────────────────
+// (Defined in scss/components/_buttons.scss per spec §5)
+// Extended here with icon-inside support:
+.c-plp-grid__empty-reset-btn,
+.c-plp-grid__empty-ai-btn,
+.c-plp-grid__error-retry-btn,
+.c-plp-grid__offline-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(8);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  ERROR STATE
+//  .c-plp-grid__error
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__error {
+  @extend %plp-state-panel;
+  gap: $spacing-md;
+}
+
+.c-plp-grid__error-icon-wrap {
+  flex-shrink: 0;
+}
+
+.c-plp-grid__error-icon {
+  width: rem(80);
+  height: rem(80);
+}
+
+.c-plp-grid__error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  max-width: rem(440);
+}
+
+.c-plp-grid__error-heading {
+  font-family: $font-family-display;
+  font-size: rem(26);
+  font-weight: 700;
+  color: $color-dark-charcoal;
+  line-height: 1.3;
+  margin: 0;
+
+  @include respond-to(mobile) {
+    font-size: rem(22);
+  }
+}
+
+.c-plp-grid__error-subtext {
+  font-family: $font-family-body;
+  font-size: rem(14);
+  color: $color-neutral-600;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.c-plp-grid__error-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-xs;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.c-plp-grid__error-support-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: rem(14);
+  color: $color-neutral-600;
+  text-decoration: underline;
+  text-underline-offset: rem(3);
+  transition: $transition-ease-fast;
+
+  &:hover {
+    color: $color-primary-gold;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  OFFLINE STATE
+//  .c-plp-grid__offline
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__offline {
+  @extend %plp-state-panel;
+}
+
+.c-plp-grid__offline-icon-wrap {
+  flex-shrink: 0;
+}
+
+.c-plp-grid__offline-icon {
+  width: rem(80);
+  height: rem(80);
+  opacity: 0.7;
+}
+
+.c-plp-grid__offline-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  max-width: rem(400);
+}
+
+.c-plp-grid__offline-heading {
+  font-family: $font-family-display;
+  font-size: rem(24);
+  font-weight: 700;
+  color: $color-dark-charcoal;
+  margin: 0;
+}
+
+.c-plp-grid__offline-subtext {
+  font-family: $font-family-body;
+  font-size: rem(14);
+  color: $color-neutral-600;
+  line-height: 1.65;
+  margin: 0;
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  RECOMMENDATION CAROUSEL STRIP
+//  .c-plp-grid__rec-strip
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid__rec-strip {
+  background-color: $color-cream-tint;
+  border-top: 1px solid $color-gray-line;
+  padding: $spacing-xl $spacing-2xl $spacing-3xl;
+
+  @include respond-to(laptop) {
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  @include respond-to(tablet) {
+    padding: $spacing-md $spacing-md;
+  }
+
+  @include respond-to(mobile) {
+    padding: $spacing-sm $spacing-sm $spacing-lg;
+  }
+}
+
+.c-plp-grid__rec-strip-inner {
+  max-width: $width-max;
+  margin: 0 auto;
+}
+
+// ── Strip Header ──────────────────────────────────────────────
+.c-plp-grid__rec-strip-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+
+  @include respond-to(mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-xs;
+  }
+}
+
+.c-plp-grid__rec-strip-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: rem(6);
+}
+
+// AI Badge
+.c-plp-grid__rec-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(5);
+  padding: rem(3) rem(10);
+  background-color: rgba($color-ai-rose, 0.12);
+  border: 1px solid rgba($color-ai-rose, 0.3);
+  border-radius: $radius-sm;
+  font-family: $font-family-body;
+  font-size: rem(11);
+  font-weight: 600;
+  color: #A06862;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.c-plp-grid__rec-strip-heading {
+  font-family: $font-family-display;
+  font-size: rem(26);
+  font-weight: 700;
+  color: $color-dark-charcoal;
+  line-height: 1.3;
+  margin: 0;
+
+  @include respond-to(mobile) {
+    font-size: rem(20);
+  }
+}
+
+.c-plp-grid__rec-strip-subtext {
+  font-family: $font-family-body;
+  font-size: rem(13);
+  color: $color-neutral-600;
+  line-height: 1.5;
+  margin: 0;
+  max-width: rem(400);
+}
+
+// ── Carousel Track ────────────────────────────────────────────
+.c-plp-grid__rec-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.c-plp-grid__rec-track {
+  display: flex;
+  gap: $spacing-sm; // swiper handles gap via spaceBetween in JS
+}
+
+// ── Recommendation Slot ───────────────────────────────────────
+.c-plp-grid__rec-slot {
+  flex-shrink: 0;
+}
+
+// ── Recommendation Placeholder (before cards injected) ────────
+.c-plp-grid__rec-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+  border-radius: $radius-md;
+  overflow: hidden;
+  background-color: $color-pure-white;
+  padding-bottom: $spacing-sm;
+
+  &-image {
+    background: linear-gradient(
+      90deg,
+      $color-gray-line 25%,
+      #F4F2EF 37%,
+      $color-gray-line 63%
+    );
+    background-size: 800px 100%;
+    animation: plp-shimmer 1.8s ease-in-out infinite;
+    aspect-ratio: 3 / 4;
+    border-radius: $radius-md $radius-md 0 0;
+    width: 100%;
+  }
+
+  &-line {
+    @extend %plp-shimmer-surface;
+    height: rem(11);
+    border-radius: $radius-xs;
+    margin: 0 $spacing-sm;
+    width: calc(100% - #{$spacing-md});
+
+    &--short { width: calc(55% - #{$spacing-md}); }
+  }
+}
+
+// ── Swiper Navigation Overrides ───────────────────────────────
+.c-plp-grid__rec-prev,
+.c-plp-grid__rec-next {
+  width: rem(40);
+  height: rem(40);
+  background-color: $color-pure-white;
+  border: 1px solid $color-gray-line;
+  border-radius: $radius-circle;
+  box-shadow: $shadow-card;
+  color: $color-dark-charcoal;
+  transition: $transition-ease-fast;
+
+  &::after {
+    font-size: rem(14);
+    font-weight: 700;
+    color: $color-dark-charcoal;
+  }
+
+  &:hover {
+    border-color: $color-primary-gold;
+    background-color: $color-primary-gold;
+
+    &::after {
+      color: $color-pure-white;
+    }
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  @include respond-to(mobile) {
+    display: none; // use touch swipe on mobile
+  }
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  SCREEN READER ONLY UTILITY (local scope)
+// ─────────────────────────────────────────────────────────────
+// Matches global .sr-only but defined here so this partial
+// works standalone if extracted.
+.c-plp-grid .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+// ─────────────────────────────────────────────────────────────
+//  FOCUS VISIBLE (WCAG 2.2 AA — spec §11)
+// ─────────────────────────────────────────────────────────────
+.c-plp-grid {
+  a,
+  button {
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}

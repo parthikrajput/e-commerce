@@ -1,0 +1,353 @@
+/**
+ * ============================================================
+ *  RECENTLY VIEWED — Lustra Reusable Component Stylesheet
+ *  File:     scss/sections/shop/_recently-viewed.scss
+ *  Purpose:  Premium visual styles for the recently viewed designs.
+ *            Coordinates Swiper navigation, pagination, scrollbars,
+ *            and dynamic empty/loading/error cards.
+ *  Spec Ref: 15_SCSS_Architecture, 07_Design_Tokens,
+ *            10_Responsive_Guidelines, 11_Accessibility_Guidelines
+ * ============================================================
+ */
+
+// Shimmer Keyframes for Recently Viewed Skeletons
+@keyframes rv-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.c-recently-viewed {
+  width: 100%;
+  padding: rem(96) 0;
+  background-color: $color-pure-white;
+  border-top: 1px solid rgba($color-gray-line, 0.5);
+  border-bottom: 1px solid rgba($color-gray-line, 0.5);
+  overflow: hidden;
+
+  @include respond-to(tablet) {
+    padding: rem(64) 0;
+  }
+
+  @include respond-to(mobile) {
+    padding: rem(48) 0;
+  }
+
+  // 1. Header Layout
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: rem(48);
+    position: relative;
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: rem(16);
+      margin-bottom: rem(32);
+    }
+  }
+
+  &__header-left {
+    max-width: rem(600);
+  }
+
+  &__eyebrow {
+    font-family: $font-family-body;
+    font-size: rem(11);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $color-primary-gold;
+    display: block;
+    margin-bottom: rem(8);
+  }
+
+  &__title {
+    font-family: $font-family-display;
+    font-size: rem(36);
+    line-height: 1.2;
+    font-weight: 500;
+    color: $color-dark-charcoal;
+    margin: 0 0 rem(12) 0;
+
+    @include respond-to(mobile) {
+      font-size: rem(28);
+    }
+  }
+
+  &__description {
+    font-size: rem(14);
+    line-height: 1.5;
+    color: $color-neutral-600;
+    margin: 0;
+  }
+
+  // 2. Swiper Navigation Arrows
+  &__nav-arrows {
+    display: flex;
+    gap: rem(10);
+    z-index: 5;
+
+    @include respond-to(mobile) {
+      display: none; // swipe gestures preferred on mobile touchscreens
+    }
+  }
+
+  &__arrow {
+    width: rem(44);
+    height: rem(44);
+    border-radius: $radius-circle;
+    border: 1px solid $color-gray-line;
+    background-color: $color-pure-white;
+    color: $color-dark-charcoal;
+    cursor: pointer;
+    @include flex-center;
+    transition: $transition-ease-fast;
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary-gold;
+      color: $color-primary-gold;
+      background-color: $color-cream-tint;
+      transform: scale(1.05);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: rgba($color-gray-line, 0.4);
+    }
+  }
+
+  // 3. Mode State Toggles
+  &__state {
+    display: none;
+    width: 100%;
+
+    &--loading,
+    &--error,
+    &--empty {
+      // States baseline
+    }
+
+    &--error,
+    &--empty {
+      @include flex-center;
+      flex-direction: column;
+      padding: rem(64) rem(32);
+      text-align: center;
+      background-color: $color-cream-tint;
+      border: 1px solid rgba($color-gray-line, 0.4);
+      border-radius: $radius-xl;
+    }
+  }
+
+  // Bind active display variables to root data attributes
+  [data-rv-state="loading"] & {
+    &__state--loading { display: block; }
+  }
+  [data-rv-state="empty"] & {
+    &__state--empty { display: flex; }
+  }
+  [data-rv-state="error"] & {
+    &__state--error { display: flex; }
+  }
+  [data-rv-state="content"] & {
+    &__state--content { display: block; }
+  }
+
+  // 4. Loading State Skeletons
+  &__skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: rem(24);
+    width: 100%;
+
+    @include respond-to(laptop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__skeleton-card {
+    display: flex;
+    flex-direction: column;
+    padding: rem(12);
+    border: 1px solid rgba($color-gray-line, 0.6);
+    border-radius: $radius-md;
+    background-color: $color-pure-white;
+  }
+
+  &__shimmer {
+    background: linear-gradient(90deg, #ECECEC 25%, #F6F6F6 50%, #ECECEC 75%);
+    background-size: 200% 100%;
+    animation: rv-shimmer 1.5s infinite linear;
+    border-radius: $radius-xs;
+
+    &--media {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: $radius-sm;
+      margin-bottom: rem(16);
+    }
+
+    &--title {
+      width: 70%;
+      height: rem(14);
+      margin-bottom: rem(10);
+    }
+
+    &--price {
+      width: 40%;
+      height: rem(12);
+    }
+  }
+
+  // 5. Empty State Panel
+  &__empty-box,
+  &__error-box {
+    max-width: rem(480);
+    margin: 0 auto;
+  }
+
+  &__illustration {
+    color: $color-primary-gold;
+    margin-bottom: rem(20);
+  }
+
+  &__state-title {
+    font-family: $font-family-display;
+    font-size: rem(24);
+    color: $color-dark-charcoal;
+    margin: 0 0 rem(8) 0;
+    font-weight: 500;
+  }
+
+  &__state-desc {
+    font-size: rem(13);
+    line-height: 1.6;
+    color: $color-neutral-600;
+    margin-bottom: rem(24);
+  }
+
+  &__empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: rem(12);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  &__retry-btn {
+    min-width: rem(160);
+  }
+
+  // 6. Content State: Swiper Elements
+  &__slider {
+    width: 100%;
+    overflow: visible; // allows card lift translation to avoid getting clipped
+    position: relative;
+    padding-bottom: rem(24); // spacing for Swiper scrollbar
+  }
+
+  &__scrollbar {
+    &.swiper-scrollbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: rgba($color-gray-line, 0.6);
+      border-radius: $radius-pill;
+
+      .swiper-scrollbar-drag {
+        background-color: $color-primary-gold;
+        border-radius: $radius-pill;
+        height: 100%;
+      }
+    }
+  }
+
+  // Slide items wrap
+  .swiper-slide {
+    height: auto; // ensure product cards expand fully to equal height
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform var(--transition-fast, 150ms);
+  }
+
+  // 7. Footer editorial continues strip
+  &__footer {
+    margin-top: rem(64);
+
+    @include respond-to(mobile) {
+      margin-top: rem(40);
+    }
+  }
+
+  &__divider {
+    width: 100%;
+    height: 1px;
+    background-color: $color-gray-line;
+    margin-bottom: rem(32);
+  }
+
+  &__continue {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: $font-family-body;
+    font-size: rem(14);
+    color: $color-neutral-600;
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: rem(12);
+    }
+  }
+
+  &__explore-btn {
+    font-weight: 600;
+  }
+}
+
+// Layout helper utility
+.u-d-none-mobile {
+  @include respond-to(mobile) {
+    display: none !important;
+  }
+}
+.u-d-none-tablet {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+.u-d-none-laptop {
+  @media (max-width: 1024px) {
+    display: none !important;
+  }
+}

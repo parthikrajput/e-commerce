@@ -1,0 +1,506 @@
+/**
+ * ============================================================
+ *  PLP SEO CONTENT & BUYING GUIDE — Lustra Component Style
+ *  File:     scss/sections/shop/_plp-seo-guide.scss
+ *  Purpose:  Luxury editorial styling for buying guides, trust blocks,
+ *            GIA notices, and keyboard-accessible FAQ accordions.
+ *  Spec Ref: 15_SCSS_Architecture, 07_Design_Tokens,
+ *            10_Responsive_Guidelines, 11_Accessibility_Guidelines
+ * ============================================================
+ */
+
+.c-seo-guide {
+  width: 100%;
+  padding: rem(96) 0;
+  background-color: $color-pure-white;
+  border-top: 1px solid rgba($color-gray-line, 0.5);
+  overflow: hidden;
+
+  @include respond-to(tablet) {
+    padding: rem(64) 0;
+  }
+
+  @include respond-to(mobile) {
+    padding: rem(48) 0;
+  }
+
+  // 1. Header Details
+  &__header {
+    max-width: rem(800);
+    margin-bottom: rem(48);
+
+    @include respond-to(mobile) {
+      margin-bottom: rem(32);
+    }
+  }
+
+  &__eyebrow {
+    font-family: $font-family-body;
+    font-size: rem(11);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $color-primary-gold;
+    display: block;
+    margin-bottom: rem(8);
+  }
+
+  &__title {
+    font-family: $font-family-display;
+    font-size: rem(36);
+    line-height: 1.2;
+    font-weight: 500;
+    color: $color-dark-charcoal;
+    margin: 0 0 rem(12) 0;
+
+    @include respond-to(mobile) {
+      font-size: rem(28);
+    }
+  }
+
+  &__description {
+    font-size: rem(14);
+    line-height: 1.6;
+    color: $color-neutral-600;
+    margin: 0;
+  }
+
+  // 2. Buying Guide Tabs System
+  &__tabs-wrapper {
+    margin-bottom: rem(64);
+  }
+
+  &__tablist {
+    display: flex;
+    gap: rem(24);
+    border-bottom: 1px solid $color-gray-line;
+    padding-bottom: 1px;
+    margin-bottom: rem(32);
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__tab-btn {
+    font-family: $font-family-body;
+    font-size: rem(12);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-neutral-500;
+    background: none;
+    border: none;
+    padding: 0 0 rem(12) 0;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.3s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $color-primary-gold;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s $easing-default;
+    }
+
+    &:hover {
+      color: $color-dark-charcoal;
+    }
+
+    &.is-active {
+      color: $color-dark-charcoal;
+      font-weight: 700;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__panels {
+    width: 100%;
+  }
+
+  &__panel {
+    display: none;
+    width: 100%;
+    outline: none;
+
+    &.is-active {
+      display: block;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__panel-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: rem(48);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: rem(32);
+    }
+  }
+
+  &__panel-content {
+    h3 {
+      font-family: $font-family-display;
+      font-size: rem(22);
+      color: $color-dark-charcoal;
+      margin: 0 0 rem(12) 0;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: rem(14);
+      line-height: 1.6;
+      color: $color-neutral-600;
+      margin: 0 0 rem(24) 0;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+
+    li {
+      font-size: rem(13);
+      line-height: 1.5;
+      color: $color-neutral-600;
+      position: relative;
+      padding-left: rem(20);
+
+      &::before {
+        content: '✦';
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: $color-primary-gold;
+        font-size: rem(11);
+      }
+
+      strong {
+        color: $color-dark-charcoal;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__panel-illustration {
+    width: 100%;
+    @include flex-center;
+  }
+
+  &__visual-card {
+    width: 100%;
+    max-width: rem(280);
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, $color-cream-tint 0%, rgba($color-primary-gold, 0.05) 100%);
+    border: 1px solid rgba($color-primary-gold, 0.2);
+    border-radius: $radius-lg;
+    @include flex-center;
+    flex-direction: column;
+    gap: rem(8);
+    box-shadow: $shadow-sm;
+  }
+
+  &__visual-symbol {
+    font-family: $font-family-display;
+    font-size: rem(48);
+    font-weight: 400;
+    color: $color-primary-gold;
+    line-height: 1;
+  }
+
+  &__visual-label {
+    font-family: $font-family-body;
+    font-size: rem(10);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-neutral-600;
+  }
+
+  // 3. Trust Grid Promising Section
+  &__trust {
+    margin-bottom: rem(80);
+    border-top: 1px solid rgba($color-gray-line, 0.5);
+    padding-top: rem(64);
+  }
+
+  &__section-title {
+    font-family: $font-family-display;
+    font-size: rem(26);
+    color: $color-dark-charcoal;
+    text-align: center;
+    margin: 0 0 rem(40) 0;
+    font-weight: 500;
+  }
+
+  &__trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: rem(32);
+
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: rem(24);
+    }
+
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__trust-card {
+    text-align: center;
+    padding: rem(24) rem(16);
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    h4 {
+      font-family: $font-family-body;
+      font-size: rem(15);
+      font-weight: 600;
+      color: $color-dark-charcoal;
+      margin: rem(12) 0 rem(8) 0;
+    }
+
+    p {
+      font-size: rem(13);
+      line-height: 1.5;
+      color: $color-neutral-600;
+      margin: 0;
+    }
+  }
+
+  &__trust-icon {
+    font-size: rem(24);
+    color: $color-primary-gold;
+    animation: rv-pulse 2s infinite ease-in-out;
+  }
+
+  // 4. FAQ Accordion Panels
+  &__faq {
+    margin-bottom: rem(80);
+    border-top: 1px solid rgba($color-gray-line, 0.5);
+    padding-top: rem(64);
+  }
+
+  .c-seo-faq {
+    width: 100%;
+    max-width: rem(800);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      border-bottom: 1px solid $color-gray-line;
+      width: 100%;
+
+      &:first-child {
+        border-top: 1px solid $color-gray-line;
+      }
+    }
+
+    &__trigger {
+      width: 100%;
+      padding: rem(24) 0;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      font-family: $font-family-body;
+      font-size: rem(15);
+      font-weight: 600;
+      color: $color-dark-charcoal;
+      cursor: pointer;
+      gap: rem(16);
+      transition: color 0.25s;
+
+      &:hover {
+        color: $color-primary-gold;
+      }
+
+      &:focus-visible {
+        @include focus-ring;
+      }
+    }
+
+    &__arrow {
+      color: $color-neutral-400;
+      transition: transform 0.3s $easing-default, color 0.3s;
+
+      [aria-expanded="true"] & {
+        transform: rotate(180deg);
+        color: $color-primary-gold;
+      }
+    }
+
+    &__panel {
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      transition: height 0.3s $easing-default, visibility 0.3s;
+      will-change: height;
+
+      &[aria-hidden="false"] {
+        visibility: visible;
+      }
+    }
+
+    &__content {
+      padding: 0 0 rem(24) 0;
+      
+      p {
+        font-size: rem(13);
+        line-height: 1.6;
+        color: $color-neutral-600;
+        margin: 0;
+      }
+    }
+  }
+
+  // 5. Final Conversion Box
+  &__cta {
+    background: linear-gradient(135deg, $color-cream-tint 0%, rgba($color-primary-gold, 0.04) 100%);
+    border: 1px solid rgba($color-primary-gold, 0.25);
+    border-radius: $radius-xl;
+    padding: rem(64) rem(40);
+    text-align: center;
+    box-shadow: $shadow-sm;
+
+    @include respond-to(mobile) {
+      padding: rem(40) rem(24);
+    }
+
+    h3 {
+      font-family: $font-family-display;
+      font-size: rem(30);
+      color: $color-dark-charcoal;
+      margin: 0 0 rem(12) 0;
+      font-weight: 500;
+
+      @include respond-to(mobile) {
+        font-size: rem(24);
+      }
+    }
+
+    p {
+      font-size: rem(14);
+      line-height: 1.6;
+      color: $color-neutral-600;
+      max-width: rem(560);
+      margin: 0 auto rem(32) auto;
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: center;
+      gap: rem(12);
+      margin-bottom: rem(48);
+
+      @include respond-to(mobile) {
+        flex-direction: column;
+        width: 100%;
+        gap: rem(12);
+
+        .btn {
+          width: 100%;
+        }
+      }
+    }
+
+    &-footer {
+      border-top: 1px solid rgba($color-gray-line, 0.6);
+      padding-top: rem(28);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: rem(12);
+      flex-wrap: wrap;
+
+      @include respond-to(mobile) {
+        flex-direction: column;
+        gap: rem(8);
+      }
+    }
+
+    &-footer-label {
+      font-family: $font-family-body;
+      font-size: rem(11);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $color-neutral-500;
+    }
+
+    &-links {
+      display: flex;
+      gap: rem(12);
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      a {
+        font-size: rem(12);
+        color: $color-neutral-600;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+
+        &:hover {
+          color: $color-primary-gold;
+        }
+
+        &:focus-visible {
+          @include focus-ring;
+        }
+      }
+    }
+
+    &-divider {
+      color: $color-gray-line;
+      font-size: rem(11);
+    }
+  }
+}
+
+// Reuse animation keyframe
+@keyframes rv-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.85;
+  }
+}

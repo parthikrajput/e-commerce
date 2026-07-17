@@ -1,0 +1,360 @@
+// Homepage Hero Section layout styling rules
+.c-hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-cream-tint);
+  padding: 120px 0 var(--spacing-3xl) 0;
+
+  // Subtle decorative grain overlay for premium feel
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @include respond-to(tablet) {
+    min-height: auto;
+    padding: 110px 0 var(--spacing-2xl) 0;
+  }
+
+  &__container {
+    max-width: var(--width-max);
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+
+    @include respond-to(tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  // Left Content blocks
+  &__content {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+
+    @include respond-to(tablet) {
+      align-items: center;
+      text-align: center;
+      padding: 0 var(--spacing-sm);
+    }
+  }
+
+  &__eyebrow {
+    font-family: var(--font-family-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-gold);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2.25rem, 4.5vw, 4rem);
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--color-dark-charcoal);
+    margin-bottom: var(--spacing-md);
+
+    &-line {
+      display: block;
+
+      // Second line rendered with gold gradient on desktop
+      &:last-child {
+        background: linear-gradient(
+          90deg,
+          var(--color-dark-charcoal) 0%,
+          var(--color-primary-gold) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+
+        // Graceful fallback for unsupported browsers
+        @supports not (-webkit-background-clip: text) {
+          background: none;
+          color: var(--color-dark-charcoal);
+        }
+
+        @include respond-to(tablet) {
+          background: none;
+          -webkit-text-fill-color: unset;
+          color: var(--color-primary-gold);
+        }
+      }
+    }
+  }
+
+  &__desc {
+    font-family: var(--font-family-body);
+    font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
+    line-height: 1.6;
+    color: var(--color-neutral-600);
+    margin-bottom: var(--spacing-xl);
+    max-width: 540px;
+
+    @include respond-to(tablet) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-2xl);
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      gap: var(--spacing-xs);
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  // Trust Indicators Row
+  &__trust {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    border-top: 1px solid var(--color-gray-line);
+    padding-top: var(--spacing-md);
+
+    @include respond-to(tablet) {
+      justify-content: center;
+    }
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-xs);
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: rem(7);
+      color: var(--color-neutral-600);
+      font-family: var(--font-family-body);
+      font-size: 0.6875rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.25s ease;
+
+      .c-icon {
+        color: var(--color-primary-gold);
+        width: 14px;
+        height: 14px;
+        stroke-width: 2.5;
+      }
+
+      &:hover {
+        color: var(--color-dark-charcoal);
+      }
+    }
+  }
+
+  // Right Visual Column Composition
+  &__visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 520px;
+
+    @include respond-to(tablet) {
+      height: 400px;
+    }
+
+    @include respond-to(mobile) {
+      height: 320px;
+    }
+  }
+
+  &__lighting {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, rgba(215, 167, 160, 0.05) 50%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &__media-wrapper {
+    position: relative;
+    width: 82%;
+    height: 92%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--color-gray-line);
+    z-index: 2;
+    background-color: var(--color-gray-line);
+    transition: box-shadow 0.6s var(--easing-premium), transform 0.6s var(--easing-premium);
+
+    &:hover {
+      box-shadow: var(--shadow-xl), 0 0 0 2px var(--color-primary-gold);
+      transform: scale(1.01);
+    }
+
+    // Gold shimmer ring decoration
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-xl);
+      border: 1.5px solid rgba(201, 169, 110, 0);
+      transition: border-color 0.5s ease;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    &:hover::after {
+      border-color: rgba(201, 169, 110, 0.4);
+    }
+
+    @include respond-to(tablet) {
+      width: 72%;
+    }
+  }
+
+  &__media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  // Glassmorphic background shape decorators — gold-tinted premium glass
+  &__decorator {
+    position: absolute;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(201, 169, 110, 0.08) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 169, 110, 0.2);
+    border-radius: var(--radius-circle);
+    pointer-events: none;
+    z-index: 3;
+
+    &--ellipse-left {
+      width: 130px;
+      height: 130px;
+      left: 2%;
+      bottom: 15%;
+      animation: float-shape-l 9s infinite ease-in-out;
+      box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.1);
+
+      @include respond-to(tablet) {
+        width: 80px;
+        height: 80px;
+        left: 0;
+      }
+    }
+
+    &--ellipse-right {
+      width: 160px;
+      height: 160px;
+      right: 2%;
+      top: 12%;
+      animation: float-shape-r 11s infinite ease-in-out;
+      box-shadow: inset 0 0 24px rgba(201, 169, 110, 0.08);
+
+      @include respond-to(tablet) {
+        width: 90px;
+        height: 90px;
+        right: 0;
+      }
+    }
+  }
+
+  // Scroll Down indicators
+  &__scroll-indicator {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    z-index: 10;
+    pointer-events: none;
+
+    @include respond-to(tablet) {
+      display: none; // Offload on tablet to save display margins Space
+    }
+  }
+
+  &__scroll-text {
+    font-family: var(--font-family-body);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-neutral-600);
+  }
+
+  &__scroll-mouse {
+    width: 20px;
+    height: 32px;
+    border: 2px solid var(--color-neutral-600);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+
+  &__scroll-wheel {
+    width: 2px;
+    height: 6px;
+    background-color: var(--color-primary-gold);
+    border-radius: var(--radius-xs);
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel-loop 1.6s infinite ease-in-out;
+  }
+}
+
+// Floating animations keyframes definitions
+@keyframes scroll-wheel-loop {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 8px); opacity: 0; }
+}
+
+@keyframes float-shape-l {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(15deg); }
+}
+
+@keyframes float-shape-r {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(-10deg); }
+}
