@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Lustra — PLP Shop Page Layout SCSS
+   File:      scss/pages/_shop.scss
+   Purpose:   Page-level layout coordination for the PLP shop page.
+              Covers workspace sidebar/grid split, sticky positioning,
+              responsive adjustments and print overrides.
+   ========================================================================== */
+
+@import '../abstracts/variables';
+@import '../abstracts/colors';
+@import '../abstracts/mixins';
+
+
+// --------------------------------------------------------------------------
+// PAGE ROOT
+// --------------------------------------------------------------------------
+
+#main-content {
+  // Ensure page starts below the sticky header
+  scroll-padding-top: 80px;
+}
+
+
+// --------------------------------------------------------------------------
+// PLP WORKSPACE SPLIT LAYOUT
+// Sidebar (260px fixed) + Content grid (flex-1)
+// --------------------------------------------------------------------------
+
+.c-plp-workspace {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  align-items: start;
+  max-width: var(--grid-max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+
+  @include respond-to('laptop') {
+    grid-template-columns: 240px 1fr;
+    padding: 0 var(--spacing-md);
+  }
+
+  @include respond-to('tablet') {
+    // On tablet and below, sidebar becomes a drawer
+    grid-template-columns: 1fr;
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// SIDEBAR — Sticky positioning with scroll compensation
+// --------------------------------------------------------------------------
+
+.c-plp-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-gold, #C9A96E) transparent;
+  border-right: 1px solid var(--color-gray-line, #E9E7E2);
+  padding-right: var(--spacing-md);
+  padding-bottom: var(--spacing-xl);
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-primary-gold, #C9A96E);
+    border-radius: 2px;
+  }
+
+  // On tablet, sidebar becomes a fixed drawer
+  @include respond-to('tablet') {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    max-width: 90vw;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 1000;
+    background: var(--color-pure-white, #ffffff);
+    border-right: 1px solid var(--color-gray-line, #E9E7E2);
+    padding: var(--spacing-lg) var(--spacing-md);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.12);
+
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+
+  // Mobile bottom sheet
+  @include respond-to('mobile') {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 85vh;
+    border-right: none;
+    border-top: 1px solid var(--color-gray-line, #E9E7E2);
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.15);
+
+    &.is-open {
+      transform: translateY(0);
+    }
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// GRID CONTAINER — Right-side content area
+// --------------------------------------------------------------------------
+
+.c-plp-grid-container {
+  min-width: 0;
+  padding-left: var(--spacing-lg);
+
+  @include respond-to('tablet') {
+    padding-left: 0;
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// BACK TO TOP BUTTON
+// --------------------------------------------------------------------------
+
+.c-back-to-top {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-dark-charcoal, #1A1A1A);
+  color: var(--color-pure-white, #ffffff);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 500;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    background: var(--color-primary-gold, #C9A96E);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(201, 169, 110, 0.4);
+  }
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:hover svg {
+    transform: translateY(-2px);
+  }
+
+  @include respond-to('mobile') {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 44px;
+    height: 44px;
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// PRINT OVERRIDES
+// --------------------------------------------------------------------------
+
+@media print {
+  .c-plp-sidebar,
+  .c-plp-toolbar,
+  .c-quick-chips,
+  .c-back-to-top,
+  .c-plp-pagination,
+  .c-recently-viewed,
+  .c-ai-recommendations {
+    display: none !important;
+  }
+
+  .c-plp-workspace {
+    display: block;
+  }
+
+  .c-plp-grid-container {
+    padding: 0;
+  }
+
+  .c-plp-grid__canvas {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    break-inside: avoid;
+  }
+}

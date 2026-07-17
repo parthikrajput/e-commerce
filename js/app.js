@@ -57,6 +57,10 @@ class LustraApp {
       {
         path: 'product',
         controller: () => import('./pages/product.js')
+      },
+      {
+        path: 'product-detail',
+        controller: () => import('./pages/product-detail.js')
       }
     ]);
   }

@@ -18,6 +18,11 @@
     background-image: url("../../assets/images/lifestyle/hero-jewelry-collection-lifestyle.jpg");
     pointer-events: none;
     z-index: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
   }
 
   @include respond-to(tablet) {

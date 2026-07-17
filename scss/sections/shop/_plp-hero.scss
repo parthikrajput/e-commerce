@@ -1,9 +1,13 @@
 // Product Listing Page Hero & Breadcrumb styling rules
 .c-plp-hero {
   background-color: var(--color-pure-white);
-  padding: var(--spacing-xl) 0;
+  padding: 120px 0 var(--spacing-xl) 0;
   width: 100%;
   border-bottom: 1px solid var(--color-gray-line);
+
+  @include respond-to(tablet) {
+    padding: 110px 0 var(--spacing-lg) 0;
+  }
 
   &__container {
     max-width: var(--width-max);

@@ -1,14 +1,21 @@
 <!-- ============================================================
      REUSABLE PRODUCT CARD COMPONENTS — Lustra Fine Jewellery
      File:      components/product-card.html
-     Purpose:   Premium specification blueprints for all 9 product card 
+     Purpose:   Premium specification blueprints for all product card
                 variants. Used as a structural baseline across pages.
+                JS dynamically populates data-attributes for live data.
      Spec Ref:  04_Component_Library (§4), 07_Design_Tokens (§3-5),
                 11_Accessibility_Guidelines, 18_Icon_Guidelines
+     Variants:  default | compact | recommendation | collection |
+                featured | wishlist | related | recent | quickview
      ============================================================ -->
+
 
 <!-- ==========================================
      1. DEFAULT PRODUCT CARD VARIANT
+     Primary card used across PLP grid.
+     Full detail: image swap, badges, swatches,
+     rating, price, AI badge, quick actions.
      ========================================== -->
 <article
   class="c-product-card"
@@ -18,8 +25,9 @@
   aria-roledescription="product card"
   aria-label="Aura Solitaire Ring in 18K Yellow Gold"
 >
-  <header class="c-product-card__header">
-    <div class="c-product-card__badges" role="group" aria-label="Product tags">
+  <!-- ── Header: Badges + Wishlist ── -->
+  <div class="c-product-card__header" aria-hidden="false">
+    <div class="c-product-card__badges" role="group" aria-label="Product labels">
       <span class="c-badge c-badge--new">New</span>
       <span class="c-badge c-badge--best-seller">Best Seller</span>
     </div>
@@ -35,39 +43,61 @@
       </svg>
       <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
     </button>
-  </header>
+  </div>
 
+  <!-- ── Media: Dual Image + Quick Actions + Urgency Strip ── -->
   <div class="c-product-card__media">
-    <a href="product.html?id=lst-001" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+    <a href="../pages/product-detail.html?id=lst-001" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
       <div class="c-product-card__image-wrap">
         <img
-          src="assets/images/product-1-front.jpg"
-          alt="Aura Solitaire Ring - Front view showcasing diamond cut"
+          src="../assets/images/products/aura-ring-1.webp"
+          alt="Aura Solitaire Ring — front view in 18K Yellow Gold"
           class="c-product-card__img c-product-card__img--front"
           loading="lazy"
-          width="300"
-          height="400"
+          width="400"
+          height="533"
         >
         <img
-          src="assets/images/product-1-back.jpg"
-          alt="Aura Solitaire Ring - Back side view illustrating hallmark detailing"
+          src="../assets/images/products/aura-ring-2.webp"
+          alt="Aura Solitaire Ring — side profile view"
           class="c-product-card__img c-product-card__img--back"
           loading="lazy"
-          width="300"
-          height="400"
+          width="400"
+          height="533"
         >
       </div>
     </a>
 
-    <div class="c-product-card__quick-actions">
-      <button class="c-product-card__quick-action-btn" aria-label="Quick View Aura Solitaire Ring" data-action="quickview" type="button">
-        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- Limited stock urgency indicator -->
+    <div class="c-product-card__urgency" aria-live="polite">
+      <span class="c-product-card__urgency-dot" aria-hidden="true"></span>
+      Only 3 Left
+    </div>
+
+    <!-- Quick action overlay buttons -->
+    <div class="c-product-card__quick-actions" role="group" aria-label="Quick product actions">
+      <button
+        class="c-product-card__quick-action-btn"
+        aria-label="Quick View Aura Solitaire Ring"
+        data-action="quickview"
+        data-product-id="lst-001"
+        type="button"
+        title="Quick View"
+      >
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
         </svg>
         <span>Quick View</span>
       </button>
-      <button class="c-product-card__quick-action-btn" aria-label="Compare Aura Solitaire Ring" data-action="compare" type="button">
-        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button
+        class="c-product-card__quick-action-btn"
+        aria-label="Compare Aura Solitaire Ring"
+        data-action="compare"
+        data-product-id="lst-001"
+        type="button"
+        title="Compare"
+      >
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M4 4l17 17"/>
         </svg>
         <span>Compare</span>
@@ -75,115 +105,424 @@
     </div>
   </div>
 
+  <!-- ── Details: Info + Swatches + Rating + Price ── -->
   <div class="c-product-card__details">
+
+    <!-- Collection label -->
     <div class="c-product-card__collection">Aura Collection</div>
+
+    <!-- Product title with PDP link -->
     <h3 class="c-product-card__title">
-      <a href="product.html?id=lst-001" class="c-product-card__title-link">Aura Solitaire Ring</a>
+      <a href="../pages/product-detail.html?id=lst-001" class="c-product-card__title-link">
+        Aura Solitaire Ring
+      </a>
     </h3>
-    <p class="c-product-card__subtitle">A timeless expression of handmade luxury and elegance.</p>
-    
-    <div class="c-product-card__specs">
+
+    <!-- Metal + stone specs row -->
+    <div class="c-product-card__specs" aria-label="Product specifications">
       <span class="c-product-card__spec-item">18K Yellow Gold</span>
-      <span class="c-product-card__spec-divider" aria-hidden="true">•</span>
-      <span class="c-product-card__spec-item">0.75ct Round Cut Diamond</span>
+      <span class="c-product-card__spec-divider" aria-hidden="true">·</span>
+      <span class="c-product-card__spec-item">0.75ct Round Diamond</span>
     </div>
 
-    <div class="c-product-card__rating" aria-label="Rating: 4.9 stars out of 42 reviews">
-      <div class="c-product-card__stars" aria-hidden="true">
-        <svg class="c-product-card__star-icon is-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg class="c-product-card__star-icon is-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg class="c-product-card__star-icon is-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg class="c-product-card__star-icon is-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg class="c-product-card__star-icon is-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+    <!-- Metal colour swatch dots -->
+    <div class="c-product-card__swatches" role="group" aria-label="Available metal options">
+      <button class="c-product-card__swatch c-product-card__swatch--yellow-gold is-active" aria-label="Yellow Gold" aria-pressed="true" type="button" data-swatch="yellow-gold"></button>
+      <button class="c-product-card__swatch c-product-card__swatch--rose-gold" aria-label="Rose Gold" aria-pressed="false" type="button" data-swatch="rose-gold"></button>
+      <button class="c-product-card__swatch c-product-card__swatch--white-gold" aria-label="White Gold" aria-pressed="false" type="button" data-swatch="white-gold"></button>
+      <button class="c-product-card__swatch c-product-card__swatch--platinum" aria-label="Platinum" aria-pressed="false" type="button" data-swatch="platinum"></button>
+    </div>
+
+    <!-- Star rating (CSS-only, no SVG overhead) -->
+    <div class="c-product-card__rating" aria-label="Rated 4.9 out of 5 stars from 42 reviews">
+      <div class="c-product-card__star-bar" aria-hidden="true">
+        <div class="c-product-card__star-fill" style="width: 98%"></div>
       </div>
-      <span class="c-product-card__rating-text" aria-hidden="true">(42)</span>
+      <span class="c-product-card__rating-score">4.9</span>
+      <span class="c-product-card__rating-count" aria-hidden="true">(42)</span>
     </div>
 
+    <!-- Price block -->
     <div class="c-product-card__price-group">
       <span class="c-product-card__price c-product-card__price--current">₹1,45,000</span>
-      <span class="c-product-card__price c-product-card__price--original">₹1,75,000</span>
-      <span class="c-product-card__discount" aria-label="17 percent discount">17% OFF</span>
+      <span class="c-product-card__price c-product-card__price--original"><s>₹1,75,000</s></span>
+      <span class="c-product-card__discount" aria-label="17 percent off">17% OFF</span>
     </div>
-    
-    <div class="c-product-card__emi">EMI available from ₹12,083/month</div>
+
+    <!-- EMI note -->
+    <div class="c-product-card__emi">EMI from <strong>₹12,083/mo</strong></div>
+
   </div>
 
+  <!-- ── Footer: Primary CTA ── -->
   <footer class="c-product-card__footer">
-    <button class="btn btn--primary c-product-card__cta" id="add-to-box-lst-001" type="button">
+    <button
+      class="btn btn--primary c-product-card__cta"
+      id="add-to-box-lst-001"
+      type="button"
+      aria-label="Add Aura Solitaire Ring to your Jewellery Box"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+      </svg>
       <span class="c-product-card__cta-text">Add to Jewellery Box</span>
       <span class="c-product-card__cta-spinner" aria-hidden="true"></span>
     </button>
   </footer>
 </article>
 
+
 <!-- ==========================================
      2. COMPACT PRODUCT CARD VARIANT
-     - Uses .c-product-card--compact
-     - Spacing is reduced, hides subtitles and specifications
+     Reduced spacing. No subtitle/specs/EMI.
+     Used in Recently Viewed, Wishlist sidebar.
      ========================================== -->
-<article class="c-product-card c-product-card--compact" data-product-id="lst-002" data-variant="compact">
-  <!-- Similar structure to default, but elements adjust layout based on compact rules -->
+<article
+  class="c-product-card c-product-card--compact"
+  data-product-id="lst-002"
+  data-variant="compact"
+  role="article"
+  aria-roledescription="product card"
+  aria-label="Luna Pendant Necklace in 18K Rose Gold"
+>
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges" role="group" aria-label="Product labels">
+      <span class="c-badge c-badge--sale">Sale</span>
+    </div>
+    <button class="c-product-card__wishlist-btn" id="wishlist-btn-lst-002" aria-label="Add Luna Pendant to wishlist" aria-pressed="false" type="button">
+      <svg class="c-product-card__wishlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+      </svg>
+      <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-002" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/luna-necklace-1.webp" alt="Luna Pendant Necklace front view" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+        <img src="../assets/images/products/luna-necklace-2.webp" alt="Luna Pendant Necklace worn view" class="c-product-card__img c-product-card__img--back" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+    <div class="c-product-card__quick-actions" role="group" aria-label="Quick product actions">
+      <button class="c-product-card__quick-action-btn" aria-label="Quick View Luna Pendant" data-action="quickview" data-product-id="lst-002" type="button" title="Quick View">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Quick View</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Luna Collection</div>
+    <h3 class="c-product-card__title">
+      <a href="../pages/product-detail.html?id=lst-002" class="c-product-card__title-link">Luna Pendant Necklace</a>
+    </h3>
+    <div class="c-product-card__rating" aria-label="Rated 4.7 out of 5 stars from 28 reviews">
+      <div class="c-product-card__star-bar" aria-hidden="true">
+        <div class="c-product-card__star-fill" style="width: 94%"></div>
+      </div>
+      <span class="c-product-card__rating-score">4.7</span>
+      <span class="c-product-card__rating-count" aria-hidden="true">(28)</span>
+    </div>
+    <div class="c-product-card__price-group">
+      <span class="c-product-card__price c-product-card__price--current">₹89,500</span>
+      <span class="c-product-card__price c-product-card__price--original"><s>₹1,08,000</s></span>
+      <span class="c-product-card__discount" aria-label="17 percent off">17% OFF</span>
+    </div>
+  </div>
+
+  <footer class="c-product-card__footer">
+    <button class="btn btn--primary c-product-card__cta" id="add-to-box-lst-002" type="button" aria-label="Add Luna Pendant to your Jewellery Box">
+      <span class="c-product-card__cta-text">Add to Box</span>
+      <span class="c-product-card__cta-spinner" aria-hidden="true"></span>
+    </button>
+  </footer>
 </article>
 
-<!-- ==========================================
-     3. FEATURED PRODUCT CARD VARIANT
-     - Uses .c-product-card--featured
-     - Horizontal layout spanning 2 grid columns on desktop
-     ========================================== -->
-<article class="c-product-card c-product-card--featured" data-product-id="lst-003" data-variant="featured">
-  <!-- Horizontal layout with width-45% media column and details side-by-side -->
-</article>
 
 <!-- ==========================================
-     4. AI RECOMMENDATION PRODUCT CARD VARIANT
-     - Uses .c-product-card--recommendation
-     - Dashed rose gold borders and AI match insights block
+     3. AI RECOMMENDATION CARD VARIANT
+     AI-matched. Rose-gold dashed border.
+     Shows AI match score badge + insight text.
      ========================================== -->
-<article class="c-product-card c-product-card--recommendation" data-product-id="lst-004" data-variant="recommendation">
-  <!-- Includes c-product-card__ai-rec matching score badge -->
+<article
+  class="c-product-card c-product-card--recommendation"
+  data-product-id="lst-004"
+  data-variant="recommendation"
+  role="article"
+  aria-roledescription="AI recommended product card"
+  aria-label="Celeste Diamond Earrings — AI recommended for you"
+>
+  <!-- AI Match Score badge at very top of card (outside header) -->
+  <div class="c-product-card__ai-match-bar" aria-label="AI match score: 96%">
+    <div class="c-product-card__ai-match-fill" style="width: 96%"></div>
+    <span class="c-product-card__ai-match-label">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      96% AI Match
+    </span>
+  </div>
+
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges" role="group" aria-label="Product labels">
+      <span class="c-badge c-badge--ai">AI Pick</span>
+    </div>
+    <button class="c-product-card__wishlist-btn" id="wishlist-btn-lst-004" aria-label="Add Celeste Earrings to wishlist" aria-pressed="false" type="button">
+      <svg class="c-product-card__wishlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+      </svg>
+      <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-004" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/celeste-earrings-1.webp" alt="Celeste Diamond Stud Earrings — front view" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+        <img src="../assets/images/products/celeste-earrings-2.webp" alt="Celeste Diamond Stud Earrings — worn view" class="c-product-card__img c-product-card__img--back" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+    <div class="c-product-card__quick-actions" role="group" aria-label="Quick product actions">
+      <button class="c-product-card__quick-action-btn" aria-label="Quick View Celeste Earrings" data-action="quickview" data-product-id="lst-004" type="button" title="Quick View">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Quick View</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Celeste Collection</div>
+    <h3 class="c-product-card__title">
+      <a href="../pages/product-detail.html?id=lst-004" class="c-product-card__title-link">Celeste Diamond Studs</a>
+    </h3>
+
+    <!-- AI insight reason text -->
+    <div class="c-product-card__ai-rec" aria-label="Why this is recommended">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span class="c-product-card__ai-badge">AI Pick</span>
+      <span class="c-product-card__ai-desc">Matches your Minimal Luxury DNA</span>
+    </div>
+
+    <div class="c-product-card__specs" aria-label="Product specifications">
+      <span class="c-product-card__spec-item">18K White Gold</span>
+      <span class="c-product-card__spec-divider" aria-hidden="true">·</span>
+      <span class="c-product-card__spec-item">0.50ct Round Diamond</span>
+    </div>
+
+    <div class="c-product-card__swatches" role="group" aria-label="Available metal options">
+      <button class="c-product-card__swatch c-product-card__swatch--white-gold is-active" aria-label="White Gold" aria-pressed="true" type="button" data-swatch="white-gold"></button>
+      <button class="c-product-card__swatch c-product-card__swatch--yellow-gold" aria-label="Yellow Gold" aria-pressed="false" type="button" data-swatch="yellow-gold"></button>
+      <button class="c-product-card__swatch c-product-card__swatch--platinum" aria-label="Platinum" aria-pressed="false" type="button" data-swatch="platinum"></button>
+    </div>
+
+    <div class="c-product-card__rating" aria-label="Rated 4.8 out of 5 stars from 61 reviews">
+      <div class="c-product-card__star-bar" aria-hidden="true">
+        <div class="c-product-card__star-fill" style="width: 96%"></div>
+      </div>
+      <span class="c-product-card__rating-score">4.8</span>
+      <span class="c-product-card__rating-count" aria-hidden="true">(61)</span>
+    </div>
+
+    <div class="c-product-card__price-group">
+      <span class="c-product-card__price c-product-card__price--current">₹1,12,000</span>
+      <span class="c-product-card__price c-product-card__price--original"><s>₹1,35,000</s></span>
+      <span class="c-product-card__discount" aria-label="17 percent off">17% OFF</span>
+    </div>
+    <div class="c-product-card__emi">EMI from <strong>₹9,333/mo</strong></div>
+  </div>
+
+  <footer class="c-product-card__footer">
+    <button class="btn btn--primary c-product-card__cta" id="add-to-box-lst-004" type="button" aria-label="Add Celeste Diamond Studs to your Jewellery Box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+      </svg>
+      <span class="c-product-card__cta-text">Add to Jewellery Box</span>
+      <span class="c-product-card__cta-spinner" aria-hidden="true"></span>
+    </button>
+  </footer>
 </article>
 
-<!-- ==========================================
-     5. WISHLIST PRODUCT CARD VARIANT
-     - Uses .c-product-card--wishlist
-     - Displays Close/Remove button at top right instead of Wishlist heart toggle
-     ========================================== -->
-<article class="c-product-card c-product-card--wishlist" data-product-id="lst-005" data-variant="wishlist">
-  <!-- Uses c-product-card__remove-btn in c-product-card__header -->
-</article>
 
 <!-- ==========================================
-     6. RELATED PRODUCT CARD VARIANT
-     - Uses .c-product-card--related
-     - Clean, borders removed, compact specs
+     4. COLLECTION / EDITORIAL OVERLAY VARIANT
+     Full-bleed image with gradient text overlay.
+     Used in featured editorial grids.
      ========================================== -->
-<article class="c-product-card c-product-card--related" data-product-id="lst-006" data-variant="related">
-  <!-- Compact styles to stack inside carousel slides nicely -->
+<article
+  class="c-product-card c-product-card--collection"
+  data-product-id="lst-008"
+  data-variant="collection"
+  role="article"
+  aria-roledescription="product card"
+  aria-label="Heritage Emerald Necklace — editorial collection card"
+>
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges" role="group" aria-label="Product labels">
+      <span class="c-badge c-badge--limited">Limited Edition</span>
+    </div>
+    <button class="c-product-card__wishlist-btn" id="wishlist-btn-lst-008" aria-label="Add Heritage Emerald Necklace to wishlist" aria-pressed="false" type="button">
+      <svg class="c-product-card__wishlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+      </svg>
+      <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-008" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/heritage-necklace-1.webp" alt="Heritage Emerald Drop Necklace — editorial lifestyle" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+        <img src="../assets/images/products/heritage-necklace-2.webp" alt="Heritage Emerald Drop Necklace — detail view" class="c-product-card__img c-product-card__img--back" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+  </div>
+
+  <!-- Text overlay positioned over media by SCSS -->
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Heritage Collection</div>
+    <h3 class="c-product-card__title">
+      <a href="../pages/product-detail.html?id=lst-008" class="c-product-card__title-link">Heritage Emerald Necklace</a>
+    </h3>
+    <p class="c-product-card__subtitle">Colombian emerald drop, 18K Yellow Gold chain. A collector's heirloom.</p>
+    <div class="c-product-card__price-group">
+      <span class="c-product-card__price c-product-card__price--current">₹3,85,000</span>
+    </div>
+  </div>
+
+  <footer class="c-product-card__footer">
+    <a href="../pages/product-detail.html?id=lst-008" class="btn btn--primary c-product-card__cta">
+      <span class="c-product-card__cta-text">View Design</span>
+    </a>
+  </footer>
 </article>
 
-<!-- ==========================================
-     7. RECENTLY VIEWED PRODUCT CARD VARIANT
-     - Uses .c-product-card--recent
-     - Minimal design, hides CTAs and descriptions to fit side grids
-     ========================================== -->
-<article class="c-product-card c-product-card--recent" data-product-id="lst-007" data-variant="recent">
-  <!-- Lightweight card layout -->
-</article>
 
 <!-- ==========================================
-     8. COLLECTION PRODUCT CARD VARIANT
-     - Uses .c-product-card--collection
-     - Editorial layout. Full bleed image backdrop with text overlaid in front
+     5. WISHLIST VARIANT
+     Remove button replaces wishlist toggle.
      ========================================== -->
-<article class="c-product-card c-product-card--collection" data-product-id="lst-008" data-variant="collection">
-  <!-- Text elements overlay media elements with a frosted gradient shield backdrop -->
+<article class="c-product-card c-product-card--wishlist" data-product-id="lst-005" data-variant="wishlist" role="article" aria-roledescription="product card" aria-label="Iris Sapphire Ring in your wishlist">
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges" role="group" aria-label="Product labels">
+      <span class="c-badge c-badge--new">New</span>
+    </div>
+    <button class="c-product-card__remove-btn" id="remove-btn-lst-005" aria-label="Remove Iris Sapphire Ring from wishlist" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="16" height="16">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-005" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/iris-ring-1.webp" alt="Iris Sapphire Ring — front view" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+        <img src="../assets/images/products/iris-ring-2.webp" alt="Iris Sapphire Ring — side view" class="c-product-card__img c-product-card__img--back" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+    <div class="c-product-card__quick-actions" role="group" aria-label="Quick actions">
+      <button class="c-product-card__quick-action-btn" aria-label="Quick View Iris Ring" data-action="quickview" data-product-id="lst-005" type="button" title="Quick View">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Quick View</span>
+      </button>
+    </div>
+  </div>
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Iris Collection</div>
+    <h3 class="c-product-card__title"><a href="../pages/product-detail.html?id=lst-005" class="c-product-card__title-link">Iris Sapphire Ring</a></h3>
+    <div class="c-product-card__specs"><span class="c-product-card__spec-item">18K White Gold</span><span class="c-product-card__spec-divider">·</span><span class="c-product-card__spec-item">Blue Sapphire</span></div>
+    <div class="c-product-card__rating" aria-label="Rated 4.6 out of 5 stars"><div class="c-product-card__star-bar" aria-hidden="true"><div class="c-product-card__star-fill" style="width: 92%"></div></div><span class="c-product-card__rating-score">4.6</span><span class="c-product-card__rating-count">(19)</span></div>
+    <div class="c-product-card__price-group"><span class="c-product-card__price c-product-card__price--current">₹2,15,000</span></div>
+  </div>
+  <footer class="c-product-card__footer">
+    <button class="btn btn--primary c-product-card__cta" id="add-to-box-lst-005" type="button"><span class="c-product-card__cta-text">Move to Jewellery Box</span><span class="c-product-card__cta-spinner" aria-hidden="true"></span></button>
+  </footer>
 </article>
 
+
 <!-- ==========================================
-     9. QUICK VIEW PRODUCT CARD VARIANT
-     - Uses .c-product-card--quickview
-     - Permanently displays action overlay triggers for catalog blocks
+     6. RELATED / CAROUSEL PRODUCT CARD
+     Compact carousel card used in similar products.
+     No EMI, no subtitle.
      ========================================== -->
-<article class="c-product-card c-product-card--quickview" data-product-id="lst-009" data-variant="quickview">
-  <!-- Overlays quick action triggers permanently -->
+<article class="c-product-card c-product-card--related" data-product-id="lst-006" data-variant="related" role="article" aria-roledescription="product card" aria-label="Bloom Rose Bracelet">
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges"><span class="c-badge c-badge--new">New</span></div>
+    <button class="c-product-card__wishlist-btn" id="wishlist-btn-lst-006" aria-label="Add Bloom Bracelet to wishlist" aria-pressed="false" type="button">
+      <svg class="c-product-card__wishlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-006" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/bloom-bracelet-1.webp" alt="Bloom Rose Diamond Bracelet" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+        <img src="../assets/images/products/bloom-bracelet-2.webp" alt="Bloom Rose Diamond Bracelet detail" class="c-product-card__img c-product-card__img--back" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+    <div class="c-product-card__quick-actions" role="group" aria-label="Quick actions">
+      <button class="c-product-card__quick-action-btn" aria-label="Quick View Bloom Bracelet" data-action="quickview" data-product-id="lst-006" type="button" title="Quick View"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>Quick View</span></button>
+    </div>
+  </div>
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Bloom Collection</div>
+    <h3 class="c-product-card__title"><a href="../pages/product-detail.html?id=lst-006" class="c-product-card__title-link">Bloom Rose Bracelet</a></h3>
+    <div class="c-product-card__rating" aria-label="Rated 4.5 out of 5 stars"><div class="c-product-card__star-bar" aria-hidden="true"><div class="c-product-card__star-fill" style="width: 90%"></div></div><span class="c-product-card__rating-score">4.5</span><span class="c-product-card__rating-count">(33)</span></div>
+    <div class="c-product-card__price-group"><span class="c-product-card__price c-product-card__price--current">₹68,000</span><span class="c-product-card__price c-product-card__price--original"><s>₹82,000</s></span><span class="c-product-card__discount">17% OFF</span></div>
+  </div>
+  <footer class="c-product-card__footer">
+    <button class="btn btn--primary c-product-card__cta" id="add-to-box-lst-006" type="button"><span class="c-product-card__cta-text">Add to Box</span><span class="c-product-card__cta-spinner" aria-hidden="true"></span></button>
+  </footer>
+</article>
+
+
+<!-- ==========================================
+     7. RECENTLY VIEWED VARIANT
+     Lightweight — no CTA, no rating, no EMI.
+     Sidebar and horizontal carousels.
+     ========================================== -->
+<article class="c-product-card c-product-card--recent" data-product-id="lst-007" data-variant="recent" role="article" aria-roledescription="product card" aria-label="Nova Diamond Ring recently viewed">
+  <div class="c-product-card__header">
+    <div class="c-product-card__badges"></div>
+    <button class="c-product-card__wishlist-btn" id="wishlist-btn-lst-007" aria-label="Add Nova Ring to wishlist" aria-pressed="false" type="button">
+      <svg class="c-product-card__wishlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      <span class="c-product-card__wishlist-spinner" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="c-product-card__media">
+    <a href="../pages/product-detail.html?id=lst-007" class="c-product-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="c-product-card__image-wrap">
+        <img src="../assets/images/products/nova-ring-1.webp" alt="Nova Diamond Cluster Ring front view" class="c-product-card__img c-product-card__img--front" loading="lazy" width="400" height="533">
+      </div>
+    </a>
+  </div>
+  <div class="c-product-card__details">
+    <div class="c-product-card__collection">Nova Collection</div>
+    <h3 class="c-product-card__title"><a href="../pages/product-detail.html?id=lst-007" class="c-product-card__title-link">Nova Diamond Ring</a></h3>
+    <div class="c-product-card__price-group"><span class="c-product-card__price c-product-card__price--current">₹1,98,000</span></div>
+  </div>
+</article>
+
+
+<!-- ==========================================
+     8. SKELETON LOADING STATE
+     Placeholder while products load.
+     No content — CSS shimmer on class .is-skeleton.
+     ========================================== -->
+<article class="c-product-card is-skeleton" data-variant="skeleton" role="status" aria-label="Loading product">
+  <div class="c-product-card__header" aria-hidden="true"></div>
+  <div class="c-product-card__media" aria-hidden="true"></div>
+  <div class="c-product-card__details" aria-hidden="true">
+    <div class="c-product-card__collection"></div>
+    <div class="c-product-card__title"></div>
+    <div class="c-product-card__subtitle"></div>
+    <div class="c-product-card__specs"></div>
+    <div class="c-product-card__rating"></div>
+    <div class="c-product-card__price-group"></div>
+    <div class="c-product-card__emi"></div>
+  </div>
 </article>

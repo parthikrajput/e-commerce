@@ -64,30 +64,56 @@
 }
 
 
-// ── Badges Container ──────────────────────────────────────────
+// ── Header (badges + wishlist row) ────────────────────────────
 .c-product-card__header {
   position: absolute;
-  top: rem(14);
-  left: rem(14);
-  right: rem(14);
+  top: rem(12);
+  left: rem(12);
+  right: rem(12);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   z-index: 5;
-  pointer-events: none; // allow clicking card media behind it
+  pointer-events: none; // passthrough to media beneath
 }
 
 .c-product-card__badges {
   display: flex;
   flex-direction: column;
-  gap: rem(6);
+  gap: rem(5);
   pointer-events: none;
+}
+
+// Badge enhancements
+.c-badge--ai {
+  background: linear-gradient(90deg, rgba($color-ai-rose, 0.15) 0%, rgba($color-primary-gold, 0.15) 100%);
+  border: 1px solid rgba($color-primary-gold, 0.4);
+  color: #8C5A3C;
+  font-size: rem(9);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: rem(3) rem(7);
+  border-radius: $radius-pill;
+  line-height: 1.2;
+}
+
+.c-badge--limited {
+  background: rgba($color-dark-charcoal, 0.88);
+  color: $color-primary-gold;
+  font-size: rem(9);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: rem(3) rem(7);
+  border-radius: $radius-pill;
+  line-height: 1.2;
 }
 
 // ── Wishlist Button ───────────────────────────────────────────
 .c-product-card__wishlist-btn,
 .c-product-card__remove-btn {
-  pointer-events: auto; // re-enable clicks
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,7 +195,7 @@
 .c-product-card__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4; // Spec aspect ratio §7
+  // aspect-ratio: 3 / 4; // Spec aspect ratio §7
   background-color: $color-cream-tint;
   overflow: hidden;
 }
@@ -354,62 +380,213 @@
   color: $color-neutral-400;
 }
 
-// ── Rating blocks ─────────────────────────────────────────────
+// ── CSS Star Bar (replaces 5× SVG nodes) ─────────────────────
 .c-product-card__rating {
   display: flex;
   align-items: center;
   gap: rem(6);
-  margin-bottom: rem(14);
+  margin-bottom: rem(10);
 }
 
-.c-product-card__stars {
-  display: flex;
-  align-items: center;
-  gap: rem(1);
-}
+.c-product-card__star-bar {
+  position: relative;
+  width: rem(72);
+  height: rem(12);
+  flex-shrink: 0;
 
-.c-product-card__star-icon {
-  width: rem(13);
-  height: rem(13);
-  fill: $color-neutral-400; // empty star
-
-  &.is-filled {
-    fill: #F4B740; // Gold star color
+  // Grey star base (clip-path trick)
+  &::before {
+    content: '★★★★★';
+    position: absolute;
+    inset: 0;
+    font-size: rem(13);
+    letter-spacing: rem(1);
+    color: $color-neutral-300;
+    line-height: 1;
   }
 }
 
-.c-product-card__rating-text {
+.c-product-card__star-fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-size: rem(13);
+  letter-spacing: rem(1);
+  line-height: 1;
+
+  &::before {
+    content: '★★★★★';
+    position: absolute;
+    inset: 0;
+    color: #F4B740;
+    white-space: nowrap;
+  }
+}
+
+.c-product-card__rating-score {
+  font-family: $font-family-body;
+  font-size: rem(12);
+  font-weight: 700;
+  color: $color-dark-charcoal;
+}
+
+.c-product-card__rating-count {
   font-family: $font-family-body;
   font-size: rem(11);
-  color: $color-neutral-600;
+  color: $color-neutral-500;
 }
 
 
-// ── AI recommendation match badge ─────────────────────────────
+// ── Metal Swatch Dots ─────────────────────────────────────────
+.c-product-card__swatches {
+  display: flex;
+  gap: rem(5);
+  align-items: center;
+  margin-bottom: rem(10);
+}
+
+.c-product-card__swatch {
+  width: rem(16);
+  height: rem(16);
+  border-radius: $radius-circle;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s $easing-default, box-shadow 0.2s $easing-default;
+  padding: 0;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.18);
+
+  &:hover {
+    transform: scale(1.18);
+  }
+
+  &.is-active {
+    border-color: $color-dark-charcoal;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px rgba($color-dark-charcoal, 0.15), inset 0 1px 2px rgba(0,0,0,0.18);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &--yellow-gold  { background: linear-gradient(135deg, #D4AF6E 0%, #F0D28A 50%, #C9963B 100%); }
+  &--rose-gold    { background: linear-gradient(135deg, #C6877A 0%, #E8A899 50%, #B57A70 100%); }
+  &--white-gold   { background: linear-gradient(135deg, #D8D8D8 0%, #F0EFED 50%, #C0C0C0 100%); }
+  &--platinum     { background: linear-gradient(135deg, #B0AEAD 0%, #E2E1DF 50%, #9A9896 100%); }
+}
+
+
+// ── Urgency Strip ─────────────────────────────────────────────
+.c-product-card__urgency {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(5);
+  padding: rem(5) rem(10);
+  background: rgba(18, 18, 18, 0.72);
+  backdrop-filter: blur(4px);
+  color: rgba(255,255,255,0.92);
+  font-family: $font-family-body;
+  font-size: rem(10);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  z-index: 4;
+  // Hidden by default; shown via data-urgency attribute on card
+  display: none;
+
+  .c-product-card[data-urgency] & {
+    display: flex;
+  }
+}
+
+.c-product-card__urgency-dot {
+  width: rem(6);
+  height: rem(6);
+  border-radius: $radius-circle;
+  background: #E9A84C;
+  animation: card-wishlist-pulse 1.8s ease-in-out infinite;
+}
+
+
+// ── AI Match Bar (top of recommendation card) ─────────────────
+.c-product-card__ai-match-bar {
+  position: relative;
+  height: rem(3);
+  background: $color-gray-line;
+  overflow: hidden;
+  border-radius: $radius-pill;
+  margin: rem(-1) 0 0 0; // flush to top card edge
+}
+
+.c-product-card__ai-match-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C9A96E 0%, #E8C794 100%);
+  border-radius: $radius-pill;
+  transition: width 1.2s $easing-default;
+}
+
+.c-product-card__ai-match-label {
+  position: absolute;
+  top: rem(6);
+  right: rem(10);
+  display: flex;
+  align-items: center;
+  gap: rem(3);
+  font-family: $font-family-body;
+  font-size: rem(9);
+  font-weight: 700;
+  color: $color-primary-gold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: rgba($color-pure-white, 0.9);
+  padding: rem(2) rem(6);
+  border-radius: $radius-pill;
+  border: 1px solid rgba($color-primary-gold, 0.3);
+  z-index: 6;
+
+  svg { color: $color-primary-gold; }
+}
+
+
+// ── AI recommendation inline insight ─────────────────────────
 .c-product-card__ai-rec {
   display: flex;
   align-items: center;
-  gap: rem(6);
-  padding: rem(6) rem(10);
-  background-color: rgba($color-ai-rose, 0.08);
-  border: 1px dashed rgba($color-ai-rose, 0.4);
+  gap: rem(5);
+  padding: rem(5) rem(9);
+  background-color: rgba($color-ai-rose, 0.07);
+  border: 1px dashed rgba($color-ai-rose, 0.35);
   border-radius: $radius-sm;
-  margin-bottom: rem(14);
+  margin-bottom: rem(10);
   width: fit-content;
+  max-width: 100%;
+
+  svg { color: #C9966B; flex-shrink: 0; }
 }
 
 .c-product-card__ai-badge {
   font-family: $font-family-body;
-  font-size: rem(10);
+  font-size: rem(9);
   font-weight: 700;
   color: #A06862;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .c-product-card__ai-desc {
   font-family: $font-family-body;
   font-size: rem(10);
   color: $color-neutral-600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

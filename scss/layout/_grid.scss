@@ -1,5 +1,6 @@
 /* Grid and layout elements variables layout */
-.container {
+.container,
+.l-container {
   width: 100%;
   max-width: $width-max;
   margin-left: auto;

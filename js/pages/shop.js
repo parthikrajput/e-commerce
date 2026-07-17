@@ -7,6 +7,7 @@ import PlpPagination from '../sections/shop/plp-pagination.js';
 import RecentlyViewed from '../sections/shop/recently-viewed.js';
 import AiRecommendations from '../sections/shop/ai-recommendations.js';
 import PlpSeoGuide from '../sections/shop/plp-seo-guide.js';
+import PlpHero from '../sections/shop/plp-hero.js';
 
 export default class ShopController {
   constructor(container) {
@@ -16,6 +17,12 @@ export default class ShopController {
 
   init() {
     // Removed diagnostic log
+
+    // Instantiates the PLP Hero controller
+    const heroSection = document.getElementById('plp-hero-section');
+    if (heroSection) {
+      this.hero = new PlpHero(heroSection);
+    }
 
     // Instantiates advanced filters and sorting controllers
     const filterSection = document.getElementById('plp-controls-section');
@@ -55,6 +62,9 @@ export default class ShopController {
   }
 
   destroy() {
+    if (this.hero && typeof this.hero.destroy === 'function') {
+      this.hero.destroy();
+    }
     if (this.filters && typeof this.filters.destroy === 'function') {
       this.filters.destroy();
     }

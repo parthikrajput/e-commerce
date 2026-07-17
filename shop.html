@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lustra Catalog | Fine Jewellery Collections</title>
   <meta name="description" content="Explore Lustra's premium collection of handcrafted fine rings, necklaces, earrings, and templates. Filter and sort based on style DNA or occasion.">
+  <link rel="canonical" href="https://lustra.com/shop">
+  
+  <meta property="og:title" content="Lustra Catalog | Fine Jewellery Collections">
+  <meta property="og:description" content="Explore Lustra's premium collection of handcrafted fine jewellery.">
+  <meta property="og:type" content="website">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Lustra Fine Jewellery Collection",
+    "description": "Explore Lustra's premium collection of handcrafted fine rings, necklaces, and earrings."
+  }
+  </script>
   
   <!-- Styling Dependencies -->
   <link rel="stylesheet" href="./assets/fonts/font.css">
@@ -42,6 +56,9 @@
       <!-- Advanced filters & sorting toolbar controls -->
       <load src="./sections/shop/plp-filters.html"></load>
 
+      <!-- Product listing grid -->
+      <load src="./sections/shop/plp-product-grid.html"></load>
+
       <!-- Reusable Pagination & Load More component -->
       <load src="./sections/shop/plp-pagination.html"></load>
 
@@ -64,33 +81,37 @@
   <!-- Dynamic Fallback Loader Client-side handler to prevent Blank Pages in standard servers -->
   <script type="module">
     async function compileLayouts() {
-      const loaders = Array.from(document.querySelectorAll('load'));
+      let loaders = document.querySelectorAll('load');
       
-      if (loaders.length > 0) {
-        for (const loader of loaders) {
-          const src = loader.getAttribute('src');
+      while (loaders.length > 0) {
+        const loader = loaders[0];
+        const src = loader.getAttribute('src');
 
-          if (src) {
-            try {
-              const response = await fetch(src);
-              if (response.ok) {
-                const html = await response.text();
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-                
-                const parent = loader.parentNode;
-                while (temp.firstChild) {
-                  parent.insertBefore(temp.firstChild, loader);
-                }
-                loader.remove();
-              } else {
-                console.warn(`Dynamic load failed for component: ${src}`);
+        if (src) {
+          try {
+            const response = await fetch(src);
+            if (response.ok) {
+              const html = await response.text();
+              const temp = document.createElement('div');
+              temp.innerHTML = html;
+              
+              const parent = loader.parentNode;
+              while (temp.firstChild) {
+                parent.insertBefore(temp.firstChild, loader);
               }
-            } catch (err) {
-              console.error(`Error compileLayout partials: ${src}`, err);
+              loader.remove();
+            } else {
+              console.warn(`Dynamic load failed for component: ${src}`);
+              loader.remove();
             }
+          } catch (err) {
+            console.error(`Error compileLayout partials: ${src}`, err);
+            loader.remove();
           }
+        } else {
+          loader.remove();
         }
+        loaders = document.querySelectorAll('load');
       }
       
       // Load app entrance script dynamically only after HTML partials are fully injected
